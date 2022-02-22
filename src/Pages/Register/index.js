@@ -1,8 +1,9 @@
 import React from "react";
 import { Form, Input, Button, Row, Col, DatePicker, Select } from "antd";
-const { Option } = Select;
-import moment from "moment";
 import "./Register.css";
+
+const { Option } = Select;
+
 const index = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);

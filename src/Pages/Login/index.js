@@ -2,15 +2,17 @@ import React from "react";
 import "./Login.css";
 import { Form, Input, Button } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
+
+
 const Login = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
 
   const validateMessages = {
-    required: "${label} est requis!",
+    required: " est requis!",
     types: {
-      email: "${label} n'est pas valide",
+      email: "n'est pas valide",
     },
   };
   return (
@@ -68,7 +70,7 @@ const Login = () => {
             Log in
           </Button>
           <div style={{ marginTop: "5px" }}>
-            Ou <a href="">inscrivez-vous!</a>
+            Ou <a href="/">inscrivez-vous!</a>
           </div>
         </Form.Item>
       </Form>
