@@ -9,7 +9,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import logo from "../../Assets/logo.svg";
-import { BrowserRouter as Router, Switch, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import DashboardRouting from "./Routes/DashboardRouting";
 
 const { Header, Content, Footer, Sider } = Layout;
