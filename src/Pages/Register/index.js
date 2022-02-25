@@ -1,19 +1,30 @@
-import React from "react";
-import { Form, Input, Button, Row, Col, DatePicker, Select } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
-
+import { NavLink } from "react-router-dom";
+import axios from "axios";
+import Logo from "../../Assets/Logo.svg";
 const { Option } = Select;
-
-const index = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+const Register = () => {
+  const onFinish = (data) => {
+    console.log(data);
+    register(data);
   };
 
-  const validateMessages = {
-    required: "${label} est requis!",
-    types: {
-      email: "${label} n'est pas valide",
-    },
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const register = async (data) => {
+    setLoading(true);
+    axios
+      .post("/api/register", data)
+      .then(() => {
+        setLoading(false);
+      })
+      .then(() => setError(false))
+      .catch((err) => {
+        setError(err.response.data.error);
+        setLoading(false);
+      });
   };
   return (
     <>
@@ -24,19 +35,22 @@ const index = () => {
           initialValues={{
             remember: true,
           }}
-          validateMessages={validateMessages}
           onFinish={onFinish}
         >
-          <h1 className="register-label">Inscription</h1>
+          {error && <Alert message={error} type="error" showIcon closable />}
           <br />
+          <div className="logo-center">
+            <img src={Logo} height={130} width={130} alt="" />
+          </div>
           <Row>
             <Col span={11}>
               <p>nom :</p>
               <Form.Item
-                name="nom"
+                name="firstName"
                 rules={[
                   {
                     required: true,
+                    message: "nom est requis",
                   },
                 ]}
               >
@@ -46,10 +60,11 @@ const index = () => {
             <Col span={11} offset={2}>
               <p>Prénom :</p>
               <Form.Item
-                name="prénom"
+                name="lastName"
                 rules={[
                   {
                     required: true,
+                    message: "prénom est requis",
                   },
                 ]}
               >
@@ -65,6 +80,7 @@ const index = () => {
                 rules={[
                   {
                     required: true,
+                    message: "sexe est requis",
                   },
                 ]}
               >
@@ -77,10 +93,11 @@ const index = () => {
             <Col span={11} offset={2}>
               <p>date de naissance :</p>
               <Form.Item
-                name="date de naissance"
+                name="dateOfBirth"
                 rules={[
                   {
                     required: true,
+                    message: "date de naissance est requis",
                   },
                 ]}
               >
@@ -100,7 +117,11 @@ const index = () => {
                 rules={[
                   {
                     required: true,
+                    message: "email est requis",
+                  },
+                  {
                     type: "email",
+                    message: "email n'est pas valide",
                   },
                 ]}
               >
@@ -110,10 +131,11 @@ const index = () => {
             <Col span={11} offset={2}>
               <p>mot de passe :</p>
               <Form.Item
-                name="mot de passe"
+                name="password"
                 rules={[
                   {
                     required: true,
+                    message: "mot de passe est requis",
                   },
                   {
                     min: 6,
@@ -131,11 +153,15 @@ const index = () => {
               type="primary"
               htmlType="submit"
               className="register-form-button"
+              loading={loading}
             >
               S'inscrire
             </Button>
             <div style={{ marginTop: "5px" }}>
-              <a href="">Vous avez déjà un compte?</a>
+              <NavLink exact to="/login">
+                {" "}
+                Vous avez déjà un compte?
+              </NavLink>
             </div>
           </Form.Item>
         </Form>
@@ -144,4 +170,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Register;
