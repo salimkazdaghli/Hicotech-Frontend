@@ -4,25 +4,54 @@ import "./Register.css";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Logo from "../../Assets/Logo.svg";
+import { registerUserApi } from "../../Services/UserService";
 const { Option } = Select;
 const Register = () => {
   const onFinish = (data) => {
     console.log(data);
     register(data);
   };
-
+  const gouvernorats = [
+    "Ariana",
+    "Béja",
+    "Ben Arous",
+    "Bizerte",
+    "Gabes",
+    "Gafsa",
+    "Jendouba",
+    "Kairouan",
+    "Kasserine",
+    "Kebili",
+    "La Manouba",
+    "Le Kef",
+    "Mahdia",
+    "Médenine",
+    "Monastir",
+    "Nabeul",
+    "Sfax",
+    "Sidi Bouzid",
+    "Siliana",
+    "Sousse",
+    "Tataouine",
+    "Tozeur",
+    "Tunis",
+    "Zaghouan",
+  ];
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const register = async (data) => {
     setLoading(true);
-    axios
-      .post("/api/register", data)
+    registerUserApi(data)
       .then(() => {
         setLoading(false);
       })
       .then(() => setError(false))
       .catch((err) => {
-        setError(err.response.data.error);
+        if (err.response.data.error) {
+          setError(err.response.data.error);
+        } else {
+          setError("erreur de serveur");
+        }
         setLoading(false);
       });
   };
@@ -129,6 +158,26 @@ const Register = () => {
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
+              <p>gouvernorat :</p>
+              <Form.Item
+                name="city"
+                rules={[
+                  {
+                    required: true,
+                    message: "gouvernorat est requis",
+                  },
+                ]}
+              >
+                <Select defaultValue="gouvernorat">
+                  {gouvernorats.map((gouvernorat) => (
+                    <Option value={gouvernorat}>{gouvernorat}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={11}>
               <p>mot de passe :</p>
               <Form.Item
                 name="password"
@@ -147,6 +196,33 @@ const Register = () => {
                 <Input.Password type="password" placeholder="mot de passe" />
               </Form.Item>
             </Col>
+            <Col span={11} offset={2}>
+              <p>confirmer mot de passe :</p>
+              <Form.Item
+                name="confirm"
+                rules={[
+                  {
+                    required: true,
+                    message: "mot de passe est requis",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+
+                      return Promise.reject(
+                        new Error(
+                          "mot de passe et la confirmation ne correspondent pas!"
+                        )
+                      );
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password type="password" placeholder="mot de passe" />
+              </Form.Item>
+            </Col>
           </Row>
           <Form.Item>
             <Button
@@ -159,7 +235,6 @@ const Register = () => {
             </Button>
             <div style={{ marginTop: "5px" }}>
               <NavLink exact to="/login">
-                {" "}
                 Vous avez déjà un compte?
               </NavLink>
             </div>

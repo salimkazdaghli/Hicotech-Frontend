@@ -3,27 +3,30 @@ import "./Login.css";
 import { Form, Input, Button, Alert } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import Logo from "../../Assets/Logo.svg";
+import { loginUserApi } from "../../Services/UserService";
 
 const Login = () => {
-  const onFinish = ({ email, password }) => {
-    login(email, password);
+  const onFinish = (data) => {
+    login(data);
   };
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const login = async (email, password) => {
+  const login = async (data) => {
     setLoading(true);
-    axios
-      .post("/api/login", { email, password })
+    loginUserApi(data)
       .then(() => {
         setLoading(false);
       })
       .then(() => setError(false))
       .catch((err) => {
-        setError(err.response.data.error);
+        if (err.response.data.error) {
+          setError(err.response.data.error);
+        } else {
+          setError("erreur de serveur");
+        }
         setLoading(false);
       });
   };
