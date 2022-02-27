@@ -3,7 +3,7 @@ import "./Login.css";
 import { Form, Input, Button, Alert } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import Logo from "../../Assets/Logo.svg";
+import Logo from "../../Assets/logo.svg";
 import { loginUserApi } from "../../Services/UserService";
 
 const Login = () => {

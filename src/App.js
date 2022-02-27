@@ -9,7 +9,6 @@ import {
 
 import LoginPage from "./Pages/Login";
 import RegisterPage from "./Pages/Register";
-import CoachDashboard from "./Pages/CoachDashboard";
 import Dashboard from "./Pages/CoachDashboard";
 function App() {
   return (

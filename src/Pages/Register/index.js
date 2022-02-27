@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import Logo from "../../Assets/Logo.svg";
+import Logo from "../../Assets/logo.svg";
 import { registerUserApi } from "../../Services/UserService";
 const { Option } = Select;
 const Register = () => {
