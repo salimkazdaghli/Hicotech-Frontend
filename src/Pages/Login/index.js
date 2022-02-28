@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import "./Login.css";
+import { NavLink } from "react-router-dom";
 import { Form, Input, Button, Alert } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { NavLink } from "react-router-dom";
-import Logo from "../../Assets/logo.svg";
 import { loginUserApi } from "../../Services/UserService";
+import "./Login.css";
+import Logo from "../../Assets/logo.svg";
 
 const Login = () => {
-  const onFinish = (data) => {
-    login(data);
-  };
-
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const login = async (data) => {
     setLoading(true);
     loginUserApi(data)
@@ -29,6 +24,9 @@ const Login = () => {
         }
         setLoading(false);
       });
+  };
+  const onFinish = (data) => {
+    login(data);
   };
   return (
     <div className="login">
