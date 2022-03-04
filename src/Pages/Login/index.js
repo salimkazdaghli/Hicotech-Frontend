@@ -1,23 +1,27 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { Form, Input, Button, Alert } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { loginUserApi } from "../../Services/UserService";
 import "./Login.css";
 import Logo from "../../Assets/logo.svg";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const Login = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useLocalStorage("token", null);
+  const history = useHistory();
   const login = async (data) => {
     setLoading(true);
     loginUserApi(data)
-      .then(() => {
-        setLoading(false);
+      .then(({ data }) => {
+        setToken(data.token);
       })
       .then(() => setError(false))
       .catch((err) => {
-        if (err.response.data.error) {
+        setToken(null);
+        if (err && err.response && err.response.data.error) {
           setError(err.response.data.error);
         } else {
           setError("erreur de serveur");
@@ -28,6 +32,11 @@ const Login = () => {
   const onFinish = (data) => {
     login(data);
   };
+  useEffect(() => {
+    if (token) {
+      history.push("/dashboard");
+    }
+  }, [token]);
   return (
     <div className="login">
       <Form

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
 import {
@@ -8,14 +8,17 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 const Dashboard = () => {
   const [collapsed, setcollapsed] = useState(false);
+  const [token, setToken] = useLocalStorage("token", null);
+  const history = useHistory();
   const onCollapse = (collapsed) => {
     setcollapsed(collapsed);
   };
@@ -23,9 +26,21 @@ const Dashboard = () => {
     <Menu>
       <Menu.Item key="1">Mon Profil</Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="2">Déconnexion</Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          setToken(null);
+        }}
+        key="2"
+      >
+        Déconnexion
+      </Menu.Item>
     </Menu>
   );
+  useEffect(() => {
+    if (!token) {
+      history.push("/login");
+    }
+  }, [token]);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>

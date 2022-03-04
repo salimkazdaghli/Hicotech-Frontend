@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Logo from "../../Assets/logo.svg";
 import { registerUserApi } from "../../Services/UserService";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const { Option } = Select;
 
@@ -37,15 +38,19 @@ const Register = () => {
   ];
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useLocalStorage("token", null);
+  const history = useHistory();
 
   const register = async (data) => {
     setLoading(true);
     registerUserApi(data)
-      .then(() => {
-        setLoading(false);
+      .then(({ data }) => {
+        setToken(data.token);
+        history.push("/dashboard");
       })
       .then(() => setError(false))
       .catch((err) => {
+        setToken(null);
         if (err.response.data.error) {
           setError(err.response.data.error);
         } else {
@@ -58,6 +63,12 @@ const Register = () => {
   const onFinish = (data) => {
     register(data);
   };
+
+  useEffect(() => {
+    if (token) {
+      history.push("/dashboard");
+    }
+  }, [token]);
   return (
     <div className="register">
       <Form
