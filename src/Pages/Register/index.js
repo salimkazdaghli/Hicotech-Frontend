@@ -4,8 +4,12 @@ import "./Register.css";
 import { NavLink } from "react-router-dom";
 import Logo from "../../Assets/logo.svg";
 import { registerUserApi } from "../../Services/UserService";
+import { updateInvitation } from "../../Services/InvitationService";
 const { Option } = Select;
-const Register = () => {
+const Register = (props) => {
+  const invi = props.invi ; 
+  const user = invi ? invi.userData : null ;
+  //console.log(user);
   const onFinish = (data) => {
     console.log(data);
     register(data);
@@ -40,6 +44,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const register = async (data) => {
     setLoading(true);
+    data.role = invi.id ? "joueur" : "coach" ; 
     registerUserApi(data)
       .then(() => {
         setLoading(false);
@@ -53,6 +58,7 @@ const Register = () => {
         }
         setLoading(false);
       });
+    updateInvitation(invi.id,{etat : "accepté"})
   };
   return (
     <>
@@ -61,7 +67,12 @@ const Register = () => {
           name="normal_register"
           className="register-form"
           initialValues={{
+            city : "gouvernorat" ,
+            sexe :  "sexe" ,
             remember: true,
+            email:  invi ? invi.email : "" ,
+            firstName : user ? user.firstName : "",
+            lastName : user ? user.lastName : ""
           }}
           onFinish={onFinish}
         >
@@ -72,7 +83,7 @@ const Register = () => {
           </div>
           <Row>
             <Col span={11}>
-              <p>nom :</p>
+              <p>Nom :</p>
               <Form.Item
                 name="firstName"
                 rules={[
@@ -112,7 +123,7 @@ const Register = () => {
                   },
                 ]}
               >
-                <Select defaultValue="sexe">
+                <Select >
                   <Option value="Homme">Homme</Option>
                   <Option value="Femme">Femme</Option>
                 </Select>
@@ -153,7 +164,7 @@ const Register = () => {
                   },
                 ]}
               >
-                <Input placeholder="email" />
+                <Input placeholder="email"  />
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
@@ -167,7 +178,7 @@ const Register = () => {
                   },
                 ]}
               >
-                <Select defaultValue="gouvernorat">
+                <Select >
                   {gouvernorats.map((gouvernorat) => (
                     <Option value={gouvernorat}>{gouvernorat}</Option>
                   ))}

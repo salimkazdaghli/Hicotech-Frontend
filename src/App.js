@@ -10,6 +10,7 @@ import {
 import LoginPage from "./Pages/Login";
 import RegisterPage from "./Pages/Register";
 import Dashboard from "./Pages/CoachDashboard";
+import Invitation from "./Pages/Invitation";
 function App() {
   return (
     <Router>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/invitation/:id" component={Invitation} />
         </Switch>
       </div>
     </Router>
