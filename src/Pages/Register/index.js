@@ -5,10 +5,14 @@ import { NavLink } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Logo from "../../Assets/logo.svg";
 import { registerUserApi } from "../../Services/UserService";
+import { updateInvitation } from "../../Services/InvitationService";
 
 const { Option } = Select;
 
-const Register = () => {
+const Register = (props) => {
+  const invi = props.invi;
+  const user = invi ? invi.userData : null;
+
   const gouvernorats = [
     "Ariana",
     "Béja",
@@ -40,6 +44,8 @@ const Register = () => {
 
   const register = async (data) => {
     setLoading(true);
+    data.role = invi != null ? "joueur" : "coach";
+    //console.log(data)
     registerUserApi(data)
       .then(() => {
         setLoading(false);
@@ -64,7 +70,12 @@ const Register = () => {
         name="normal_register"
         className="register-form"
         initialValues={{
+          city: "gouvernorat",
+          sexe: "sexe",
           remember: true,
+          email: invi ? invi.email : "",
+          firstName: user ? user.firstName : "",
+          lastName: user ? user.lastName : "",
         }}
         onFinish={onFinish}
       >
@@ -115,7 +126,7 @@ const Register = () => {
                 },
               ]}
             >
-              <Select defaultValue="sexe">
+              <Select>
                 <Option value="Homme">Homme</Option>
                 <Option value="Femme">Femme</Option>
               </Select>
@@ -170,7 +181,7 @@ const Register = () => {
                 },
               ]}
             >
-              <Select defaultValue="gouvernorat">
+              <Select>
                 {gouvernorats.map((gouvernorat) => (
                   <Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
