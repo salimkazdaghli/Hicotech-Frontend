@@ -27,6 +27,9 @@
     ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "import/prefer-default-export": "off",
+    "no-unused-vars": "warn"
   }
 }

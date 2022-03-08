@@ -63,7 +63,11 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <SubMenu key="sub1" icon={<UserOutlined />} title="Mes Statistiques">
-            <Menu.Item key="3">ajouter</Menu.Item>
+            <Menu.Item key="3">
+              <NavLink exact to="/dashboard/mystatisitcs">
+                Consulter
+              </NavLink>
+            </Menu.Item>
             <Menu.Item key="4">modifier</Menu.Item>
             <Menu.Item key="5">supprimer</Menu.Item>
           </SubMenu>
