@@ -26,6 +26,10 @@
         "unnamedComponents": "arrow-function"
       }
     ],
+    "react/prop-types": [
+      "off",
+      { "ignore": "ignore", "customValidators": "customValidator" }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-shadow": "off"

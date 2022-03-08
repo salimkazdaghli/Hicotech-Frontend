@@ -1,15 +1,16 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
 import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Logo from "../../Assets/logo.svg";
-import { registerUserApi } from "../../Services/UserService";
+import auth from "../../Services/authService";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const { Option } = Select;
 
-const Register = () => {
+const Register = ({ location }) => {
   const gouvernorats = [
     "Ariana",
     "Béja",
@@ -43,12 +44,12 @@ const Register = () => {
 
   const register = async (data) => {
     setLoading(true);
-    registerUserApi(data)
+    auth
+      .registerUserApi(data)
       .then(({ data }) => {
         setToken(data.token);
-        history.push("/dashboard");
+        setError(false);
       })
-      .then(() => setError(false))
       .catch((err) => {
         setToken(null);
         if (err.response.data.error) {
@@ -56,8 +57,8 @@ const Register = () => {
         } else {
           setError("erreur de serveur");
         }
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const onFinish = (data) => {
@@ -65,8 +66,15 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (token) {
-      history.push("/dashboard");
+    const currentUser = auth.getCurrentUser();
+    if (currentUser) {
+      history.push(
+        location.state
+          ? location.state.from.pathname
+          : currentUser.role && currentUser.role === "coach"
+          ? "/dashboard"
+          : "/test"
+      );
     }
   }, [token]);
   return (

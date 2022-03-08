@@ -7,7 +7,7 @@ function getSavedValue(key, initialValue) {
   return initialValue;
 }
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key = "token", initialValue = null) => {
   const [value, setValue] = useState(() => getSavedValue(key, initialValue));
 
   useEffect(() => {

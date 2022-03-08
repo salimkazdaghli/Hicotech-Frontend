@@ -7,8 +7,11 @@ import {
   Redirect,
 } from "react-router-dom";
 import LoginPage from "./Pages/Login";
+import LogoutPage from "./Pages/Logout";
 import RegisterPage from "./Pages/Register";
 import Dashboard from "./Pages/CoachDashboard";
+import CoachRoute from "./Routes/coachRoute";
+import NotFound from "./Pages/Error/notFound";
 
 const App = () => (
   <Router>
@@ -17,9 +20,12 @@ const App = () => (
         <Route exact path="/">
           <Redirect to="/login" />
         </Route>
-        <Route path="/dashboard" component={Dashboard} />
+        <CoachRoute path="/dashboard" component={Dashboard} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/logout" component={LogoutPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/not-found" component={NotFound} />
+        <Redirect to="/not-found" />
       </Switch>
     </div>
   </Router>

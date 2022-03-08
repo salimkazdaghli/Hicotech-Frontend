@@ -1,24 +1,26 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { Form, Input, Button, Alert } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { loginUserApi } from "../../Services/UserService";
+import auth from "../../Services/authService";
 import "./Login.css";
 import Logo from "../../Assets/logo.svg";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 
-const Login = () => {
+const Login = ({ location }) => {
+  const history = useHistory();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useLocalStorage("token", null);
-  const history = useHistory();
   const login = async (data) => {
     setLoading(true);
-    loginUserApi(data)
+    auth
+      .loginUserApi(data)
       .then(({ data }) => {
         setToken(data.token);
+        setError(false);
       })
-      .then(() => setError(false))
       .catch((err) => {
         setToken(null);
         if (err && err.response && err.response.data.error) {
@@ -26,15 +28,22 @@ const Login = () => {
         } else {
           setError("erreur de serveur");
         }
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   };
   const onFinish = (data) => {
     login(data);
   };
   useEffect(() => {
-    if (token) {
-      history.push("/dashboard");
+    const currentUser = auth.getCurrentUser();
+    if (currentUser) {
+      history.push(
+        location.state
+          ? location.state.from.pathname
+          : currentUser.role && currentUser.role === "coach"
+          ? "/dashboard"
+          : "/test"
+      );
     }
   }, [token]);
   return (

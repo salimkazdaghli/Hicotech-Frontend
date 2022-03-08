@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Dashboard.css";
 import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
 import {
@@ -11,13 +11,11 @@ import {
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
-import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 const Dashboard = () => {
   const [collapsed, setcollapsed] = useState(false);
-  const [token, setToken] = useLocalStorage("token", null);
   const history = useHistory();
   const onCollapse = (collapsed) => {
     setcollapsed(collapsed);
@@ -28,7 +26,7 @@ const Dashboard = () => {
       <Menu.Divider />
       <Menu.Item
         onClick={() => {
-          setToken(null);
+          history.push("/logout");
         }}
         key="2"
       >
@@ -36,11 +34,7 @@ const Dashboard = () => {
       </Menu.Item>
     </Menu>
   );
-  useEffect(() => {
-    if (!token) {
-      history.push("/login");
-    }
-  }, [token]);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
@@ -106,7 +100,7 @@ const Dashboard = () => {
           </Breadcrumb>
           <div
             className="site-layout-background"
-            style={{ padding: 24, minHeight: "100vh" }}
+            style={{ padding: 24, height: "100%" }}
           >
             <DashboardRouting />
           </div>
