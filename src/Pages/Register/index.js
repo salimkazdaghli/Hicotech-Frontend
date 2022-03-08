@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import Logo from "../../Assets/logo.svg";
 import { registerUserApi } from "../../Services/UserService";
 import { updateInvitation } from "../../Services/InvitationService";
+import jwt_decode from "jwt-decode";
 
 const { Option } = Select;
 
@@ -47,7 +48,11 @@ const Register = (props) => {
     data.role = invi != null ? "joueur" : "coach";
     //console.log(data)
     registerUserApi(data)
-      .then(() => {
+      .then((rep) => {
+        if (invi != null) {
+          var userDecoded = jwt_decode(rep.data.token);
+          updateInvi(invi._id, userDecoded.id);
+        }
         setLoading(false);
       })
       .then(() => setError(false))
@@ -60,7 +65,15 @@ const Register = (props) => {
         setLoading(false);
       });
   };
-
+  async function updateInvi(inviId, userId) {
+    await updateInvitation(inviId, {
+      etat: "accepté",
+      acceptedBy: userId,
+      expired: true,
+    }).then((response) => {
+      console.log(response.data);
+    });
+  }
   const onFinish = (data) => {
     register(data);
   };
