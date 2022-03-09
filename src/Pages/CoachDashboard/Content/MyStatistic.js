@@ -1,22 +1,29 @@
 /* eslint-disable quotes */
 import React, { useState, useEffect } from "react";
-import { Typography, Table, Tag, Space } from "antd";
-import { getAllStatisticsApi } from "../../../Services/StatisticService";
+import { Typography, Table, Tag, Space, Modal, Alert } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  getAllStatisticsApi,
+  deleteStatisticsApi,
+} from "../../../Services/StatisticService";
 
 const MyStatistic = () => {
   const [error, setError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [statData, setStatData] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const { Title } = Typography;
-  const getStatistic = async () => {
+  const getStatistic = (page) => {
     setLoading(true);
-    getAllStatisticsApi()
+    getAllStatisticsApi(page)
       .then((res) => res.data)
-      .then(({ statistic, totalpages }) => {
+      .then(({ statistic, totalpages, pageSize }) => {
         setStatData(statistic);
         setTotalPages(totalpages);
-        console.log(totalpages);
+        setPageSize(pageSize);
         setLoading(false);
       })
       .then(() => setError(false))
@@ -32,27 +39,33 @@ const MyStatistic = () => {
   useEffect(() => {
     getStatistic();
   }, []);
+  const handleDelete = (id) => {
+    Modal.confirm({
+      title: "êtes-vous sûr de supprimer cette statistique ?",
+      okText: "Oui",
+      okType: "danger",
+      cancelText: "Annuler",
 
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      type: "accélération",
-      unit: "m/s",
-      description: "ceci pour mesurer l'accélération lors d'un course",
-      max: true,
-      visible: true,
-    },
-    {
-      key: "2",
-      name: "vitesse",
-      type: "poid",
-      unit: "kg",
-      description: "ceci pour mesurer le poid d'un joueur",
-      max: false,
-      visible: false,
-    },
-  ];
+      onOk: () => {
+        setLoading(true);
+        deleteStatisticsApi(id)
+          .then(({ data }) => {
+            setAlertMessage(data.message);
+            setStatData((oldStats) =>
+              oldStats.filter((stat) => stat._id !== data.statistique._id)
+            );
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 2000);
+          })
+          .catch((err) => console.log(err));
+        setLoading(false);
+      },
+    });
+  };
+  const handleEdit = () => {};
+
   const columns = [
     {
       title: "Nom Statistique",
@@ -97,27 +110,43 @@ const MyStatistic = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
-        <Space size="middle">
-          <a>Modifier</a>
-        </Space>
+      render: (record) => (
+        <>
+          <EditOutlined
+            onClick={() => {
+              handleEdit(record._id);
+            }}
+          />
+          <DeleteOutlined
+            onClick={() => {
+              handleDelete(record._id);
+            }}
+            style={{ color: "red", marginLeft: 12 }}
+          />
+        </>
       ),
     },
   ];
 
   return (
     <>
+      {showAlert && (
+        <Space
+          align="center"
+          style={{ justifyContent: "center", alignItems: "center" }}
+        >
+          <Alert message={alertMessage} type="success" showIcon closable />
+        </Space>
+      )}
       <Title>Mes Statistiques</Title>
       <Table
         columns={columns}
         dataSource={statData}
         loading={loading}
         pagination={{
-          pageSize: 3,
+          pageSize,
           total: totalPages,
-          onChange: (page) => {
-            console.log(page);
-          },
+          onChange: (page) => getStatistic(page),
         }}
       />
     </>
