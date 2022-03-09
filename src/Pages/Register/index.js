@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import jwt_decode from "jwt-decode";
+
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
 import { NavLink } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import Logo from "../../Assets/logo.svg";
 import { registerUserApi } from "../../Services/UserService";
+import { updateInvitationApi } from "../../Services/InvitationService";
+import Logo from "../../Assets/logo.svg";
 
 const { Option } = Select;
 
-const Register = () => {
+const Register = (props) => {
+  const { invi, user } = props;
+
   const gouvernorats = [
     "Ariana",
     "Béja",
@@ -37,11 +42,23 @@ const Register = () => {
   ];
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  async function updateInvitation(inviId, userId) {
+    await updateInvitationApi(inviId, {
+      etat: "accepté",
+      acceptedBy: userId,
+      expired: true,
+    });
+  }
   const register = async (data) => {
     setLoading(true);
-    registerUserApi(data)
-      .then(() => {
+    const user = data;
+    user.role = invi != null ? "joueur" : "coach";
+    registerUserApi(user)
+      .then((rep) => {
+        if (invi != null) {
+          const userDecoded = jwt_decode(rep.data.token);
+          updateInvitation(invi._id, userDecoded.id);
+        }
         setLoading(false);
       })
       .then(() => setError(false))
@@ -64,7 +81,12 @@ const Register = () => {
         name="normal_register"
         className="register-form"
         initialValues={{
+          city: "gouvernorat",
+          sexe: "sexe",
           remember: true,
+          email: invi ? invi.email : "",
+          firstName: user ? user.firstName : "",
+          lastName: user ? user.lastName : "",
         }}
         onFinish={onFinish}
       >
@@ -115,7 +137,7 @@ const Register = () => {
                 },
               ]}
             >
-              <Select defaultValue="sexe">
+              <Select>
                 <Option value="Homme">Homme</Option>
                 <Option value="Femme">Femme</Option>
               </Select>
@@ -170,7 +192,7 @@ const Register = () => {
                 },
               ]}
             >
-              <Select defaultValue="gouvernorat">
+              <Select>
                 {gouvernorats.map((gouvernorat) => (
                   <Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
