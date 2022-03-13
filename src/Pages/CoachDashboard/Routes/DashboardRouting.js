@@ -1,6 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import AccueilPage from "../Content/Accueil";
-import MyStatistic from "../Content/MyStatistic";
+import MyStatistic from "../Content/MyStatistics/MyStatistic";
 import Profile from "../Content/Profile";
 
 const DashboardRouting = () => (
