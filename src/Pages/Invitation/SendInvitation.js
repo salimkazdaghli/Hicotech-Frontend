@@ -100,7 +100,7 @@ const SendInvitation = (props) => {
           rules={[
             {
               required: true,
-              message: "date de naissance est requis",
+              message: "date d'experation est requis",
             },
           ]}
         >
