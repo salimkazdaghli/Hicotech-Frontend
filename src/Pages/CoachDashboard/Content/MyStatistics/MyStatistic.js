@@ -26,7 +26,7 @@ import {
   deleteStatisticsApi,
   updateStatisticsApi,
   addStatisticApi,
-} from "../../../Services/StatisticService";
+} from "../../../../Services/StatisticService";
 // import {
 //   setAlert,
 //   alertMessage,
@@ -52,6 +52,7 @@ const MyStatistic = () => {
     description: "",
   });
   const [form] = Form.useForm();
+  const [form2] = Form.useForm();
   const { Title } = Typography;
   const setAlert = (msg, duration) => {
     setAlertMessage(msg);
@@ -83,24 +84,36 @@ const MyStatistic = () => {
   useEffect(() => {
     getStatistic();
   }, []);
-  const onAddStudent = () => {
-    const randomNumber = parseInt(Math.random() * 1000, 10);
-    const newStudent = {
-      statisticName: `Statisitque ${randomNumber}`,
-      statisticType: `compteur`,
-      unit: `kg${randomNumber}`,
-      description: `description ${randomNumber}`,
-      lien: `lien numéro ${randomNumber}`,
-    };
-    setStatData((pre) => [newStudent, ...pre]);
-  };
   const resetStatForm = () => {
+    form2.resetFields();
     setNewStatistic({
       statisticName: "",
       statisticType: "",
       unit: "",
       description: "",
     });
+  };
+  const onAddSTats = () => {
+    setConfirmLoading(true);
+    setLoading(true);
+    addStatisticApi(newStatistic)
+      .then(({ data: { message, data } }) => {
+        setConfirmLoading(false);
+        // setStatData(...statData, data);
+        setShowModal(!showModal);
+        resetStatForm();
+        setStatData((pre) => [data, ...pre]);
+        setLoading(false);
+        setAlert(message, 2000);
+      })
+      .catch((err) => {
+        if (err.response.status === 500) {
+          setConfirmLoading(false);
+          setShowModal(!showModal);
+          setLoading(false);
+          setAlert(err.response.data, 2000);
+        }
+      });
   };
   function handleDelete(id) {
     Modal.confirm({
@@ -119,7 +132,9 @@ const MyStatistic = () => {
             setAlert(data.message, 2000);
           })
           .catch((err) => console.log(err));
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 700);
       },
     });
   }
@@ -336,21 +351,21 @@ const MyStatistic = () => {
           setShowModal(!showModal);
           resetStatForm();
         }}
-        onOk={() => {
-          setConfirmLoading(true);
-          setLoading(true);
-          addStatisticApi(newStatistic).then(({ data: { message } }) => {
-            setConfirmLoading(false);
-            setShowModal(!showModal);
-            resetStatForm();
-            setLoading(false);
-            setAlert(message, 2000);
-          });
-        }}
+        onOk={() => form2.validateFields()}
         centered
         width={700}
       >
-        <Form id="statistic-editor-form" form={form} onFinish={onAddStudent}>
+        <Form
+          id="statistic-editor-form"
+          initialValues={{
+            statisticName: "",
+            statisticType: "",
+            unit: "",
+            description: "",
+          }}
+          form={form2}
+          onFinish={onAddSTats}
+        >
           {/* row one */}
           <Row gutter={[16, 16]}>
             <Col span={12}>
