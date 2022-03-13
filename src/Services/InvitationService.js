@@ -10,3 +10,11 @@ export function getInvitationApi(id) {
 export function updateInvitationApi(id, data) {
   return axios.put(`/api/invitations/${id}`, data);
 }
+
+export function addInvitationApi(data) {
+  return axios.post("/api/invitations/", data);
+}
+
+export function deleteInvitationApi(id) {
+  return axios.delete(`/api/invitations/${id}`);
+}
