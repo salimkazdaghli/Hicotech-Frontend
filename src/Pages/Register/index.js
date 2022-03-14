@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
 import { NavLink, useHistory } from "react-router-dom";
@@ -11,6 +12,7 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
 const { Option } = Select;
 
 const Register = ({ location }) => {
+
   const gouvernorats = [
     "Ariana",
     "Béja",
@@ -39,6 +41,7 @@ const Register = ({ location }) => {
   ];
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const [token, setToken] = useLocalStorage("token", null);
   const history = useHistory();
 
@@ -49,6 +52,7 @@ const Register = ({ location }) => {
       .then(({ data }) => {
         setToken(data.token);
         setError(false);
+
       })
       .catch((err) => {
         setToken(null);
@@ -83,7 +87,12 @@ const Register = ({ location }) => {
         name="normal_register"
         className="register-form"
         initialValues={{
+          city: "gouvernorat",
+          sexe: "sexe",
           remember: true,
+          email: invi ? invi.email : "",
+          firstName: user ? user.firstName : "",
+          lastName: user ? user.lastName : "",
         }}
         onFinish={onFinish}
       >
@@ -134,7 +143,7 @@ const Register = ({ location }) => {
                 },
               ]}
             >
-              <Select defaultValue="sexe">
+              <Select>
                 <Option value="Homme">Homme</Option>
                 <Option value="Femme">Femme</Option>
               </Select>
@@ -189,7 +198,7 @@ const Register = ({ location }) => {
                 },
               ]}
             >
-              <Select defaultValue="gouvernorat">
+              <Select>
                 {gouvernorats.map((gouvernorat) => (
                   <Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
