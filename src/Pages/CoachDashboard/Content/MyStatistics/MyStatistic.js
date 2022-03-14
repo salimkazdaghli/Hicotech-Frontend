@@ -17,6 +17,8 @@ import {
   DeleteOutlined,
   SaveOutlined,
   PlusOutlined,
+  CheckCircleOutlined,
+  CloseCircleOutlined,
 } from "@ant-design/icons";
 import {
   getAllStatisticsApi,
@@ -170,6 +172,7 @@ const MyStatistic = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      width: "45%",
       render: (text, record) => {
         if (editingRow === record._id)
           return (
@@ -217,24 +220,22 @@ const MyStatistic = () => {
               )}
 
               {editingRow ? (
-                <>
+                <div>
                   <Button
-                    icon={<SaveOutlined />}
+                    type="link"
+                    icon={<CheckCircleOutlined />}
                     htmlType="submit"
-                    style={{ marginBottom: "5px" }}
-                  >
-                    enregistrer
-                  </Button>
-                  <p>ou</p>
-                  <Button
-                    danger
+                    style={{ marginBottom: "10px" }}
+                  />
+                  <CloseCircleOutlined
                     color="red"
-                    icon={<SaveOutlined />}
                     onClick={() => setEditingRow(null)}
-                  >
-                    annuler
-                  </Button>
-                </>
+                    style={{
+                      color: "red",
+                      fontSize: "16px",
+                    }}
+                  />
+                </div>
               ) : (
                 <DeleteOutlined
                   onClick={() => {
@@ -317,6 +318,7 @@ const MyStatistic = () => {
       />
       <Form form={form} onFinish={onFinish}>
         <Table
+          tableLayout="fixed"
           columns={columns}
           dataSource={statData}
           loading={loading}
