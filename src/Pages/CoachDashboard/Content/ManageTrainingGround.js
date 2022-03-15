@@ -120,7 +120,7 @@ const ManageTrainingGround = () => {
               rules={[
                 {
                   required: true,
-                  message: "entrer le type du statistique!",
+                  message: "gouvernaurats est requis",
                 },
               ]}
             >
