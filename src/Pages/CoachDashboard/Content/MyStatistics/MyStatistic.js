@@ -11,11 +11,12 @@ import {
   Input,
   Button,
   Select,
+  Tag,
+  InputNumber,
 } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
-  SaveOutlined,
   PlusOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -41,6 +42,7 @@ const MyStatistic = () => {
   const [statData, setStatData] = useState([]);
   const [editingRow, setEditingRow] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [alerted, setAlerted] = useState(undefined);
 
   const [form] = Form.useForm();
 
@@ -129,6 +131,7 @@ const MyStatistic = () => {
         if (editingRow === record._id)
           return (
             <Form.Item
+              initialValue={text}
               name="statisticType"
               rules={[
                 {
@@ -137,7 +140,7 @@ const MyStatistic = () => {
                 },
               ]}
             >
-              <Select defaultValue={text}>
+              <Select>
                 <Select.Option value="compteur">Compteur</Select.Option>
                 <Select.Option value="timer">Timer</Select.Option>
               </Select>
@@ -172,7 +175,7 @@ const MyStatistic = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      width: "45%",
+      width: "20%",
       render: (text, record) => {
         if (editingRow === record._id)
           return (
@@ -195,6 +198,110 @@ const MyStatistic = () => {
       },
     },
     {
+      title: "Alerte",
+      key: "alerted",
+      dataIndex: "alerted",
+      render: (text, record) => {
+        if (editingRow === record._id) {
+          return (
+            <Form.Item
+              initialValue={alerted}
+              name="alerted"
+              rules={[
+                {
+                  required: true,
+                  message: "indiquer s'il y'a d'alerte",
+                },
+              ]}
+            >
+              <Select
+                placeholder="alerte ou pas"
+                onChange={(value) => {
+                  setAlerted(value);
+                }}
+              >
+                <Select.Option value>oui</Select.Option>
+                <Select.Option value={false}>nom</Select.Option>
+              </Select>
+            </Form.Item>
+          );
+        }
+        return <p>{text ? "oui" : "non"}</p>;
+      },
+    },
+    {
+      title: "Nature Statistique",
+      key: "max",
+      dataIndex: "max",
+      width: "13%",
+      render: (max, record) => {
+        if (editingRow === record._id) {
+          if (alerted) {
+            return (
+              <Form.Item
+                initialValue={max || undefined}
+                name="max"
+                rules={[
+                  {
+                    required: true,
+                    message: "selectionner la nature du statistique",
+                  },
+                ]}
+              >
+                <Select placeholder="Max/Min">
+                  <Select.Option value>maximiser</Select.Option>
+                  <Select.Option value={false}>minimiser</Select.Option>
+                </Select>
+              </Form.Item>
+            );
+          }
+          return <p>-</p>;
+        }
+
+        if (record.alerted) {
+          return (
+            <Tag color={max ? "green" : "red"}>
+              {max ? "maximiser" : "minimiser"}
+            </Tag>
+          );
+        }
+
+        return <p>-</p>;
+      },
+    },
+
+    {
+      title: "afficher alerte aprés",
+      key: "nbreFois",
+      dataIndex: "nbreFois",
+      render: (nbreFois, record) => {
+        if (editingRow === record._id) {
+          if (alerted) {
+            return (
+              <Form.Item
+                name="nbreFois"
+                rules={[
+                  {
+                    required: true,
+                    message: "indiquer le nombre de fois pour créé une alerte",
+                  },
+                ]}
+              >
+                <InputNumber
+                  placeholder="x fois"
+                  formatter={(value) => `${value}  fois`}
+                  parser={(value) => value.replace("fois", "")}
+                  min={1}
+                />
+              </Form.Item>
+            );
+          }
+          return <p>-</p>;
+        }
+        return record.alerted ? <p>{`${nbreFois} fois`}</p> : <p>-</p>;
+      },
+    },
+    {
       title: "Action",
       key: "action",
       render: (_, record) => {
@@ -206,6 +313,7 @@ const MyStatistic = () => {
                   type="link"
                   onClick={() => {
                     setEditingRow(record._id);
+                    setAlerted(record.alerted);
                     form.setFieldsValue({
                       _id: record._id,
                       statisticName: record.statisticName,
@@ -213,6 +321,8 @@ const MyStatistic = () => {
                       unit: record.unit,
                       description: record.description,
                       max: record.max,
+                      nbreFois: record.nbreFois,
+                      alerted: record.alerted,
                     });
                   }}
                   style={{ fontSize: "25px" }}
@@ -252,12 +362,15 @@ const MyStatistic = () => {
             <EditOutlined
               onClick={() => {
                 setEditingRow(record._id);
+                setAlerted(record.alerted);
                 form.setFieldsValue({
                   statisticName: record.statisticName,
                   statisticType: record.statisticType,
                   unit: record.unit,
                   description: record.description,
                   max: record.max,
+                  nbreFois: record.nbreFois,
+                  alerted: record.alerted,
                 });
               }}
             />
