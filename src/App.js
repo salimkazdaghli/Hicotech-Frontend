@@ -12,6 +12,7 @@ import RegisterPage from "./Pages/Register";
 import Dashboard from "./Pages/CoachDashboard";
 import CoachRoute from "./Routes/coachRoute";
 import NotFound from "./Pages/Error/notFound";
+import Invitation from "./Pages/Invitation";
 
 const App = () => (
   <Router>
@@ -24,6 +25,7 @@ const App = () => (
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={LogoutPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/invitation/:id" component={Invitation} />
         <Route path="/not-found" component={NotFound} />
         <Redirect to="/not-found" />
       </Switch>
