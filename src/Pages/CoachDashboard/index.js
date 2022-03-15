@@ -72,7 +72,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="10" icon={<DesktopOutlined />}>
-            <NavLink exact to="/dashboard/invitation">
+            <NavLink exact to="/dashboard/invitations">
               Mes Invitations
             </NavLink>
           </Menu.Item>
