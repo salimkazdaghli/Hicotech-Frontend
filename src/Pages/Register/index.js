@@ -11,7 +11,8 @@ import gouvernorats from "../../utils/gouvernorats";
 
 const { Option } = Select;
 
-const Register = ({ location,invi }) => {
+const Register = (props, { location }) => {
+  const { invi } = props;
   const user = invi ? invi.userData : null;
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,6 @@ const Register = ({ location,invi }) => {
   const onFinish = (data) => {
     register(data);
   };
-
   useEffect(() => {
     const currentUser = auth.getCurrentUser();
     if (currentUser) {
@@ -54,7 +54,6 @@ const Register = ({ location,invi }) => {
       );
     }
   }, [token]);
-
   return (
     <div className="register">
       <Form
