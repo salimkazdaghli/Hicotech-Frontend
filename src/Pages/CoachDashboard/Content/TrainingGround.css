@@ -1,0 +1,7 @@
+.addTrainingGround{
+margin-bottom: 20px;
+}
+.redHoverColor:hover{
+    color:red;
+  border-color: red;
+}

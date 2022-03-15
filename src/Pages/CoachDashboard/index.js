@@ -7,6 +7,7 @@ import {
   LogoutOutlined,
   TeamOutlined,
   UserOutlined,
+  EnvironmentOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
@@ -87,6 +88,11 @@ const Dashboard = () => {
           </SubMenu>
           <Menu.Item key="9" icon={<LogoutOutlined />}>
             Déconnexion
+          </Menu.Item>
+          <Menu.Item key="10" icon={<EnvironmentOutlined />}>
+            <NavLink exact to="/dashboard/gerer/lieuEntrainement">
+              Lieu Entrainement
+            </NavLink>
           </Menu.Item>
         </Menu>
       </Sider>

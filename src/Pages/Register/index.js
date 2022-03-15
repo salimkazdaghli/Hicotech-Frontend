@@ -7,38 +7,12 @@ import { v4 as uuidv4 } from "uuid";
 import Logo from "../../Assets/logo.svg";
 import auth from "../../Services/authService";
 import useLocalStorage from "../../Hooks/useLocalStorage";
+import gouvernorats from "../../utils/gouvernorats";
 
 const { Option } = Select;
 
-const Register = (props, { location }) => {
-  const { invi } = props;
+const Register = ({ location,invi }) => {
   const user = invi ? invi.userData : null;
-  const gouvernorats = [
-    "Ariana",
-    "Béja",
-    "Ben Arous",
-    "Bizerte",
-    "Gabes",
-    "Gafsa",
-    "Jendouba",
-    "Kairouan",
-    "Kasserine",
-    "Kebili",
-    "La Manouba",
-    "Le Kef",
-    "Mahdia",
-    "Médenine",
-    "Monastir",
-    "Nabeul",
-    "Sfax",
-    "Sidi Bouzid",
-    "Siliana",
-    "Sousse",
-    "Tataouine",
-    "Tozeur",
-    "Tunis",
-    "Zaghouan",
-  ];
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -84,6 +58,7 @@ const Register = (props, { location }) => {
   return (
     <div className="register">
       <Form
+        layout="vertical"
         name="normal_register"
         className="register-form"
         initialValues={{
@@ -103,8 +78,8 @@ const Register = (props, { location }) => {
         </div>
         <Row>
           <Col span={11}>
-            <p>nom :</p>
             <Form.Item
+              label="nom :"
               name="firstName"
               rules={[
                 {
@@ -117,8 +92,8 @@ const Register = (props, { location }) => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>Prénom :</p>
             <Form.Item
+              label="Prénom :"
               name="lastName"
               rules={[
                 {
@@ -133,8 +108,8 @@ const Register = (props, { location }) => {
         </Row>
         <Row>
           <Col span={11}>
-            <p>sexe :</p>
             <Form.Item
+              label="sexe :"
               name="sexe"
               rules={[
                 {
@@ -143,15 +118,15 @@ const Register = (props, { location }) => {
                 },
               ]}
             >
-              <Select>
+              <Select placeholder="sexe">
                 <Option value="Homme">Homme</Option>
                 <Option value="Femme">Femme</Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>date de naissance :</p>
             <Form.Item
+              label="date de naissance :"
               name="dateOfBirth"
               rules={[
                 {
@@ -170,8 +145,8 @@ const Register = (props, { location }) => {
         </Row>
         <Row>
           <Col span={11}>
-            <p>email :</p>
             <Form.Item
+              label="email :"
               name="email"
               rules={[
                 {
@@ -188,8 +163,8 @@ const Register = (props, { location }) => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>gouvernorat :</p>
             <Form.Item
+              label="gouvernorat :"
               name="city"
               rules={[
                 {
@@ -198,7 +173,7 @@ const Register = (props, { location }) => {
                 },
               ]}
             >
-              <Select>
+              <Select placeholder="gouvernorat">
                 {gouvernorats.map((gouvernorat) => (
                   <Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
@@ -210,8 +185,8 @@ const Register = (props, { location }) => {
         </Row>
         <Row>
           <Col span={11}>
-            <p>mot de passe :</p>
             <Form.Item
+              label="mot de passe :"
               name="password"
               rules={[
                 {
@@ -228,8 +203,8 @@ const Register = (props, { location }) => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>confirmer mot de passe :</p>
             <Form.Item
+              label="confirmer mot de passe :"
               name="confirm"
               rules={[
                 {
