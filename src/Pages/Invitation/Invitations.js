@@ -3,6 +3,7 @@ import { Switch, Row, Button } from "antd";
 import { getAllInvitationApi } from "../../Services/InvitationService";
 import InvitationCard from "./InvitationCard";
 import SendInvitation from "./SendInvitation";
+import authService from "../../Services/authService";
 
 const Invitations = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,8 @@ const Invitations = () => {
     setLoading(!loading);
   };
   async function getInvitations() {
-    await getAllInvitationApi()
+    const currentUser = authService.getCurrentUser();
+    await getAllInvitationApi({ creacteBy: currentUser.id })
       .then((response) => {
         setInvitations(response.data);
       })

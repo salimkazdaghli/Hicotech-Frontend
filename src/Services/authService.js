@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
-import useLocalStorage from "../Hooks/useLocalStorage";
 import axios from "../utils/axiosInstance";
 
 function getCurrentUser() {

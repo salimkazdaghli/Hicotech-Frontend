@@ -1,16 +1,19 @@
 import React from "react";
 import { Modal, Form, Input, DatePicker } from "antd";
 import { addInvitationApi } from "../../Services/InvitationService";
+import authService from "../../Services/authService";
 
 const SendInvitation = (props) => {
   const [form] = Form.useForm();
   const { setIsModalVisible, isModalVisible } = props;
 
   const handleOk = (values) => {
+    const currentUser = authService.getCurrentUser();
+
     const invitation = {
       email: values.email,
       dateExpiration: values.dateExpiration,
-      creacteBy: "621d3a9b65623e4350a61b27",
+      creacteBy: currentUser.id,
       etat: "envoyé",
       userData: {
         firstName: values.firstName,
