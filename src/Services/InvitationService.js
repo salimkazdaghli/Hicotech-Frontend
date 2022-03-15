@@ -1,7 +1,7 @@
 import axios from "../utils/axiosInstance";
 
-export function getAllInvitationApi() {
-  return axios.get("/api/invitations");
+export function getAllInvitationApi(data) {
+  return axios.get("/api/invitations", { params: data });
 }
 export function getInvitationApi(id) {
   return axios.get(`/api/invitations/${id}`);

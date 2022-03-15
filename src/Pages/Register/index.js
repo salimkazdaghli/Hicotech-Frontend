@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
-import jwt_decode from "jwt-decode";
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
 import { NavLink, useHistory } from "react-router-dom";
@@ -11,8 +10,9 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const { Option } = Select;
 
-const Register = ({ location }) => {
-
+const Register = (props, { location }) => {
+  const { invi } = props;
+  const user = invi ? invi.userData : null;
   const gouvernorats = [
     "Ariana",
     "Béja",
@@ -52,7 +52,6 @@ const Register = ({ location }) => {
       .then(({ data }) => {
         setToken(data.token);
         setError(false);
-
       })
       .catch((err) => {
         setToken(null);
@@ -81,6 +80,7 @@ const Register = ({ location }) => {
       );
     }
   }, [token]);
+
   return (
     <div className="register">
       <Form
