@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+/* eslint-disable no-nested-ternary */
+import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { registerUserApi } from "../../Services/UserService";
-import { updateInvitationApi } from "../../Services/InvitationService";
 import Logo from "../../Assets/logo.svg";
+import auth from "../../Services/authService";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const { Option } = Select;
 
-const Register = (props) => {
-  const { invi, user } = props;
+const Register = ({ location }) => {
 
   const gouvernorats = [
     "Ariana",
@@ -42,39 +41,46 @@ const Register = (props) => {
   ];
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  async function updateInvitation(inviId, userId) {
-    await updateInvitationApi(inviId, {
-      etat: "accepté",
-      acceptedBy: userId,
-      expired: true,
-    });
-  }
+
+  const [token, setToken] = useLocalStorage("token", null);
+  const history = useHistory();
+
   const register = async (data) => {
     setLoading(true);
-    const user = data;
-    user.role = invi != null ? "joueur" : "coach";
-    registerUserApi(user)
-      .then((rep) => {
-        if (invi != null) {
-          const userDecoded = jwt_decode(rep.data.token);
-          updateInvitation(invi._id, userDecoded.id);
-        }
-        setLoading(false);
+    auth
+      .registerUserApi(data)
+      .then(({ data }) => {
+        setToken(data.token);
+        setError(false);
+
       })
-      .then(() => setError(false))
       .catch((err) => {
+        setToken(null);
         if (err.response.data.error) {
           setError(err.response.data.error);
         } else {
           setError("erreur de serveur");
         }
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const onFinish = (data) => {
     register(data);
   };
+
+  useEffect(() => {
+    const currentUser = auth.getCurrentUser();
+    if (currentUser) {
+      history.push(
+        location.state
+          ? location.state.from.pathname
+          : currentUser.role && currentUser.role === "coach"
+          ? "/dashboard"
+          : "/test"
+      );
+    }
+  }, [token]);
   return (
     <div className="register">
       <Form

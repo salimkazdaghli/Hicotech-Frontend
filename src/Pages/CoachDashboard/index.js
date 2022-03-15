@@ -8,7 +8,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
 
@@ -16,6 +16,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 const Dashboard = () => {
   const [collapsed, setcollapsed] = useState(false);
+  const history = useHistory();
   const onCollapse = (collapsed) => {
     setcollapsed(collapsed);
   };
@@ -23,9 +24,17 @@ const Dashboard = () => {
     <Menu>
       <Menu.Item key="1">Mon Profil</Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="2">Déconnexion</Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push("/logout");
+        }}
+        key="2"
+      >
+        Déconnexion
+      </Menu.Item>
     </Menu>
   );
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
@@ -96,7 +105,7 @@ const Dashboard = () => {
           </Breadcrumb>
           <div
             className="site-layout-background"
-            style={{ padding: 24, minHeight: "100vh" }}
+            style={{ padding: 24, height: "100%" }}
           >
             <DashboardRouting />
           </div>
