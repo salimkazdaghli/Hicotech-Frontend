@@ -96,7 +96,7 @@ const AddTrainingGround = ({ setAlert, setRefrech }) => {
               },
             ]}
           >
-            <Select defaultValue="gouvernorat">
+            <Select placeholder="gouvernorat">
               {gouvernorats.map((gouvernorat) => (
                 <Option key={uuidv4()} value={gouvernorat}>
                   {gouvernorat}

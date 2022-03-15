@@ -110,7 +110,7 @@ const Register = ({ location }) => {
                 },
               ]}
             >
-              <Select defaultValue="sexe">
+              <Select placeholder="sexe">
                 <Option value="Homme">Homme</Option>
                 <Option value="Femme">Femme</Option>
               </Select>
@@ -165,7 +165,7 @@ const Register = ({ location }) => {
                 },
               ]}
             >
-              <Select defaultValue="gouvernorat">
+              <Select placeholder="gouvernorat">
                 {gouvernorats.map((gouvernorat) => (
                   <Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}

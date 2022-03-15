@@ -116,6 +116,7 @@ const ManageTrainingGround = () => {
         if (rowToEdit === record._id)
           return (
             <Form.Item
+              initialValue={text}
               name="city"
               rules={[
                 {
@@ -124,7 +125,7 @@ const ManageTrainingGround = () => {
                 },
               ]}
             >
-              <Select defaultValue={text}>
+              <Select>
                 {gouvernorats.map((gouvernorat) => (
                   <Select.Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
