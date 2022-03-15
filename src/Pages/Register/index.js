@@ -11,9 +11,11 @@ import gouvernorats from "../../utils/gouvernorats";
 
 const { Option } = Select;
 
-const Register = ({ location }) => {
+const Register = ({ location,invi }) => {
+  const user = invi ? invi.userData : null;
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const [token, setToken] = useLocalStorage("token", null);
   const history = useHistory();
 
@@ -52,6 +54,7 @@ const Register = ({ location }) => {
       );
     }
   }, [token]);
+
   return (
     <div className="register">
       <Form
@@ -59,7 +62,12 @@ const Register = ({ location }) => {
         name="normal_register"
         className="register-form"
         initialValues={{
+          city: "gouvernorat",
+          sexe: "sexe",
           remember: true,
+          email: invi ? invi.email : "",
+          firstName: user ? user.firstName : "",
+          lastName: user ? user.lastName : "",
         }}
         onFinish={onFinish}
       >
