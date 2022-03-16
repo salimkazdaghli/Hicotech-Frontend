@@ -17,7 +17,7 @@ const DashboardRouting = () => (
     />
     <CoachRoute
       exact
-      path="/dashboard/select/descipline"
+      path="/dashboard/select/discipline"
       component={SelectDiscipline}
     />
     <CoachRoute exact path="/dashboard/invitations" component={Invitations} />
