@@ -1,6 +1,6 @@
 /* eslint-disable import/named */
 /* eslint-disable quotes */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
   Table,
@@ -22,11 +22,11 @@ import {
   CloseCircleOutlined,
 } from "@ant-design/icons";
 import {
-  getAllStatisticsApi,
-  deleteStatisticsApi,
-  updateStatisticsApi,
-} from "../../../../Services/StatisticService";
-import StatisticFormField from "./StatisticFormField";
+  getAllSkillsApi,
+  deleteSkillsApi,
+  updateSkillApi,
+} from "../../../../Services/SkillService";
+import SkillFormField from "./SkillFormField";
 // import {
 //   setAlert,
 //   alertMessage,
@@ -34,8 +34,8 @@ import StatisticFormField from "./StatisticFormField";
 // } from "../../../utils/alertComponent";
 
 const { TextArea } = Input;
-const MyStatistic = () => {
-  const [, setError] = useState(null);
+const MySkills = () => {
+  const [error, setError] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,12 +54,12 @@ const MyStatistic = () => {
       setShowAlert(false);
     }, duration);
   };
-  const getStatistic = (page) => {
+  const getSkill = (page) => {
     setLoading(true);
-    getAllStatisticsApi(page)
+    getAllSkillsApi(page)
       .then((res) => res.data)
-      .then(({ statistic }) => {
-        setStatData(statistic);
+      .then(({ skill }) => {
+        setStatData(skill);
         setLoading(false);
       })
       .then(() => setError(false))
@@ -73,22 +73,22 @@ const MyStatistic = () => {
       });
   };
   useEffect(() => {
-    getStatistic();
+    getSkill();
   }, []);
 
   function handleDelete(id) {
     Modal.confirm({
-      title: "êtes-vous sûr de supprimer cette statistique ?",
+      title: "êtes-vous sûr de supprimer cette compétence ?",
       okText: "Oui",
       okType: "danger",
       cancelText: "Annuler",
 
       onOk: () => {
         setLoading(true);
-        deleteStatisticsApi(id)
+        deleteSkillsApi(id)
           .then(({ data }) => {
-            setStatData((oldStats) =>
-              oldStats.filter((stat) => stat._id !== data.statistique._id)
+            setStatData((oldSkills) =>
+              oldSkills.filter((skill) => skill._id !== data.skill._id)
             );
             setAlert(data.message, 2000);
           })
@@ -102,18 +102,18 @@ const MyStatistic = () => {
 
   const columns = [
     {
-      title: "Nom Statistique",
-      dataIndex: "statisticName",
-      key: "statisticName",
+      title: "Nom Compétence",
+      dataIndex: "skillName",
+      key: "skillName",
       render: (text, record) => {
         if (editingRow === record._id)
           return (
             <Form.Item
-              name="statisticName"
+              name="skillName"
               rules={[
                 {
                   required: true,
-                  message: "entrer le nom du statistique!",
+                  message: "entrer le nom du compétence!",
                 },
               ]}
             >
@@ -124,58 +124,34 @@ const MyStatistic = () => {
       },
     },
     {
-      title: "Type",
-      dataIndex: "statisticType",
-      key: "statisticType",
+      title: "Lien associé ",
+      dataIndex: "lien",
+      key: "lien",
+      width: "26%",
       render: (text, record) => {
         if (editingRow === record._id)
           return (
             <Form.Item
-              initialValue={text}
-              name="statisticType"
+              name="lien"
               rules={[
                 {
                   required: true,
-                  message: "entrer le type du statistique!",
+                  message: "entrer le lien associé compétence!",
                 },
               ]}
             >
-              <Select>
-                <Select.Option value="compteur">Compteur</Select.Option>
-                <Select.Option value="timer">Timer</Select.Option>
-              </Select>
+              <TextArea />
             </Form.Item>
           );
         return <p>{text}</p>;
       },
     },
-    {
-      title: "Unité de mesure",
-      dataIndex: "unit",
-      key: "unit",
-      render: (text, record) => {
-        if (editingRow === record._id)
-          return (
-            <Form.Item
-              name="unit"
-              rules={[
-                {
-                  required: true,
-                  message: "entrer l'unité du statistique!",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          );
-        return <p>{text}</p>;
-      },
-    },
+
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      width: "20%",
+      width: "24%",
       render: (text, record) => {
         if (editingRow === record._id)
           return (
@@ -184,12 +160,12 @@ const MyStatistic = () => {
               rules={[
                 {
                   required: true,
-                  message: "entrer la description du statistique!",
+                  message: "entrer la description du compétence!",
                 },
               ]}
             >
               <TextArea
-                placeholder="description du statistique"
+                placeholder="description du compétence"
                 autoSize={{ minRows: 1, maxRows: 3 }}
               />
             </Form.Item>
@@ -230,7 +206,7 @@ const MyStatistic = () => {
       },
     },
     {
-      title: "Nature Statistique",
+      title: "Nature Compétence",
       key: "max",
       dataIndex: "max",
       width: "13%",
@@ -244,7 +220,7 @@ const MyStatistic = () => {
                 rules={[
                   {
                     required: true,
-                    message: "selectionner la nature du statistique",
+                    message: "selectionner la nature du compétence",
                   },
                 ]}
               >
@@ -316,9 +292,8 @@ const MyStatistic = () => {
                     setAlerted(record.alerted);
                     form.setFieldsValue({
                       _id: record._id,
-                      statisticName: record.statisticName,
-                      statisticType: record.statisticType,
-                      unit: record.unit,
+                      skillName: record.skillName,
+                      lien: record.lien,
                       description: record.description,
                       max: record.max,
                       nbreFois: record.nbreFois,
@@ -364,11 +339,10 @@ const MyStatistic = () => {
                 setEditingRow(record._id);
                 setAlerted(record.alerted);
                 form.setFieldsValue({
-                  statisticName: record.statisticName,
-                  statisticType: record.statisticType,
-                  unit: record.unit,
+                  skillName: record.skillName,
                   description: record.description,
                   max: record.max,
+                  lien: record.lien,
                   nbreFois: record.nbreFois,
                   alerted: record.alerted,
                 });
@@ -391,7 +365,7 @@ const MyStatistic = () => {
       return { ...el };
     });
     setLoading(true);
-    updateStatisticsApi(editingRow, { ...values }).then(({ data }) => {
+    updateSkillApi(editingRow, { ...values }).then(({ data }) => {
       setEditingRow(null);
       setStatData(updatedDataSource);
       setLoading(false);
@@ -408,16 +382,16 @@ const MyStatistic = () => {
           <Alert message={alertMessage} type="success" showIcon closable />
         </Space>
       )}
-      <Title>Mes Statistiques</Title>
+      <Title>Mes Compétences</Title>
       <Button
         icon={<PlusOutlined />}
         type="primary"
         style={{ marginBottom: "18px" }}
         onClick={() => setShowModal(!showModal)}
       >
-        Ajouter
+        Ajouter Compétence
       </Button>
-      <StatisticFormField
+      <SkillFormField
         showModal={showModal}
         setShowModal={setShowModal}
         loading={loading}
@@ -445,4 +419,4 @@ const MyStatistic = () => {
   );
 };
 
-export default MyStatistic;
+export default MySkills;
