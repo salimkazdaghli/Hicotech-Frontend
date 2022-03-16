@@ -1,70 +1,72 @@
-import React, { useState } from "react";
+/* eslint-disable no-nested-ternary */
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Logo from "../../Assets/logo.svg";
-import { registerUserApi } from "../../Services/UserService";
+import auth from "../../Services/authService";
+import useLocalStorage from "../../Hooks/useLocalStorage";
+import gouvernorats from "../../utils/gouvernorats";
 
 const { Option } = Select;
 
-const Register = () => {
-  const gouvernorats = [
-    "Ariana",
-    "Béja",
-    "Ben Arous",
-    "Bizerte",
-    "Gabes",
-    "Gafsa",
-    "Jendouba",
-    "Kairouan",
-    "Kasserine",
-    "Kebili",
-    "La Manouba",
-    "Le Kef",
-    "Mahdia",
-    "Médenine",
-    "Monastir",
-    "Nabeul",
-    "Sfax",
-    "Sidi Bouzid",
-    "Siliana",
-    "Sousse",
-    "Tataouine",
-    "Tozeur",
-    "Tunis",
-    "Zaghouan",
-  ];
+const Register = (props, { location }) => {
+  const { invi } = props;
+  const user = invi ? invi.userData : null;
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [token, setToken] = useLocalStorage("token", null);
+  const history = useHistory();
+
   const register = async (data) => {
     setLoading(true);
-    registerUserApi(data)
-      .then(() => {
-        setLoading(false);
+    auth
+      .registerUserApi(data)
+      .then(({ data }) => {
+        setToken(data.token);
+        setError(false);
       })
-      .then(() => setError(false))
       .catch((err) => {
+        setToken(null);
         if (err.response.data.error) {
           setError(err.response.data.error);
         } else {
           setError("erreur de serveur");
         }
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const onFinish = (data) => {
     register(data);
   };
+  useEffect(() => {
+    const currentUser = auth.getCurrentUser();
+    if (currentUser) {
+      history.push(
+        location.state
+          ? location.state.from.pathname
+          : currentUser.role && currentUser.role === "coach"
+          ? "/dashboard"
+          : "/test"
+      );
+    }
+  }, [token]);
   return (
     <div className="register">
       <Form
+        layout="vertical"
         name="normal_register"
         className="register-form"
         initialValues={{
+          city: "gouvernorat",
+          sexe: "sexe",
           remember: true,
+          email: invi ? invi.email : "",
+          firstName: user ? user.firstName : "",
+          lastName: user ? user.lastName : "",
         }}
         onFinish={onFinish}
       >
@@ -75,8 +77,8 @@ const Register = () => {
         </div>
         <Row>
           <Col span={11}>
-            <p>nom :</p>
             <Form.Item
+              label="nom :"
               name="firstName"
               rules={[
                 {
@@ -89,8 +91,8 @@ const Register = () => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>Prénom :</p>
             <Form.Item
+              label="Prénom :"
               name="lastName"
               rules={[
                 {
@@ -105,8 +107,8 @@ const Register = () => {
         </Row>
         <Row>
           <Col span={11}>
-            <p>sexe :</p>
             <Form.Item
+              label="sexe :"
               name="sexe"
               rules={[
                 {
@@ -115,15 +117,15 @@ const Register = () => {
                 },
               ]}
             >
-              <Select defaultValue="sexe">
+              <Select placeholder="sexe">
                 <Option value="Homme">Homme</Option>
                 <Option value="Femme">Femme</Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>date de naissance :</p>
             <Form.Item
+              label="date de naissance :"
               name="dateOfBirth"
               rules={[
                 {
@@ -142,8 +144,8 @@ const Register = () => {
         </Row>
         <Row>
           <Col span={11}>
-            <p>email :</p>
             <Form.Item
+              label="email :"
               name="email"
               rules={[
                 {
@@ -160,8 +162,8 @@ const Register = () => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>gouvernorat :</p>
             <Form.Item
+              label="gouvernorat :"
               name="city"
               rules={[
                 {
@@ -170,7 +172,7 @@ const Register = () => {
                 },
               ]}
             >
-              <Select defaultValue="gouvernorat">
+              <Select placeholder="gouvernorat">
                 {gouvernorats.map((gouvernorat) => (
                   <Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
@@ -182,8 +184,8 @@ const Register = () => {
         </Row>
         <Row>
           <Col span={11}>
-            <p>mot de passe :</p>
             <Form.Item
+              label="mot de passe :"
               name="password"
               rules={[
                 {
@@ -200,8 +202,8 @@ const Register = () => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <p>confirmer mot de passe :</p>
             <Form.Item
+              label="confirmer mot de passe :"
               name="confirm"
               rules={[
                 {
