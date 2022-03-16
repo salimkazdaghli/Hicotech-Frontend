@@ -1,29 +1,38 @@
 import React from "react";
 import { Card, Col, Skeleton } from "antd";
 import { StopOutlined, DeleteOutlined } from "@ant-design/icons";
-import {
-  deleteProgrammeApi,
-  updateProgrammeApi,
-} from "../../../Services/ProgrammeService";
+import { deleteProgrammeApi } from "../../../Services/ProgrammeService";
 import notificationComponent from "../../../Components/NotificationComponent";
 
 const ProgrammeCard = (props) => {
   const { Meta } = Card;
-  const { programme, loading } = props;
+  const {
+    programme,
+    loading,
+    programmes,
+    setProgrammes,
+    setLoading,
+    setIsModalVisible,
+    setProgrammeSelected,
+  } = props;
   const { title, description } = programme;
 
   const onDelete = () => {
-    deleteProgrammeApi(programme._id);
-    window.location.reload(false);
-    notificationComponent();
+    setLoading(false);
+    deleteProgrammeApi(programme._id).then(() => {
+      setProgrammes(
+        programmes.filter(
+          (programmeItem) => programmeItem._id !== programme._id
+        )
+      );
+      setLoading(true);
+      notificationComponent("notification", "delete");
+    });
   };
+
   const onUpdate = () => {
-    if (programme.expired !== true) {
-      updateProgrammeApi(programme._id, { etat: "annulé", expired: true });
-      window.location.reload(false);
-    } else {
-      notificationComponent("Notification", "Programme déja experid");
-    }
+    setProgrammeSelected(programme);
+    setIsModalVisible(true);
   };
   return (
     <Col span={8} key={programme._id}>

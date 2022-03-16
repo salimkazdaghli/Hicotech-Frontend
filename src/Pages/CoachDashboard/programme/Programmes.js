@@ -4,13 +4,16 @@ import { getAllProgrammeApi } from "../../../Services/ProgrammeService";
 import ProgrammeCard from "./ProgrammeCard";
 import ProgrammeForm from "./ProgrammeForm";
 import authService from "../../../Services/authService";
+import { getAllStatisticsApi } from "../../../Services/statisticService";
 
 const Programmes = () => {
   const [loading, setLoading] = useState(false);
   const [programmes, setProgrammes] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [programmeSelected, setProgrammeSelected] = useState({});
+  const [statistics, setStatistics] = useState([]);
   const showModal = () => {
+    setProgrammeSelected({ _id: "0000" });
     setIsModalVisible(true);
   };
 
@@ -23,8 +26,17 @@ const Programmes = () => {
       })
       .catch(() => {});
   }
+  async function getStatistics() {
+    await getAllStatisticsApi()
+      .then((response) => {
+        setStatistics(response.data);
+        setLoading(true);
+      })
+      .catch(() => {});
+  }
   useEffect(() => {
     getProgrammes();
+    getStatistics();
   }, []);
   return (
     <>
@@ -39,20 +51,31 @@ const Programmes = () => {
                 programme={programme}
                 loading={loading}
                 key={programme._id}
+                programmes={programmes}
+                setProgrammes={setProgrammes}
+                setLoading={setLoading}
+                setIsModalVisible={setIsModalVisible}
+                isModalVisible={isModalVisible}
+                setProgrammeSelected={setProgrammeSelected}
               />
             ))}
           </Row>
         )}
         ;
       </div>
-      <ProgrammeForm
-        setIsModalVisible={setIsModalVisible}
-        isModalVisible={isModalVisible}
-        setProgrammes={setProgrammes}
-        programmes={programmes}
-        setLoading={setLoading}
-        loading={loading}
-      />
+      {loading && (
+        <ProgrammeForm
+          key={programmeSelected._id}
+          setIsModalVisible={setIsModalVisible}
+          isModalVisible={isModalVisible}
+          setProgrammes={setProgrammes}
+          programmes={programmes}
+          setLoading={setLoading}
+          loading={loading}
+          programmeSelected={programmeSelected}
+          statistics={statistics}
+        />
+      )}
     </>
   );
 };

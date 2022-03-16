@@ -61,8 +61,6 @@ const Register = (props, { location }) => {
         name="normal_register"
         className="register-form"
         initialValues={{
-          city: "gouvernorat",
-          sexe: "sexe",
           remember: true,
           email: invi ? invi.email : "",
           firstName: user ? user.firstName : "",
