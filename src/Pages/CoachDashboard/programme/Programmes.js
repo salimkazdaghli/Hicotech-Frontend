@@ -6,7 +6,7 @@ import ProgrammeForm from "./ProgrammeForm";
 import authService from "../../../Services/authService";
 
 const Programmes = () => {
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [programmes, setProgrammes] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -19,6 +19,7 @@ const Programmes = () => {
     await getAllProgrammeApi({ creacteBy: currentUser.id })
       .then((response) => {
         setProgrammes(response.data);
+        setLoading(true);
       })
       .catch(() => {});
   }
@@ -31,15 +32,26 @@ const Programmes = () => {
         create new programme
       </Button>
       <div className="site-card-wrapper">
-        <Row gutter={16}>
-          {programmes.map((programme) => (
-            <ProgrammeCard programme={programme} loading={loading} />
-          ))}
-        </Row>
+        {loading && (
+          <Row gutter={16}>
+            {programmes.map((programme) => (
+              <ProgrammeCard
+                programme={programme}
+                loading={loading}
+                key={programme._id}
+              />
+            ))}
+          </Row>
+        )}
+        ;
       </div>
       <ProgrammeForm
         setIsModalVisible={setIsModalVisible}
         isModalVisible={isModalVisible}
+        setProgrammes={setProgrammes}
+        programmes={programmes}
+        setLoading={setLoading}
+        loading={loading}
       />
     </>
   );

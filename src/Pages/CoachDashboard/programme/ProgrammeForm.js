@@ -2,10 +2,17 @@ import React from "react";
 import { Modal, Form, Input } from "antd";
 import { addProgrammeApi } from "../../../Services/ProgrammeService";
 import authService from "../../../Services/authService";
+import notificationComponent from "../../../Components/NotificationComponent";
 
 const ProgrammeForm = (props) => {
   const [form] = Form.useForm();
-  const { setIsModalVisible, isModalVisible } = props;
+  const {
+    setIsModalVisible,
+    isModalVisible,
+    setProgrammes,
+    programmes,
+    setLoading,
+  } = props;
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
@@ -14,11 +21,15 @@ const ProgrammeForm = (props) => {
       ...values,
       creacteBy: currentUser.id,
     };
-    addProgrammeApi(programme).then(() => {
-      // console.log(res)
+    setLoading(false);
+    addProgrammeApi(programme).then((response) => {
+      const { data } = response;
+      programmes.push(data);
+      setProgrammes(programmes);
+      notificationComponent("Notification", "Programme ajoute ");
+      setLoading(true);
     });
     setIsModalVisible(false);
-    window.location.reload(false);
   };
 
   const handleCancel = () => {

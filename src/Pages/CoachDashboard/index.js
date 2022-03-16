@@ -72,7 +72,7 @@ const Dashboard = () => {
               Mes Statistique
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="10" icon={<DesktopOutlined />}>
+          <Menu.Item key="11" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/invitations">
               Mes Invitations
             </NavLink>
