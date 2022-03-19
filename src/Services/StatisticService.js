@@ -1,7 +1,9 @@
 import axios from "../utils/axiosInstance";
 
-export function getAllStatisticsApi(page = 0) {
-  return axios.get("/api/all/statistics", { params: page });
+export function getAllStatisticsApi(discipline) {
+  return axios.get(`/api/all/statistics/${discipline}`, {
+    params: { discipline },
+  });
 }
 export function deleteStatisticsApi(statisticId) {
   return axios.delete(`/api/statistic/${statisticId}`);

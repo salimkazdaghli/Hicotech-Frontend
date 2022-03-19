@@ -46,8 +46,8 @@ const Register = (props, { location }) => {
     const currentUser = auth.getCurrentUser();
     if (currentUser) {
       history.push(
-        location.state
-          ? location.state.from.pathname
+        location?.state
+          ? location.state?.from?.pathname
           : currentUser.role && currentUser.role === "coach"
           ? "/dashboard"
           : "/test"
@@ -61,8 +61,6 @@ const Register = (props, { location }) => {
         name="normal_register"
         className="register-form"
         initialValues={{
-          city: "gouvernorat",
-          sexe: "sexe",
           remember: true,
           email: invi ? invi.email : "",
           firstName: user ? user.firstName : "",

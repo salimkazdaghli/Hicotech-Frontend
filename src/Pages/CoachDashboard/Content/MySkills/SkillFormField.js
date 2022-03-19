@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Col, Form, Input, InputNumber, Modal, Radio, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { addSkillApi } from "../../../../Services/SkillService";
+import authService from "../../../../Services/authService";
 
 const SkillFormField = ({
   showModal,
@@ -38,6 +39,7 @@ const SkillFormField = ({
       lien: "",
       nbreFois: undefined,
       alerted: false,
+      discipline: authService.getCurrentUser().discipline,
     });
   };
 

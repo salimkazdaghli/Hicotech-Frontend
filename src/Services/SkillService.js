@@ -1,7 +1,7 @@
 import axios from "../utils/axiosInstance";
 
-export function getAllSkillsApi(page = 0) {
-  return axios.get("/api/all/skills", { params: page });
+export function getAllSkillsApi(discipline) {
+  return axios.get(`/api/all/skills/${discipline}`);
 }
 export function deleteSkillsApi(skillId) {
   return axios.delete(`/api/skill/${skillId}`);

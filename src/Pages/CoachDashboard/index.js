@@ -69,7 +69,7 @@ const Dashboard = () => {
           </Menu.Item>
           <Menu.Item key="2" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/profile">
-              Mes Statistique
+              Attribuer un défi
             </NavLink>
           </Menu.Item>
           <Menu.Item key="3" icon={<DesktopOutlined />}>
@@ -94,7 +94,9 @@ const Dashboard = () => {
             another Content 2
           </Menu.Item>
           <Menu.Item key="9" icon={<LogoutOutlined />}>
-            Déconnexion
+            <NavLink exact to="/dashboard/invite">
+              Invitation
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="10" icon={<EnvironmentOutlined />}>
             <NavLink exact to="/dashboard/gerer/lieuEntrainement">
@@ -111,7 +113,7 @@ const Dashboard = () => {
       <Layout className="site-layout">
         <Header className="header ">
           <Space align="center" style={{ float: "right" }}>
-            <Dropdown overlay={userMenu} placement="bottomCenter">
+            <Dropdown overlay={userMenu} placement="bottom">
               <Avatar size="large" icon={<UserOutlined />} />
             </Dropdown>
           </Space>
@@ -128,7 +130,7 @@ const Dashboard = () => {
             <DashboardRouting />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>Hi Coach ©2022</Footer>
+        <Footer style={{ textAlign: "center" }}>HiCoach ©2022</Footer>
       </Layout>
     </Layout>
   );

@@ -27,6 +27,8 @@ import {
   updateSkillApi,
 } from "../../../../Services/SkillService";
 import SkillFormField from "./SkillFormField";
+import authService from "../../../../Services/authService";
+
 // import {
 //   setAlert,
 //   alertMessage,
@@ -35,7 +37,7 @@ import SkillFormField from "./SkillFormField";
 
 const { TextArea } = Input;
 const MySkills = () => {
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,9 +56,9 @@ const MySkills = () => {
       setShowAlert(false);
     }, duration);
   };
-  const getSkill = (page) => {
+  const getSkill = () => {
     setLoading(true);
-    getAllSkillsApi(page)
+    getAllSkillsApi(authService.getCurrentUser().discipline)
       .then((res) => res.data)
       .then(({ skill }) => {
         setStatData(skill);

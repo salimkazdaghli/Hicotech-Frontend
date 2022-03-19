@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Col, Form, Input, InputNumber, Modal, Radio, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { addStatisticApi } from "../../../../Services/StatisticService";
+import authService from "../../../../Services/authService";
 
 const StatisticFormField = ({
   showModal,
@@ -23,6 +24,7 @@ const StatisticFormField = ({
     max: undefined,
     nbreFois: undefined,
     alerted: false,
+    discipline: authService.getCurrentUser().discipline,
   });
   const setAlert = (msg, duration) => {
     setAlertMessage(msg);
@@ -41,6 +43,7 @@ const StatisticFormField = ({
       max: undefined,
       nbreFois: undefined,
       alerted: false,
+      discipline: null,
     });
   };
 
@@ -88,6 +91,7 @@ const StatisticFormField = ({
           max: null,
           nbreFois: undefined,
           alerted: undefined,
+          discipline: null,
         }}
         form={form2}
         onFinish={onAddSTats}
