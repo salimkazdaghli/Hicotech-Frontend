@@ -5,6 +5,9 @@ import ManageTrainingGround from "../Content/ManageTrainingGround";
 import Invitations from "../../Invitation/Invitations";
 import SelectDiscipline from "../Content/SelectDiscipline";
 import CoachRoute from "../../../Routes/coachRoute";
+import MySkills from "../Content/MySkills/MySkills";
+import MyStatistic from "../Content/MyStatistics/MyStatistic";
+import Profile from "../Content/Profile";
 
 const DashboardRouting = () => (
   <Switch>
@@ -21,6 +24,9 @@ const DashboardRouting = () => (
       component={SelectDiscipline}
     />
     <CoachRoute exact path="/dashboard/invitations" component={Invitations} />
+    <Route exact path="/dashboard/myskills" component={MySkills} />
+    <Route exact path="/dashboard/profile" component={Profile} />
+    <Route exact path="/dashboard/mystatisitcs" component={MyStatistic} />
   </Switch>
 );
 

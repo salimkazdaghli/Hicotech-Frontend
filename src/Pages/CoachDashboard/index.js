@@ -67,20 +67,32 @@ const Dashboard = () => {
               Accueil
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="11" icon={<DesktopOutlined />}>
+          <Menu.Item key="2" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/profile">
+              Attribuer un défi
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="3" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/invitations">
               Mes Invitations
             </NavLink>
           </Menu.Item>
-          <SubMenu key="sub1" icon={<UserOutlined />} title="Mes Statistiques">
-            <Menu.Item key="3">ajouter</Menu.Item>
-            <Menu.Item key="4">modifier</Menu.Item>
-            <Menu.Item key="5">supprimer</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" icon={<TeamOutlined />} title="Mes Clients">
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
-          </SubMenu>
+          <Menu.Item key="4" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/mystatisitcs">
+              Mes Statistiques
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/myskills">
+              Mes Compétences
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="7" icon={<TeamOutlined />}>
+            another Content
+          </Menu.Item>
+          <Menu.Item key="8" icon={<TeamOutlined />}>
+            another Content 2
+          </Menu.Item>
           <Menu.Item key="9" icon={<LogoutOutlined />}>
             <NavLink exact to="/dashboard/invite">
               Invitation
@@ -89,6 +101,11 @@ const Dashboard = () => {
           <Menu.Item key="10" icon={<EnvironmentOutlined />}>
             <NavLink exact to="/dashboard/gerer/lieuEntrainement">
               Lieu Entrainement
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="11" icon={<EnvironmentOutlined />}>
+            <NavLink exact to="/dashboard/gerer/defi">
+              Gérer defi
             </NavLink>
           </Menu.Item>
         </Menu>
@@ -113,7 +130,7 @@ const Dashboard = () => {
             <DashboardRouting />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>Hi Coach ©2022</Footer>
+        <Footer style={{ textAlign: "center" }}>HiCoach ©2022</Footer>
       </Layout>
     </Layout>
   );
