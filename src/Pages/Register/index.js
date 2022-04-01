@@ -4,10 +4,13 @@ import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
 import "./Register.css";
 import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import jwtDecode from "jwt-decode";
 import Logo from "../../Assets/logo.svg";
 import auth from "../../Services/authService";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 import gouvernorats from "../../utils/gouvernorats";
+import { updateInvitationApi } from "../../Services/InvitationService";
+import { updateUserApi } from "../../Services/userService";
 
 const { Option } = Select;
 
@@ -26,6 +29,17 @@ const Register = (props, { location }) => {
       .registerUserApi(data)
       .then(({ data }) => {
         setToken(data.token);
+        if (invi) {
+          const acceptedBy = jwtDecode(data.token);
+          updateInvitationApi(invi._id, {
+            acceptedBy: acceptedBy.id,
+            expired: true,
+            etat: "accepté",
+          });
+          updateUserApi(invi.creacteBy._id, {
+            myPlayers: [...invi.creacteBy.myPlayers, acceptedBy.id],
+          });
+        }
         setError(false);
       })
       .catch((err) => {
@@ -46,7 +60,7 @@ const Register = (props, { location }) => {
     const currentUser = auth.getCurrentUser();
     if (currentUser) {
       history.push(
-        location.state
+        location && location.state
           ? location.state.from.pathname
           : currentUser.role && currentUser.role === "coach"
           ? "/dashboard"
@@ -65,6 +79,7 @@ const Register = (props, { location }) => {
           email: invi ? invi.email : "",
           firstName: user ? user.firstName : "",
           lastName: user ? user.lastName : "",
+          dateOfBirth: user ? user.dateOfBirth : "",
         }}
         onFinish={onFinish}
       >

@@ -11,8 +11,8 @@ const InvitationCard = (props) => {
   const { Meta } = Card;
   const { invitation, loading, setLoading, invitations, setInvitations } =
     props;
-  const title = `Invitation  ${invitation.etat}`;
-  const description = `vous avez invité le joueur ${invitation.userData.firstName} ${invitation.userData.lastName} son email est ${invitation.email} à ${invitation.createdAt}`;
+  const title = `Invitation Joueur ${invitation.userData.firstName} ${invitation.userData.lastName} `;
+  const etat = `Invitation ${invitation.etat}`;
 
   const onDelete = () => {
     setLoading(false);
@@ -71,8 +71,13 @@ const InvitationCard = (props) => {
               </Avatar>
             }
             title={title}
-            description={description}
+            description={etat}
           />
+          <p> Email : {invitation.email} </p>
+          <p> CreatedAt : {invitation.createdAt}</p>
+          {invitation.acceptedBy && (
+            <p> AcceptedBy : {invitation.acceptedBy.email} </p>
+          )}
         </Skeleton>
       </Card>
     </Col>

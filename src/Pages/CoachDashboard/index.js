@@ -82,6 +82,11 @@ const Dashboard = () => {
               Mes Programmes
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="13" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/players">
+              Mes Joueurs
+            </NavLink>
+          </Menu.Item>
           <SubMenu key="sub1" icon={<UserOutlined />} title="Mes Statistiques">
             <Menu.Item key="3">ajouter</Menu.Item>
             <Menu.Item key="4">modifier</Menu.Item>

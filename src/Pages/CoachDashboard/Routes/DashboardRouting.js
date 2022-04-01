@@ -5,6 +5,7 @@ import ManageTrainingGround from "../Content/ManageTrainingGround";
 import ProfilePage from "../Content/Profile";
 import Invitations from "../../Invitation/Invitations";
 import Programmes from "../programme/Programmes";
+import Players from "../Content/Players";
 
 const DashboardRouting = () => (
   <Switch>
@@ -18,6 +19,7 @@ const DashboardRouting = () => (
     <Route exact path="/dashboard/profile" component={ProfilePage} />
     <Route exact path="/dashboard/invitations" component={Invitations} />
     <Route exact path="/dashboard/programmes" component={Programmes} />
+    <Route exact path="/dashboard/players" component={Players} />
   </Switch>
 );
 
