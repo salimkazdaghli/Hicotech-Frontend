@@ -6,6 +6,9 @@ function addUserApi(data) {
 function getUserByIdApi(id) {
   return axios.get(`/api/users/${id}`);
 }
+function GetCoachClientsApi(id) {
+  return axios.get(`/api/users/coach/${id}`);
+}
 function updateUserApi(id, data) {
   return axios.put(`/api/users/${id}`, data);
 }
@@ -17,4 +20,5 @@ export default {
   addUserApi,
   updateUserApi,
   deleteUserApi,
+  GetCoachClientsApi,
 };

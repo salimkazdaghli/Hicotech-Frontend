@@ -108,6 +108,11 @@ const Dashboard = () => {
               Gérer defi
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="12" icon={<EnvironmentOutlined />}>
+            <NavLink exact to="/dashboard/player/info">
+              Afficher Joueur
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">

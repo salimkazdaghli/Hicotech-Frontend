@@ -8,6 +8,7 @@ import CoachRoute from "../../../Routes/coachRoute";
 import MySkills from "../Content/MySkills/MySkills";
 import MyStatistic from "../Content/MyStatistics/MyStatistic";
 import Profile from "../Content/Profile";
+import PlayerInfo from "../Content/PlayerInfo";
 
 const DashboardRouting = () => (
   <Switch>
@@ -27,6 +28,7 @@ const DashboardRouting = () => (
     <Route exact path="/dashboard/myskills" component={MySkills} />
     <Route exact path="/dashboard/profile" component={Profile} />
     <Route exact path="/dashboard/mystatisitcs" component={MyStatistic} />
+    <CoachRoute exact path="/dashboard/player/info" component={PlayerInfo} />
   </Switch>
 );
 
