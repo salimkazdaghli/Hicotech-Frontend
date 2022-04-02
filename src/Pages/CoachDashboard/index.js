@@ -14,7 +14,6 @@ import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
 
 const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
 const Dashboard = () => {
   const [collapsed, setcollapsed] = useState(false);
   const history = useHistory();
@@ -92,6 +91,16 @@ const Dashboard = () => {
           </Menu.Item>
           <Menu.Item key="8" icon={<TeamOutlined />}>
             another Content 2
+          </Menu.Item>
+          <Menu.Item key="12" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/programmes">
+              Mes Programmes
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="13" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/players">
+              Mes Joueurs
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="9" icon={<LogoutOutlined />}>
             <NavLink exact to="/dashboard/invite">

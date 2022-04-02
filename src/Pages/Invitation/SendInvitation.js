@@ -2,10 +2,17 @@ import React from "react";
 import { Modal, Form, Input, DatePicker } from "antd";
 import { addInvitationApi } from "../../Services/InvitationService";
 import authService from "../../Services/authService";
+import notificationComponent from "../../Components/NotificationComponent";
 
 const SendInvitation = (props) => {
   const [form] = Form.useForm();
-  const { setIsModalVisible, isModalVisible } = props;
+  const {
+    setIsModalVisible,
+    isModalVisible,
+    invitations,
+    setInvitations,
+    setLoading,
+  } = props;
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
@@ -21,11 +28,15 @@ const SendInvitation = (props) => {
         email: values.email,
       },
     };
-    addInvitationApi(invitation).then(() => {
-      // console.log(res)
+    setLoading(false);
+    addInvitationApi(invitation).then((response) => {
+      const { data } = response;
+      invitations.push(data);
+      setInvitations(invitations);
+      notificationComponent("Notification", "invitation envoye ");
+      setLoading(true);
     });
     setIsModalVisible(false);
-    window.location.reload(false);
   };
 
   const handleCancel = () => {

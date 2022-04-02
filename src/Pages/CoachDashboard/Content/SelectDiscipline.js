@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Radio, Modal, Form, Skeleton, Button, Alert } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import disciplineService from "../../../Services/disciplineService";
-import userService from "../../../Services/userService";
+import { updateUserApi } from "../../../Services/userService";
 import authService from "../../../Services/authService";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
 
@@ -40,8 +40,7 @@ const SelectDescipline = () => {
   };
 
   const onFinish = async (userInput) => {
-    await userService
-      .updateUserApi(authService.getCurrentUser().id, userInput)
+    await updateUserApi(authService.getCurrentUser().id, userInput)
       .then(({ data }) => {
         setToken(data.token);
         setSubmitting(true);

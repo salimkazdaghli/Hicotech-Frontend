@@ -55,9 +55,8 @@ const MyStatistic = () => {
       setShowAlert(false);
     }, duration);
   };
-  const getStatistic = (page) => {
+  const getStatistic = () => {
     setLoading(true);
-    console.log(authService.getCurrentUser().discipline);
     getAllStatisticsApi(authService.getCurrentUser().discipline)
       .then((res) => res.data)
       .then(({ statistic }) => {
