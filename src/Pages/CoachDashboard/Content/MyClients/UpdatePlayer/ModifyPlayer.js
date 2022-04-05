@@ -1,5 +1,15 @@
-import { PageHeader, Tabs, Button, Statistic, Tag, Avatar } from "antd";
-import { ArrowUpOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import {
+  PageHeader,
+  Tabs,
+  Button,
+  Statistic,
+  Tag,
+  Avatar,
+  Row,
+  Col,
+  Alert,
+} from "antd";
 import { useLocation } from "react-router-dom";
 import Title from "antd/lib/typography/Title";
 import UpdatePlayerProfile from "./UpdatePlayerProfile";
@@ -7,43 +17,59 @@ import DisplayStats from "../DisplayStats/DisplayStats";
 import "./ModifyPlayer.css";
 
 const ModifyPlayer = () => {
-  const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
-
-  const { TabPane } = Tabs;
   const location = useLocation();
   const user = location.state;
+  const [player, setPlayer] = useState(user);
+  const [alert, setAlert] = useState(null);
+  const { TabPane } = Tabs;
+  const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   return (
     <>
       <Title>Modifier Joueur</Title>
+      {alert && (
+        <Row justify="center">
+          <Col>
+            <Alert
+              message={alert.message}
+              type={alert.type}
+              showIcon
+              closable
+            />
+          </Col>
+        </Row>
+      )}
       <PageHeader
         onBack={() => window.history.back()}
-        avatar={
-          <Avatar
-            style={{
-              color: "white",
-              backgroundColor:
-                ColorList[Math.floor(Math.random() * ColorList.length)],
-            }}
-          >
-            {user.firstName.charAt(0).toUpperCase()}
-          </Avatar>
-        }
-        title={`${user.firstName} ${user.lastName}`}
-        tags={<Tag color="blue">active</Tag>}
+        avatar={{
+          src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
+        }}
+        title={`${player.firstName} ${player.lastName}`}
+        // tags={
+        //   <Tag color={player.active ? "green" : "red"}>
+        //     {player.active ? "active" : "pas active"}
+        //   </Tag>
+        // }
         extra={[
-          <>
-            <Statistic
-              title="Status"
-              value="Active"
-              prefix={<ArrowUpOutlined />}
-              valueStyle={{ color: "#3f8600" }}
-              style={{ margin: "0 32px" }}
-            />
-            <Button type="primary" key="2">
-              Operation
-            </Button>
-            ,
-          </>,
+          <Statistic
+            title="Status"
+            value={player.active ? "active" : "pas active"}
+            valueStyle={
+              player.active ? { color: "#3f8600" } : { color: "#cc0000" }
+            }
+            style={{ marginRight: "100px" }}
+          />,
+          <Statistic
+            title="Prix Séance"
+            value={player.sessionPrice ? `${player.sessionPrice} TND` : "--"}
+            valueStyle={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            style={{
+              marginRight: "100px",
+            }}
+          />,
         ]}
       >
         {/* <Row>
@@ -53,7 +79,11 @@ const ModifyPlayer = () => {
 
       <Tabs defaultActiveKey="1">
         <TabPane tab="Modifier information" key="1">
-          <UpdatePlayerProfile user={user} />
+          <UpdatePlayerProfile
+            user={player}
+            setPlayer={setPlayer}
+            setAlert={setAlert}
+          />
         </TabPane>
         <TabPane tab="Les Buts à atteindre" key="2">
           <DisplayStats />

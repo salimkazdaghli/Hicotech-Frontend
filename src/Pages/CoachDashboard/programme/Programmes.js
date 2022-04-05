@@ -61,7 +61,6 @@ const Programmes = () => {
             ))}
           </Row>
         )}
-        ;
       </div>
       {loading && (
         <ProgrammeForm

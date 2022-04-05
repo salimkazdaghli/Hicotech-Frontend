@@ -62,7 +62,7 @@ const Dashboard = () => {
 
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            <NavLink exact to="/dashboard/accueil">
+            <NavLink exact to="/dashboard/modifier">
               Accueil
             </NavLink>
           </Menu.Item>

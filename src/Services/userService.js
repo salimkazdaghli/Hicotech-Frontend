@@ -8,7 +8,7 @@ export function getUserApi(id) {
 }
 
 export function updateUserApi(id, data) {
-  return axios.put(`/api/users/${id}`, data);
+  return axios.put(`api/users/${id}`, data);
 }
 
 export function addUserApi(data) {
