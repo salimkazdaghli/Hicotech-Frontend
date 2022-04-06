@@ -12,13 +12,14 @@ const Programmes = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [programmeSelected, setProgrammeSelected] = useState({});
   const [statistics, setStatistics] = useState([]);
+  const currentUser = authService.getCurrentUser();
+
   const showModal = () => {
     setProgrammeSelected({ _id: "0000" });
     setIsModalVisible(true);
   };
 
   async function getProgrammes() {
-    const currentUser = authService.getCurrentUser();
     await getAllProgrammeApi({ creacteBy: currentUser.id })
       .then((response) => {
         setProgrammes(response.data);
@@ -27,9 +28,9 @@ const Programmes = () => {
       .catch(() => {});
   }
   async function getStatistics() {
-    await getAllStatisticsApi()
+    await getAllStatisticsApi(currentUser.discipline)
       .then((response) => {
-        setStatistics(response.data);
+        setStatistics(response.data.statistic);
         setLoading(true);
       })
       .catch(() => {});
