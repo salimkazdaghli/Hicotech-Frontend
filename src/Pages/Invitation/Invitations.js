@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Row, Button } from "antd";
+import { Row, Button, Spin, Space, Col } from "antd";
 import { getAllInvitationApi } from "../../Services/InvitationService";
 import InvitationCard from "./InvitationCard";
 import SendInvitation from "./SendInvitation";
@@ -14,14 +14,12 @@ const Invitations = () => {
     setIsModalVisible(true);
   };
 
-  const onChange = () => {
-    setLoading(!loading);
-  };
   async function getInvitations() {
     const currentUser = authService.getCurrentUser();
     await getAllInvitationApi({ creacteBy: currentUser.id })
       .then((response) => {
         setInvitations(response.data);
+        setLoading(true);
       })
       .catch(() => {});
   }
@@ -30,20 +28,41 @@ const Invitations = () => {
   }, []);
   return (
     <>
-      <Switch checked={!loading} onChange={onChange} />
       <Button type="primary" onClick={showModal} style={{ float: "right" }}>
         Send Invotation
       </Button>
       <div className="site-card-wrapper">
-        <Row gutter={16}>
-          {invitations.map((invitation) => (
-            <InvitationCard invitation={invitation} loading={loading} />
-          ))}
-        </Row>
+        {loading && (
+          <Row gutter={16}>
+            {invitations.map((invitation) => (
+              <InvitationCard
+                invitation={invitation}
+                setLoading={setLoading}
+                key={invitation._id}
+                invitations={invitations}
+                setInvitations={setInvitations}
+                loading={loading}
+              />
+            ))}
+          </Row>
+        )}
+        ;
+        {!loading && (
+          <Row gutter={16}>
+            <Col span={8}>
+              <Space size="middle" style={{ marginTop: 250, marginLeft: 600 }}>
+                <Spin size="large" tip="Loading..." />
+              </Space>
+            </Col>
+          </Row>
+        )}
       </div>
       <SendInvitation
         setIsModalVisible={setIsModalVisible}
         isModalVisible={isModalVisible}
+        invitations={invitations}
+        setInvitations={setInvitations}
+        setLoading={setLoading}
       />
     </>
   );
