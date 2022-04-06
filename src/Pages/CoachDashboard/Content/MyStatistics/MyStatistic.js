@@ -25,7 +25,7 @@ import {
   getAllStatisticsApi,
   deleteStatisticsApi,
   updateStatisticsApi,
-} from "../../../../Services/StatisticService";
+} from "../../../../Services/statisticService";
 import StatisticFormField from "./StatisticFormField";
 import authService from "../../../../Services/authService";
 // import {
@@ -55,9 +55,8 @@ const MyStatistic = () => {
       setShowAlert(false);
     }, duration);
   };
-  const getStatistic = (page) => {
+  const getStatistic = () => {
     setLoading(true);
-    console.log(authService.getCurrentUser().discipline);
     getAllStatisticsApi(authService.getCurrentUser().discipline)
       .then((res) => res.data)
       .then(({ statistic }) => {
