@@ -16,17 +16,15 @@ import {
   Row,
   Select,
   Spin,
-  Switch,
 } from "antd";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import React, { useState } from "react";
 import gouvernorats from "../../../../../utils/gouvernorats";
 import { updateUserApi } from "../../../../../Services/userService";
-import authService from "../../../../../Services/authService";
 
 const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
-  const [data, setData] = useState(user);
+  const [data] = useState(user);
 
   const [loading, setLoading] = useState(false);
 

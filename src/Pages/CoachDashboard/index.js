@@ -90,7 +90,9 @@ const Dashboard = () => {
             another Content
           </Menu.Item>
           <Menu.Item key="8" icon={<TeamOutlined />}>
-            another Content 2
+            <NavLink exact to="/dashboard/payer-abonnement">
+              Abonnement
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="12" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/programmes">
