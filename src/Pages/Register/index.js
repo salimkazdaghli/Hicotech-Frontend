@@ -10,7 +10,7 @@ import auth from "../../Services/authService";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 import gouvernorats from "../../utils/gouvernorats";
 import { updateInvitationApi } from "../../Services/InvitationService";
-import { updateUserApi } from "../../Services/userService";
+import userService from "../../Services/userService";
 
 const { Option } = Select;
 
@@ -36,7 +36,7 @@ const Register = (props, { location }) => {
             expired: true,
             etat: "accepté",
           });
-          updateUserApi(invi.creacteBy._id, {
+          userService.updateUserApi(invi.creacteBy._id, {
             myPlayers: [...invi.creacteBy.myPlayers, acceptedBy.id],
           });
         }

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Table, Col, Alert, Typography } from "antd";
 
-import { getUserApi } from "../../../Services/userService";
+import userService from "../../../Services/userService";
 import authService from "../../../Services/authService";
 import "./TrainingGround.css";
 
@@ -17,7 +17,8 @@ const Players = () => {
     if (authService.getCurrentUser()) {
       setLoading(true);
 
-      getUserApi(authService.getCurrentUser().id)
+      userService
+        .getUserByIdApi(authService.getCurrentUser().id)
         .then((data) => {
           setDataSource(data.data.myPlayers);
         })

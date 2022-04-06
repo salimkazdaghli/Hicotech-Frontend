@@ -4,8 +4,10 @@ import auth from "../Services/authService";
 
 const CoachRoute = ({ component: Component, render, ...rest }) => {
   const currentUser = auth.getCurrentUser();
+
   return (
     <Route
+      /* eslint-disable react/jsx-props-no-spreading */
       {...rest}
       render={(props) => {
         if (currentUser && currentUser.role === "coach") {
