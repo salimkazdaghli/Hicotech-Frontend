@@ -60,8 +60,8 @@ const Register = (props, { location }) => {
     const currentUser = auth.getCurrentUser();
     if (currentUser) {
       history.push(
-        location && location.state
-          ? location.state.from.pathname
+        location?.state
+          ? location.state?.from?.pathname
           : currentUser.role && currentUser.role === "coach"
           ? "/dashboard"
           : "/test"

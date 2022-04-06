@@ -4,7 +4,6 @@ import auth from "../Services/authService";
 
 const JoueurRoute = ({ component: Component, render, ...rest }) => {
   const currentUser = auth.getCurrentUser();
-  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Route
       {...rest}

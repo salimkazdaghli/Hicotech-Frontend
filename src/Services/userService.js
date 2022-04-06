@@ -1,20 +1,24 @@
 import axios from "../utils/axiosInstance";
 
-export function getAllUserApi(data) {
+ function getAllUserApi(data) {
   return axios.get("/api/users", { params: data });
 }
-export function getUserApi(id) {
+function addUserApi(data) {
+  return axios.post("/api/users", data);
+}
+function getUserByIdApi(id) {
   return axios.get(`/api/users/${id}`);
 }
-
-export function updateUserApi(id, data) {
+function updateUserApi(id, data) {
   return axios.put(`/api/users/${id}`, data);
 }
-
-export function addUserApi(data) {
-  return axios.post("/api/users/", data);
-}
-
-export function deleteUserApi(id) {
+function deleteUserApi(id) {
   return axios.delete(`/api/users/${id}`);
 }
+export default {
+  getAllUserApi,
+  getUserByIdApi,
+  addUserApi,
+  updateUserApi,
+  deleteUserApi,
+};

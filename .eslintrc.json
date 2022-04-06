@@ -19,6 +19,7 @@
     "consistent-return": "off",
     "no-template-curly-in-string": "off",
     "no-unused-vars": "warn",
+    "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": [
       2,
       {
@@ -26,15 +27,14 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "react/prop-types": [
-      "off",
-      { "ignore": "ignore", "customValidators": "customValidator" }
-    ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-shadow": "off",
-    "react/prop-types": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "import/prefer-default-export": "off",
+    "no-unused-vars": "warn",
     "no-underscore-dangle": "off",
-    "camelcase": "off"
+    "react/prop-types": "off",
+    "react/prop-types": "off"
   }
 }
