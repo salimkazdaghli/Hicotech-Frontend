@@ -5,6 +5,7 @@ import ManageTrainingGround from "../Content/ManageTrainingGround";
 import Invitations from "../../Invitation/Invitations";
 import Defis from "../../Defi/Defis";
 import Programmes from "../programme/Programmes";
+import Events from "../event/Events";
 import Players from "../Content/Players";
 import SelectDiscipline from "../Content/SelectDiscipline";
 import CoachRoute from "../../../Routes/coachRoute";
@@ -30,6 +31,7 @@ const DashboardRouting = () => (
     <Route exact path="/dashboard/myskills" component={MySkills} />
     <Route exact path="/dashboard/profile" component={Profile} />
     <Route exact path="/dashboard/defis" component={Defis} />
+    <Route exact path="/dashboard/events" component={Events} />
     <Route exact path="/dashboard/mystatisitcs" component={MyStatistic} />
     <Route exact path="/dashboard/programmes" component={Programmes} />
     <Route exact path="/dashboard/players" component={Players} />

@@ -56,10 +56,21 @@ const DefiCard = (props) => {
               style={{ color: "#ffcd00" }}
             />,
           ]}
+          hoverable
+          style={{ width: 300, marginTop: 20 }}
+          cover={
+            <a href={defiLien}>
+              <img
+                alt="Video"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8YPDtFDdBb7Z8mC7bkldgpUXuPkQvrSjIOdKTKcrrelZJoywv6g0LgmwY9illSeO_r4E&usqp=CAU"
+                width="150"
+                height="150"
+                style={{ alignSelf: "center" }}
+              />
+            </a>
+          }
         >
-          <Typography avatar>
-            <Meta title={title} />
-          </Typography>
+          <Meta title={title} />
           <Typography paragraph>{description}</Typography>
           <Typography paragraph>
             <i>
@@ -72,11 +83,6 @@ const DefiCard = (props) => {
               <b>Expiré le :</b>{" "}
             </i>
             <i format="YYYY/MM/DD">{dateExpiration.dateToFormat}</i>
-          </Typography>
-          <Typography paragraph>
-            <a href={defiLien}>
-              <i>Lien Vidéo : {defiLien} </i>
-            </a>
           </Typography>
         </Card>
       </Skeleton>

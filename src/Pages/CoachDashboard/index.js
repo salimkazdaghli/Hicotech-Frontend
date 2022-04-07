@@ -67,6 +67,11 @@ const Dashboard = () => {
               Accueil
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="3" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/defis">
+              Les Défis
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="2" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/profile">
               Attribuer un défi
@@ -78,9 +83,10 @@ const Dashboard = () => {
               Mes Invitations
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="3" icon={<DesktopOutlined />}>
-            <NavLink exact to="/dashboard/defis">
-              Les Défis
+
+          <Menu.Item key="10" icon={<EnvironmentOutlined />}>
+            <NavLink exact to="/dashboard/events">
+              Mes évenements
             </NavLink>
           </Menu.Item>
           <Menu.Item key="12" icon={<DesktopOutlined />}>
