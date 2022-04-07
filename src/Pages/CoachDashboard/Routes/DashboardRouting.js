@@ -3,6 +3,7 @@ import AccueilPage from "../Content/Accueil";
 import GererDefi from "../Content/GererDefi";
 import ManageTrainingGround from "../Content/ManageTrainingGround";
 import Invitations from "../../Invitation/Invitations";
+import Defis from "../../Defi/Defis";
 import Programmes from "../programme/Programmes";
 import Players from "../Content/Players";
 import SelectDiscipline from "../Content/SelectDiscipline";
@@ -10,7 +11,6 @@ import CoachRoute from "../../../Routes/coachRoute";
 import MySkills from "../Content/MySkills/MySkills";
 import MyStatistic from "../Content/MyStatistics/MyStatistic";
 import Profile from "../Content/Profile";
-
 
 const DashboardRouting = () => (
   <Switch>
@@ -29,6 +29,7 @@ const DashboardRouting = () => (
     <CoachRoute exact path="/dashboard/invitations" component={Invitations} />
     <Route exact path="/dashboard/myskills" component={MySkills} />
     <Route exact path="/dashboard/profile" component={Profile} />
+    <Route exact path="/dashboard/defis" component={Defis} />
     <Route exact path="/dashboard/mystatisitcs" component={MyStatistic} />
     <Route exact path="/dashboard/programmes" component={Programmes} />
     <Route exact path="/dashboard/players" component={Players} />

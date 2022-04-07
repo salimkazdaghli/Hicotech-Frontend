@@ -4,7 +4,7 @@ import { getAllProgrammeApi } from "../../../Services/ProgrammeService";
 import ProgrammeCard from "./ProgrammeCard";
 import ProgrammeForm from "./ProgrammeForm";
 import authService from "../../../Services/authService";
-import { getAllStatisticsApi } from "../../../Services/statisticService";
+import { getAllStatisticsApi } from "../../../Services/StatisticService";
 
 const Programmes = () => {
   const [loading, setLoading] = useState(false);

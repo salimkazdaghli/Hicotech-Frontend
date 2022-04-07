@@ -73,10 +73,14 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
 
-
           <Menu.Item key="3" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/invitations">
               Mes Invitations
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="3" icon={<DesktopOutlined />}>
+            <NavLink exact to="/dashboard/defis">
+              Les Défis
             </NavLink>
           </Menu.Item>
           <Menu.Item key="12" icon={<DesktopOutlined />}>
@@ -89,6 +93,7 @@ const Dashboard = () => {
               Mes Joueurs
             </NavLink>
           </Menu.Item>
+
           <Menu.Item key="4" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/mystatisitcs">
               Mes Statistiques
