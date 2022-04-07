@@ -4,6 +4,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { getAllDefiApi } from "../../Services/DefiService";
 import DefiCard from "./DefiCard";
 import DefiForm from "./DefiForm";
+
 import authService from "../../Services/authService";
 
 const Defis = () => {
@@ -11,7 +12,6 @@ const Defis = () => {
   const [defis, setDefis] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [defiSelected, setDefiSelected] = useState({});
-
   const currentUser = authService.getCurrentUser();
 
   const showModal = () => {
@@ -39,7 +39,7 @@ const Defis = () => {
         icon={<PlusOutlined />}
         style={{ float: "right" }}
       >
-        Nouveau défi
+        Nouveau Défi
       </Button>
       <div className="site-card-wrapper">
         {loading && (

@@ -1,8 +1,7 @@
 import React from "react";
-import { Card, Col, Skeleton, Typography } from "antd";
+import { Form, Card, Col, Skeleton, Typography, Radio, Row } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteDefiApi } from "../../Services/DefiService";
-
 import notificationComponent from "../../Components/NotificationComponent";
 
 const DefiCard = (props) => {
@@ -19,11 +18,11 @@ const DefiCard = (props) => {
   const {
     title = `${defi.defiName}`,
     description = ` ${defi.defiObjectif} `,
-    defiLien = ` ${defi.defiLien} `,
-    createdAt = `${defi.createdAt}  `,
     dateExpiration = `${defi.dateExpiration} `,
+    defiLien = ` ${defi.defiLien} `,
+    defiVisible = ` ${defi.defiVisible} `,
   } = defi;
-  console.log(title);
+
   const onDelete = () => {
     setLoading(false);
     deleteDefiApi(defi._id).then(() => {
@@ -53,31 +52,30 @@ const DefiCard = (props) => {
             <EditOutlined
               key="stop"
               onClick={onUpdate}
-              style={{ color: "#ffcd00" }}
+              style={{ color: "#A0660D" }}
             />,
           ]}
           hoverable
-          style={{ width: 300, marginTop: 20 }}
+          style={{ width: 320, marginTop: 40 }}
           cover={
             <a href={defiLien}>
               <img
                 alt="Video"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8YPDtFDdBb7Z8mC7bkldgpUXuPkQvrSjIOdKTKcrrelZJoywv6g0LgmwY9illSeO_r4E&usqp=CAU"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxPguujnk0QFLgGe9aVYlb2W6X9rSW7APDehkusJBjPPtCJD_tK5Ltdx5v2sG6ST8hUJk&usqp=CAU"
                 width="150"
                 height="150"
-                style={{ alignSelf: "center" }}
               />
             </a>
           }
         >
           <Meta title={title} />
           <Typography paragraph>{description}</Typography>
-          <Typography paragraph>
+          {/* <Typography paragraph>
             <i>
               <b>Créer le :</b>
             </i>{" "}
             <i format="YYYY/MM/DD">{createdAt.dateToFormat}</i>
-          </Typography>
+          </Typography> */}
           <Typography paragraph>
             <i>
               <b>Expiré le :</b>{" "}

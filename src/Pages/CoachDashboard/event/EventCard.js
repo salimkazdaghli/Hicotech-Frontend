@@ -3,6 +3,7 @@ import { Card, Col, Skeleton } from "antd";
 import {
   EditOutlined,
   FormOutlined,
+  StopOutlined,
   CloseOutlined,
   CheckOutlined,
   EyeOutlined,
@@ -60,6 +61,11 @@ const EventCard = (props) => {
               key="stop"
               onClick={onUpdate}
               style={{ color: "#0779EC" }}
+            />,
+            <StopOutlined
+              key="stop"
+              onClick={onUpdate}
+              style={{ color: "#ffcd00" }}
             />,
           ]}
           hoverable
