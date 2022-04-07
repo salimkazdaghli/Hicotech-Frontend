@@ -29,7 +29,10 @@ const DefiCard = (props) => {
     deleteDefiApi(defi._id).then(() => {
       setDefis(defis.filter((defiItem) => defiItem._id !== defi._id));
       setLoading(true);
-      notificationComponent("notification", "delete");
+      notificationComponent(
+        "Notification",
+        "Le défi est supprimé avec succeés"
+      );
     });
   };
 
@@ -54,7 +57,7 @@ const DefiCard = (props) => {
             />,
           ]}
         >
-          <Skeleton>
+          <Skeleton loading={loading} avatar active>
             <Meta title={title} />
           </Skeleton>
           <Typography paragraph>{description}</Typography>

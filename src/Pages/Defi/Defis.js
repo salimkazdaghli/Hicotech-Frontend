@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import { getAllDefiApi } from "../../Services/DefiService";
 import DefiCard from "./DefiCard";
 import DefiForm from "./DefiForm";
@@ -32,7 +33,12 @@ const Defis = () => {
   }, []);
   return (
     <>
-      <Button type="primary" onClick={showModal} style={{ float: "right" }}>
+      <Button
+        type="primary"
+        onClick={showModal}
+        icon={<PlusOutlined />}
+        style={{ float: "right" }}
+      >
         Nouveau défi
       </Button>
       <div className="site-card-wrapper">
