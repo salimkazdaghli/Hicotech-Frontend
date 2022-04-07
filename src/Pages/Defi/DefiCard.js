@@ -57,9 +57,9 @@ const DefiCard = (props) => {
             />,
           ]}
         >
-          <Skeleton loading={loading} avatar active>
+          <Typography avatar>
             <Meta title={title} />
-          </Skeleton>
+          </Typography>
           <Typography paragraph>{description}</Typography>
           <Typography paragraph>
             <i>

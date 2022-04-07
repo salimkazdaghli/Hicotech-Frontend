@@ -37,13 +37,13 @@ const DefiForm = (props) => {
     } else {
       updateDefiApi(defiSelected._id, defi).then((res) => {
         const { data } = res;
-        const newDefis = defis.map((defiItem) => {
+        const newDef = defis.map((defiItem) => {
           if (defiItem._id === defiSelected._id) {
             return data;
           }
           return defiItem;
         });
-        setDefis(newDefis);
+        setDefis(newDef);
         setLoading(true);
         notificationComponent("Notification", "Modification avec succés ");
       });
