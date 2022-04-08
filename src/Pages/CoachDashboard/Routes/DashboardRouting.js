@@ -2,15 +2,14 @@ import { Switch, Route } from "react-router-dom";
 import AccueilPage from "../Content/Accueil";
 import GererDefi from "../Content/GererDefi";
 import ManageTrainingGround from "../Content/ManageTrainingGround";
-import Invitations from "../../Invitation/Invitations";
-import Programmes from "../programme/Programmes";
+import Invitations from "../Content/MyInvitation/Invitations";
+import Programmes from "../Content/MyProgramme/Programmes";
 import Players from "../Content/Players";
 import SelectDiscipline from "../Content/SelectDiscipline";
 import CoachRoute from "../../../Routes/coachRoute";
 import MySkills from "../Content/MySkills/MySkills";
 import MyStatistic from "../Content/MyStatistics/MyStatistic";
 import Profile from "../Content/Profile";
-
 
 const DashboardRouting = () => (
   <Switch>

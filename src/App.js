@@ -12,7 +12,7 @@ import RegisterPage from "./Pages/Register";
 import Dashboard from "./Pages/CoachDashboard";
 import CoachRoute from "./Routes/coachRoute";
 import NotFound from "./Pages/Error/notFound";
-import Invitation from "./Pages/Invitation";
+import Invitation from "./Pages/CoachDashboard/Content/MyInvitation";
 
 const App = () => (
   <Router>

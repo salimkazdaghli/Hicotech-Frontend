@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Col, Form, Input, InputNumber, Modal, Radio, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { addStatisticApi } from "../../../../Services/statisticService";
+import { addStatisticApi } from "../../../../Services/StatisticService";
 import authService from "../../../../Services/authService";
 
 const StatisticFormField = ({
