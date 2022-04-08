@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Rate, Card, Col, Row } from "antd";
+import { List, Rate, Card } from "antd";
 import { v4 as uuidv4 } from "uuid";
 
 const Skills = () => {

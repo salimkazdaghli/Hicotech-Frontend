@@ -24,13 +24,13 @@ const Statistics = ({ data = [] }) => (
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="date" />
       <YAxis />
       <Tooltip />
       <Legend />
       <Line
         type="monotone"
-        dataKey="pv"
+        dataKey="value"
         stroke="#8884d8"
         activeDot={{ r: 8 }}
       />

@@ -9,25 +9,45 @@ import notificationComponent from "../../Components/NotificationComponent";
 
 const InvitationCard = (props) => {
   const { Meta } = Card;
-  const { invitation, loading } = props;
-  const title = `Invitation  ${invitation.etat}`;
-  const description = `vous avez invité le joueur ${invitation.userData.firstName} ${invitation.userData.lastName} son email est ${invitation.email} à ${invitation.createdAt}`;
+  const { invitation, loading, setLoading, invitations, setInvitations } =
+    props;
+  const title = `Invitation Joueur ${invitation.userData.firstName} ${invitation.userData.lastName} `;
+  const etat = `Invitation ${invitation.etat}`;
 
   const onDelete = () => {
-    deleteInvitationApi(invitation._id);
-    window.location.reload(false);
-    notificationComponent();
+    setLoading(false);
+    deleteInvitationApi(invitation._id).then(() => {
+      setInvitations(
+        invitations.filter(
+          (invitationItem) => invitationItem._id !== invitation._id
+        )
+      );
+      setLoading(true);
+      notificationComponent("notification", "delete invi");
+    });
   };
   const onUpdate = () => {
     if (invitation.expired !== true) {
-      updateInvitationApi(invitation._id, { etat: "annulé", expired: true });
-      window.location.reload(false);
+      setLoading(false);
+      updateInvitationApi(invitation._id, {
+        etat: "annulé",
+        expired: true,
+      }).then((res) => {
+        const { data } = res;
+        const newInvitations = invitations.map((invitationItem) => {
+          if (invitationItem._id === invitation._id) return data;
+          return invitationItem;
+        });
+        setInvitations(newInvitations);
+        setLoading(true);
+        notificationComponent("Notification", "Invitation update ");
+      });
     } else {
       notificationComponent("Notification", "Invitation déja experid");
     }
   };
   return (
-    <Col span={8} key={invitation._id}>
+    <Col span={8}>
       <Card
         style={{ marginTop: 16 }}
         actions={[
@@ -43,7 +63,7 @@ const InvitationCard = (props) => {
           />,
         ]}
       >
-        <Skeleton loading={loading} avatar active>
+        <Skeleton loading={!loading} avatar active>
           <Meta
             avatar={
               <Avatar style={{ color: "#fff", backgroundColor: "#36a2e1" }}>
@@ -51,8 +71,13 @@ const InvitationCard = (props) => {
               </Avatar>
             }
             title={title}
-            description={description}
+            description={etat}
           />
+          <p> Email : {invitation.email} </p>
+          <p> CreatedAt : {invitation.createdAt}</p>
+          {invitation.acceptedBy && (
+            <p> AcceptedBy : {invitation.acceptedBy.email} </p>
+          )}
         </Skeleton>
       </Card>
     </Col>

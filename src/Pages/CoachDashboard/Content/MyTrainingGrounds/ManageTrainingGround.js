@@ -19,10 +19,10 @@ import {
   CloseOutlined,
 } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
-import trainingGround from "../../../Services/trainingGround";
-import gouvernorats from "../../../utils/gouvernorats";
-import authService from "../../../Services/authService";
-import Location from "../../../Components/Map";
+import trainingGround from "../../../../Services/trainingGround";
+import gouvernorats from "../../../../utils/gouvernorats";
+import authService from "../../../../Services/authService";
+import Location from "../../../../Components/Map";
 import AddTrainingGround from "./AddTrainingGround";
 import "./TrainingGround.css";
 
