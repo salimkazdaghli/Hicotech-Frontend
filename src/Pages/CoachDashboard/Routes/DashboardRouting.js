@@ -4,6 +4,7 @@ import GererDefi from "../Content/GererDefi";
 import ManageTrainingGround from "../Content/ManageTrainingGround";
 import Invitations from "../Content/MyInvitation/Invitations";
 import Programmes from "../Content/MyProgramme/Programmes";
+import Defis from "../../Defi/Defis";
 import Players from "../Content/Players";
 import SelectDiscipline from "../Content/SelectDiscipline";
 import CoachRoute from "../../../Routes/coachRoute";
@@ -28,6 +29,7 @@ const DashboardRouting = () => (
     <CoachRoute exact path="/dashboard/invitations" component={Invitations} />
     <Route exact path="/dashboard/myskills" component={MySkills} />
     <Route exact path="/dashboard/profile" component={Profile} />
+    <Route exact path="/dashboard/defis" component={Defis} />
     <Route exact path="/dashboard/mystatisitcs" component={MyStatistic} />
     <Route exact path="/dashboard/programmes" component={Programmes} />
     <Route exact path="/dashboard/players" component={Players} />
