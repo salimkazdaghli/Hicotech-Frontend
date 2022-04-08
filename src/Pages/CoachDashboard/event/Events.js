@@ -22,12 +22,21 @@ const Events = () => {
   };
 
   async function getEvents() {
-    await getAllEventApi({ creacteBy: currentUser.id, eventVisible: true })
-      .then((response) => {
-        setEvents(response.data);
-        setLoading(true);
-      })
-      .catch(() => {});
+    if (currentUser.role === "coach") {
+      await getAllEventApi({ creacteBy: currentUser.id, eventVisible: true })
+        .then((response) => {
+          setEvents(response.data);
+          setLoading(true);
+        })
+        .catch(() => {});
+    } else {
+      await getAllEventApi({ eventVisible: true })
+        .then((response) => {
+          setEvents(response.data);
+          setLoading(true);
+        })
+        .catch(() => {});
+    }
   }
 
   useEffect(() => {

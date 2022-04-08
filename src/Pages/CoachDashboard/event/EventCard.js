@@ -98,18 +98,6 @@ const EventCard = (props) => {
                     onClick={eventDetail}
                     style={{ color: "#060601" }}
                   />
-                  ,
-                  <CheckOutlined
-                    key="stop"
-                    onClick={onParticipateEvent}
-                    style={{ color: "#0779EC" }}
-                  />
-                  ,
-                  <StopOutlined
-                    key="stop"
-                    onClick={onVisible}
-                    style={{ color: "#ffcd00" }}
-                  />
                 </>
               )}
 
@@ -121,13 +109,11 @@ const EventCard = (props) => {
                     onClick={eventDetail}
                     style={{ color: "#060601" }}
                   />
-                  ,
                   <CheckOutlined
                     key="stop"
                     onClick={onParticipateEvent}
                     style={{ color: "#0779EC" }}
                   />
-                  ,
                   <StopOutlined
                     key="stop"
                     onClick={onVisible}
