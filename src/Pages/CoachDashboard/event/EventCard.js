@@ -110,7 +110,7 @@ const EventCard = (props) => {
             />
           }
         >
-          <Meta title={title} description={description} dateEvent={dateEvent} />
+          <Meta title={title} />
         </Card>
       </Skeleton>
     </Col>

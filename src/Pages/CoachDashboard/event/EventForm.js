@@ -1,9 +1,12 @@
 import React from "react";
 import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
+import moment from "moment";
 import { addEventApi, updateEventApi } from "../../../Services/EventService";
 import authService from "../../../Services/authService";
 import notificationComponent from "../../../Components/NotificationComponent";
+
+const dateFormat = "YYYY/MM/DD";
 
 const EventForm = (props) => {
   const { Option } = Select;
@@ -21,6 +24,7 @@ const EventForm = (props) => {
       ? "Créer un nouveau évenement"
       : "Modifier un évenement ";
   const modalBtnText = eventSelected._id === "0000" ? "Créer" : "Modifier";
+  const worker = moment(eventSelected.dateEvent);
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
@@ -85,6 +89,7 @@ const EventForm = (props) => {
           title: eventSelected ? eventSelected.title : "test",
           description: eventSelected ? eventSelected.description : "test",
           etat: eventSelected ? eventSelected.etat : "",
+          dateEvent: worker,
         }}
       >
         <Form.Item
@@ -111,6 +116,18 @@ const EventForm = (props) => {
         >
           <Input placeholder="Description de l'évenement" />
         </Form.Item>
+        <Form.Item
+          label="Date d'évenement "
+          name="dateEvent"
+          rules={[
+            {
+              required: true,
+              message: "Ce champs est obligatoire",
+            },
+          ]}
+        >
+          <DatePicker format={dateFormat} style={{ display: "flex" }} />
+        </Form.Item>
         <Form.Item label="Etats" name="Visibilité" rules={[]}>
           <Select
             mode="simple"
@@ -130,18 +147,6 @@ const EventForm = (props) => {
           </Select>
         </Form.Item>
 
-        <Form.Item
-          label="Date de l'évenement "
-          name="dateEvent"
-          rules={[
-            {
-              required: true,
-              message: "Ce champs est obligatoire",
-            },
-          ]}
-        >
-          <DatePicker format="YYYY/MM/DD" style={{ display: "flex" }} />
-        </Form.Item>
         <Button type="primary" icon={<DownloadOutlined />}>
           Télecharger Affiche
         </Button>
