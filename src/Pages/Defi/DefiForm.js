@@ -3,7 +3,7 @@ import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
 import Moment from "react-moment";
 import moment from "moment";
 
-import { addDefiApi, updateDefiApi } from "../../Services/DefiService";
+import { addDefiApi, updateDefiApi } from "../../Services/defiService";
 import authService from "../../Services/authService";
 import notificationComponent from "../../Components/NotificationComponent";
 
