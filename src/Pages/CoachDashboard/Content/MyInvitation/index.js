@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getInvitationApi } from "../../Services/InvitationService";
-import Register from "../Register/index";
-import PageNotFound from "../PageNotFound";
+import { getInvitationApi } from "../../../../Services/InvitationService";
+import Register from "../../../Register/index";
+import PageNotFound from "../../../PageNotFound";
 import InvitationForm from "./InvitationForm";
 
 const Invitation = () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal, Form, Input, DatePicker } from "antd";
-import { addInvitationApi } from "../../Services/InvitationService";
-import authService from "../../Services/authService";
-import notificationComponent from "../../Components/NotificationComponent";
+import { addInvitationApi } from "../../../../Services/InvitationService";
+import authService from "../../../../Services/authService";
+import notificationComponent from "../../../../Components/NotificationComponent";
 
 const SendInvitation = (props) => {
   const [form] = Form.useForm();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { getAllDefiApi } from "../../Services/DefiService";
+import { getAllDefiApi } from "../../Services/defiService";
 import DefiCard from "./DefiCard";
 import DefiForm from "./DefiForm";
 import authService from "../../Services/authService";

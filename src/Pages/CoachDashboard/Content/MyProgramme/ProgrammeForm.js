@@ -1,14 +1,15 @@
 import React from "react";
-import { Modal, Form, Input, Select } from "antd";
+import { Modal, Form, Input, Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+
 import {
   addProgrammeApi,
   updateProgrammeApi,
-} from "../../../Services/ProgrammeService";
-import authService from "../../../Services/authService";
-import notificationComponent from "../../../Components/NotificationComponent";
+} from "../../../../Services/ProgrammeService";
+import authService from "../../../../Services/authService";
+import notificationComponent from "../../../../Components/NotificationComponent";
 
 const ProgrammeForm = (props) => {
-  const { Option } = Select;
   const [form] = Form.useForm();
   const {
     setIsModalVisible,
@@ -17,7 +18,6 @@ const ProgrammeForm = (props) => {
     programmes,
     setLoading,
     programmeSelected,
-    statistics,
   } = props;
   const modalTitle =
     programmeSelected._id === "0000"
@@ -29,6 +29,7 @@ const ProgrammeForm = (props) => {
     const currentUser = authService.getCurrentUser();
     const programme = {
       ...values,
+      image: values.image.fileList[0].thumbUrl,
       creacteBy: currentUser.id,
     };
     setLoading(false);
@@ -62,6 +63,7 @@ const ProgrammeForm = (props) => {
     setIsModalVisible(false);
   };
 
+  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Modal
       visible={isModalVisible}
@@ -85,12 +87,9 @@ const ProgrammeForm = (props) => {
         name="form_in_modal"
         initialValues={{
           _id: programmeSelected ? programmeSelected._id : null,
-          title: programmeSelected ? programmeSelected.title : "test",
-          description: programmeSelected
-            ? programmeSelected.description
-            : "test",
-          statistics: programmeSelected ? programmeSelected.statistics : [],
-          videoLink: programmeSelected ? programmeSelected.videoLink : "",
+          title: programmeSelected ? programmeSelected.title : null,
+          description: programmeSelected ? programmeSelected.description : null,
+          videoLink: programmeSelected ? programmeSelected.videoLink : null,
         }}
       >
         <Form.Item
@@ -117,23 +116,14 @@ const ProgrammeForm = (props) => {
         >
           <Input placeholder="description" />
         </Form.Item>
-        <Form.Item label="statistics" name="statistics" rules={[]}>
-          <Select
-            mode="multiple"
-            allowClear
-            style={{ width: "100%" }}
-            placeholder="Please select"
-            defaultValue={[]}
-          >
-            {statistics.map((statistic) => (
-              <Option key={statistic._id} value={statistic._id}>
-                {statistic.statisticName}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
+
         <Form.Item name="videoLink" label="lien video" rules={[]}>
           <Input placeholder="lien video" />
+        </Form.Item>
+        <Form.Item name="image" rules={[]}>
+          <Upload listType="picture" beforeupload={false}>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
         </Form.Item>
       </Form>
     </Modal>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Col, Skeleton, Typography } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { deleteDefiApi } from "../../Services/DefiService";
+import { deleteDefiApi } from "../../Services/defiService";
 
 import notificationComponent from "../../Components/NotificationComponent";
 

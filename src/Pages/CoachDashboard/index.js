@@ -14,7 +14,6 @@ import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
 
 const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
 const Dashboard = () => {
   const [collapsed, setcollapsed] = useState(false);
   const history = useHistory();
