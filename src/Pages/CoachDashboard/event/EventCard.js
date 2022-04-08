@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, Col, Skeleton } from "antd";
 import {
-  EditOutlined,
   FormOutlined,
   StopOutlined,
   CloseOutlined,
@@ -24,7 +23,7 @@ const EventCard = (props) => {
     setEventSelected,
     setEventVisible,
   } = props;
-  const { title, description, dateEvent, participants } = event;
+  const { title } = event;
   const currentUser = authService.getCurrentUser();
 
   const onDelete = () => {
@@ -71,35 +70,68 @@ const EventCard = (props) => {
     }
   };
   return (
-    <Col span={8} key={event._id}>
+    <Col span={9} key={event._id}>
       <Skeleton loading={!loading} avatar active>
         <Card
           actions={[
-            <CloseOutlined
-              key="delete"
-              onClick={onDelete}
-              style={{ color: "#e11111" }}
-            />,
-            <FormOutlined
-              key="stop"
-              onClick={onUpdate}
-              style={{ color: "#B918E1" }}
-            />,
-            <EyeOutlined
-              key="stop"
-              onClick={eventDetail}
-              style={{ color: "#060601" }}
-            />,
-            <CheckOutlined
-              key="stop"
-              onClick={onParticipateEvent}
-              style={{ color: "#0779EC" }}
-            />,
-            <StopOutlined
-              key="stop"
-              onClick={onVisible}
-              style={{ color: "#ffcd00" }}
-            />,
+            <p>
+              {currentUser.role === "coach" && (
+                <>
+                  <CloseOutlined
+                    key="delete"
+                    onClick={onDelete}
+                    style={{ color: "#e11111" }}
+                  />
+                  ,
+                  <FormOutlined
+                    key="stop"
+                    onClick={onUpdate}
+                    style={{ color: "#B918E1" }}
+                  />
+                  ,
+                  <EyeOutlined
+                    key="stop"
+                    onClick={eventDetail}
+                    style={{ color: "#060601" }}
+                  />
+                  ,
+                  <CheckOutlined
+                    key="stop"
+                    onClick={onParticipateEvent}
+                    style={{ color: "#0779EC" }}
+                  />
+                  ,
+                  <StopOutlined
+                    key="stop"
+                    onClick={onVisible}
+                    style={{ color: "#ffcd00" }}
+                  />
+                </>
+              )}
+
+              {!currentUser.role === "coach" && (
+                <>
+                  {" "}
+                  <EyeOutlined
+                    key="stop"
+                    onClick={eventDetail}
+                    style={{ color: "#060601" }}
+                  />
+                  ,
+                  <CheckOutlined
+                    key="stop"
+                    onClick={onParticipateEvent}
+                    style={{ color: "#0779EC" }}
+                  />
+                  ,
+                  <StopOutlined
+                    key="stop"
+                    onClick={onVisible}
+                    style={{ color: "#ffcd00" }}
+                  />
+                </>
+              )}
+            </p>,
           ]}
           hoverable
           style={{ width: 280, marginTop: 50 }}

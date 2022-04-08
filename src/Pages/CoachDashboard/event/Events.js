@@ -22,27 +22,41 @@ const Events = () => {
   };
 
   async function getEvents() {
-    await getAllEventApi({ creacteBy: currentUser.id, eventVisible: true })
-      .then((response) => {
-        setEvents(response.data);
-        setLoading(true);
-      })
-      .catch(() => {});
+    if (currentUser.role === "joueur") {
+      await getAllEventApi({ creacteBy: currentUser.id, eventVisible: true })
+        .then((response) => {
+          setEvents(response.data);
+          setLoading(true);
+        })
+        .catch(() => {});
+    } else {
+      await getAllEventApi({ eventVisible: true })
+        .then((response) => {
+          setEvents(response.data);
+          setLoading(true);
+        })
+        .catch(() => {});
+    }
   }
 
   useEffect(() => {
     getEvents();
   }, []);
+
   return (
     <>
-      <Button
-        type="primary"
-        onClick={showModal}
-        style={{ float: "right" }}
-        icon={<PlusOutlined />}
-      >
-        Ajouter un nouveau Event
-      </Button>
+      <div>
+        {currentUser.role === "coach" && (
+          <Button
+            type="primary"
+            onClick={showModal}
+            style={{ float: "right" }}
+            icon={<PlusOutlined />}
+          >
+            Ajouter
+          </Button>
+        )}
+      </div>
       <div className="site-card-wrapper">
         {loading && (
           <Row gutter={16}>
