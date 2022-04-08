@@ -9,7 +9,6 @@ import notificationComponent from "../../../Components/NotificationComponent";
 const dateFormat = "YYYY/MM/DD";
 
 const EventForm = (props) => {
-  const { Option } = Select;
   const [form] = Form.useForm();
   const {
     setIsModalVisible,

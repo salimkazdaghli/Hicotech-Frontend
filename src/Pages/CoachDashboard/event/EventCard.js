@@ -49,6 +49,10 @@ const EventCard = (props) => {
   const onVisible = () => {
     if (event.eventVisible === true) {
       updateEventApi(event._id, { eventVisible: false });
+      notificationComponent(
+        "Notification",
+        "Vous n'etes pas interessé par cet evenement .."
+      );
     }
   };
 

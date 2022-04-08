@@ -8,6 +8,9 @@ import {
   TeamOutlined,
   UserOutlined,
   EnvironmentOutlined,
+  NotificationOutlined,
+  TrophyOutlined,
+  BellOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
@@ -67,9 +70,19 @@ const Dashboard = () => {
               Accueil
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="3" icon={<DesktopOutlined />}>
+          <Menu.Item key="3" icon={<TrophyOutlined />}>
             <NavLink exact to="/dashboard/defis">
-              Les Défis
+              Mes Défis
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="10" icon={<NotificationOutlined />}>
+            <NavLink exact to="/dashboard/events">
+              Mes évenements
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="10" icon={<BellOutlined />}>
+            <NavLink exact to="/dashboard/seances">
+              Mes Séances
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2" icon={<DesktopOutlined />}>
@@ -84,11 +97,6 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
 
-          <Menu.Item key="10" icon={<EnvironmentOutlined />}>
-            <NavLink exact to="/dashboard/events">
-              Mes évenements
-            </NavLink>
-          </Menu.Item>
           <Menu.Item key="12" icon={<DesktopOutlined />}>
             <NavLink exact to="/dashboard/programmes">
               Mes Programmes
