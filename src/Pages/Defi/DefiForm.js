@@ -1,9 +1,13 @@
 import React from "react";
 import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
+import Moment from "react-moment";
+import moment from "moment";
 
 import { addDefiApi, updateDefiApi } from "../../Services/DefiService";
 import authService from "../../Services/authService";
 import notificationComponent from "../../Components/NotificationComponent";
+
+const dateFormat = "YYYY/MM/DD";
 
 const DefiForm = (props) => {
   const { Option } = Select;
@@ -21,6 +25,7 @@ const DefiForm = (props) => {
       ? "Ajouter un nouveau défi"
       : "Modifier un défi ";
   const modalBtnText = defiSelected._id === "0000" ? "Créer" : "Modifier";
+  const worker = moment(defiSelected.dateExpiration);
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
@@ -85,7 +90,7 @@ const DefiForm = (props) => {
           defiName: defiSelected ? defiSelected.defiName : "",
           defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
-          dateExpiration: defiSelected ? defiSelected.dateExpiration : "",
+          dateExpiration: worker,
           defiVisible: defiSelected ? defiSelected.defiVisible : "",
         }}
       >
@@ -136,7 +141,7 @@ const DefiForm = (props) => {
             },
           ]}
         >
-          <DatePicker format="YYYY/MM/DD" style={{ display: "flex" }} />
+          <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
         <Row>
           <Col>
