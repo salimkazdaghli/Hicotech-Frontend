@@ -23,7 +23,6 @@ const DefiCard = (props) => {
     createdAt = `${defi.createdAt}  `,
     dateExpiration = `${defi.dateExpiration} `,
   } = defi;
-  console.log(title);
   const onDelete = () => {
     setLoading(false);
     deleteDefiApi(defi._id).then(() => {
