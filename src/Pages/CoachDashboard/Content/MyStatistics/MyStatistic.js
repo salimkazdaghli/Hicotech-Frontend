@@ -25,7 +25,7 @@ import {
   getAllStatisticsApi,
   deleteStatisticsApi,
   updateStatisticsApi,
-} from "../../../../Services/statisticService";
+} from "../../../../Services/StatisticService";
 import StatisticFormField from "./StatisticFormField";
 import authService from "../../../../Services/authService";
 // import {
