@@ -69,6 +69,7 @@ const Dashboard = () => {
               Mes Invitations
             </NavLink>
           </Menu.Item>
+
           <Menu.Item key="3" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/mystatisitcs">
               Mes Statistiques
@@ -101,12 +102,17 @@ const Dashboard = () => {
           </Menu.Item>
           <Menu.Item key="9" icon={<EnvironmentOutlined />}>
             <NavLink exact to="/coach/dashboard/manageChallenge">
-              Gérer defi
+              Assigner defi
             </NavLink>
           </Menu.Item>
           <Menu.Item key="10" icon={<EnvironmentOutlined />}>
             <NavLink exact to="/coach/dashboard/player/info">
               Afficher Joueur
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="11" icon={<DesktopOutlined />}>
+            <NavLink exact to="/coach/dashboard/defis">
+              Les Défis
             </NavLink>
           </Menu.Item>
         </Menu>

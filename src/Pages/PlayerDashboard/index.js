@@ -1,11 +1,7 @@
 import { useState } from "react";
 import "./Dashboard.css";
 import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
-import {
-  DesktopOutlined,
-  HomeOutlined,
-  EnvironmentOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";

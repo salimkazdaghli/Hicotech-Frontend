@@ -11,13 +11,13 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { PlusOutlined } from "@ant-design/icons";
 import authService from "../../../../Services/authService";
-import { getUserApi } from "../../../../Services/userService";
+import userService from "../../../../Services/userService";
 import ChallengeService from "../../../../Services/ChallengeService";
 import assignChallengeService from "../../../../Services/assignChallengeService";
 
 const { Option } = Select;
 const { Title } = Typography;
-const AddChallenge = ({ setAlert, setRefrech }) => {
+const AddChallenge = ({ setRefrech }) => {
   const [form] = Form.useForm();
   const [playersData, setplayersData] = useState([]);
   const [challengeData, setChallengeData] = useState([]);
@@ -26,7 +26,8 @@ const AddChallenge = ({ setAlert, setRefrech }) => {
 
   useEffect(() => {
     if (authService.getCurrentUser()) {
-      getUserApi(authService.getCurrentUser().id)
+      userService
+        .getUserApi(authService.getCurrentUser().id)
         .then(({ data: { myPlayers } }) => {
           setplayersData(myPlayers);
         })
@@ -67,13 +68,10 @@ const AddChallenge = ({ setAlert, setRefrech }) => {
       assignChallengeService
         .AssignChallengeApi(dataToSent)
         .then(() => {
-          setAlert({
-            type: "success",
-            message: "Le défi a été envoyé",
-          });
+          message.success("Le défi a été envoyé");
         })
         .catch(() => {
-          setAlert({ type: "error", message: "erreur de serveur" });
+          message.error("erreur de serveur");
         })
         .finally(() => {
           setIsModalVisible(false);

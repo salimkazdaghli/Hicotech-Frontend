@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Row, Button } from "antd";
-import { getAllProgrammeApi } from "../../../Services/ProgrammeService";
+import { Row, Button, Spin, Space, Col } from "antd";
+import { getAllProgrammeApi } from "../../../../Services/ProgrammeService";
 import ProgrammeCard from "./ProgrammeCard";
 import ProgrammeForm from "./ProgrammeForm";
-import authService from "../../../Services/authService";
-import { getAllStatisticsApi } from "../../../Services/statisticService";
+import Programme from "./programme";
+import authService from "../../../../Services/authService";
 
 const Programmes = () => {
   const [loading, setLoading] = useState(false);
   const [programmes, setProgrammes] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [programmeSelected, setProgrammeSelected] = useState({});
-  const [statistics, setStatistics] = useState([]);
+  const [isProgrammeVisible, setProgrammeVisible] = useState(false);
+  const currentUser = authService.getCurrentUser();
+
   const showModal = () => {
     setProgrammeSelected({ _id: "0000" });
     setIsModalVisible(true);
   };
 
   async function getProgrammes() {
-    const currentUser = authService.getCurrentUser();
     await getAllProgrammeApi({ creacteBy: currentUser.id })
       .then((response) => {
         setProgrammes(response.data);
@@ -26,17 +27,9 @@ const Programmes = () => {
       })
       .catch(() => {});
   }
-  async function getStatistics() {
-    await getAllStatisticsApi()
-      .then((response) => {
-        setStatistics(response.data);
-        setLoading(true);
-      })
-      .catch(() => {});
-  }
+
   useEffect(() => {
     getProgrammes();
-    getStatistics();
   }, []);
   return (
     <>
@@ -57,8 +50,18 @@ const Programmes = () => {
                 setIsModalVisible={setIsModalVisible}
                 isModalVisible={isModalVisible}
                 setProgrammeSelected={setProgrammeSelected}
+                setProgrammeVisible={setProgrammeVisible}
               />
             ))}
+          </Row>
+        )}
+        {!loading && (
+          <Row gutter={16}>
+            <Col span={8}>
+              <Space size="middle" style={{ marginTop: 250, marginLeft: 600 }}>
+                <Spin size="large" tip="Loading..." />
+              </Space>
+            </Col>
           </Row>
         )}
       </div>
@@ -72,7 +75,13 @@ const Programmes = () => {
           setLoading={setLoading}
           loading={loading}
           programmeSelected={programmeSelected}
-          statistics={statistics}
+        />
+      )}
+      {isProgrammeVisible && (
+        <Programme
+          isProgrammeVisible={isProgrammeVisible}
+          programme={programmeSelected}
+          setProgrammeVisible={setProgrammeVisible}
         />
       )}
     </>

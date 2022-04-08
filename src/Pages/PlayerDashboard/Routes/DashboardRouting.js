@@ -1,9 +1,14 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import MyChellenges from "../Content/MyChallenges";
+import JoueurRoute from "../../../Routes/joueurRoute";
 
 const DashboardRouting = () => (
   <Switch>
-    <Route exact path="/joueur/dashboard/mesdefis" component={MyChellenges} />
+    <JoueurRoute
+      exact
+      path="/joueur/dashboard/mesdefis"
+      component={MyChellenges}
+    />
   </Switch>
 );
 

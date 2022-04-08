@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Spin, Tabs } from "antd";
 import authService from "../../../../Services/authService";
-import ChallengeService from "../../../../Services/ChallengeService";
 import TodoChallenges from "./TodoChallenges";
 import DoneChallenges from "./DoneChallenges";
 import ExpiredChallenges from "./ExpiredChallenges";
@@ -26,7 +25,6 @@ const MyChallenges = () => {
           assignedTo: authService.getCurrentUser().id,
         })
         .then(({ data }) => {
-          console.log("data: ", data);
           setTodoChallenges(
             data.filter(
               (challenge) =>

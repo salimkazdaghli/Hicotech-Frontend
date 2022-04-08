@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Statistics from "./Statistics";
 import Skills from "./Skills";
 import Alerts from "./Alerts";
-import { getUserApi } from "../../../../Services/userService";
+import userService from "../../../../Services/userService";
 import auth from "../../../../Services/authService";
 import { getAllStatisticsApi } from "../../../../Services/StatisticService";
 
@@ -227,7 +227,8 @@ const PlayerInfo = () => {
   useEffect(() => {
     // fetch statistics and skills and alerts from session (using coach and player ids)
     if (auth.getCurrentUser()) {
-      getUserApi(auth.getCurrentUser().id)
+      userService
+        .getUserApi(auth.getCurrentUser().id)
         .then(({ data: { myPlayers } }) => {
           console.log("myPlayers: ", myPlayers);
           setPlayers(myPlayers);

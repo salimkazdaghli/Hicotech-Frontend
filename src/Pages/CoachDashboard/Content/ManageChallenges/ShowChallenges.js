@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
-import { Row, Table, Col, Alert, Tag } from "antd";
+import { Table, Tag } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { ClockCircleOutlined, CalendarOutlined } from "@ant-design/icons";
 import authService from "../../../../Services/authService";
@@ -11,7 +11,6 @@ const ShowChallenges = () => {
   const [dataSource, setDataSource] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refetch, setRefetch] = useState(0);
-  const [alert, setAlert] = useState(null);
 
   useEffect(() => {
     if (authService.getCurrentUser()) {
@@ -66,7 +65,7 @@ const ShowChallenges = () => {
         const hasExpired = new Date(deadline) < Date.now();
         return (
           <Tag color={hasExpired ? "red" : "green"}>
-            {hasExpired ? "expiré" : "en cours"}
+            {hasExpired ? "expiré" : "valable"}
           </Tag>
         );
       },
@@ -104,19 +103,7 @@ const ShowChallenges = () => {
   ];
   return (
     <>
-      {alert && (
-        <Row justify="center">
-          <Col>
-            <Alert
-              message={alert.message}
-              type={alert.type}
-              showIcon
-              closable
-            />
-          </Col>
-        </Row>
-      )}
-      <AddChallenge setAlert={setAlert} setRefrech={setRefetch} />
+      <AddChallenge setRefrech={setRefetch} />
       <br />
       <Table
         tableLayout="fixed"

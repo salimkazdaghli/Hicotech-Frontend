@@ -13,8 +13,8 @@ import CoachDashboard from "./Pages/CoachDashboard";
 import PlayerDashboard from "./Pages/PlayerDashboard";
 import CoachRoute from "./Routes/coachRoute";
 import NotFound from "./Pages/Error/notFound";
-import Invitation from "./Pages/Invitation";
 import JoueurRoute from "./Routes/joueurRoute";
+import Invitation from "./Pages/CoachDashboard/Content/MyInvitation";
 
 const App = () => (
   <Router>
