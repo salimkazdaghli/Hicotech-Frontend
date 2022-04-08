@@ -85,7 +85,7 @@ const DefiForm = (props) => {
           defiName: defiSelected ? defiSelected.defiName : "",
           defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
-
+          dateExpiration: defiSelected ? defiSelected.dateExpiration : "",
           defiVisible: defiSelected ? defiSelected.defiVisible : "",
         }}
       >
@@ -151,8 +151,8 @@ const DefiForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group>
-                <Radio value="false">Non</Radio>
+              <Radio.Group defaultValue={defiSelected.defiVisible}>
+                <Radio value="false">non</Radio>
                 <Radio value="true">Oui</Radio>
               </Radio.Group>
             </Form.Item>

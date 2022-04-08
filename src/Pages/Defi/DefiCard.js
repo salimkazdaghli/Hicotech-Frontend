@@ -80,7 +80,7 @@ const DefiCard = (props) => {
             <i>
               <b>Expiré le :</b>{" "}
             </i>
-            <i format="YYYY/MM/DD">{dateExpiration.dateToFormat}</i>
+            <i format="YYYY/MM/DD">{defi.dateExpiration}</i>
           </Typography>
         </Card>
       </Skeleton>
