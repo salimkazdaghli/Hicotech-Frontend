@@ -8,8 +8,9 @@ import {
   CheckOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { deleteEventApi } from "../../../Services/EventService";
+import { deleteEventApi, updateEventApi } from "../../../Services/EventService";
 import notificationComponent from "../../../Components/NotificationComponent";
+import authService from "../../../Services/authService";
 
 const EventCard = (props) => {
   const { Meta } = Card;
@@ -21,21 +22,53 @@ const EventCard = (props) => {
     setLoading,
     setIsModalVisible,
     setEventSelected,
+    setEventVisible,
   } = props;
-  const { title, description, dateEvent } = event;
+  const { title, description, dateEvent, participants } = event;
+  const currentUser = authService.getCurrentUser();
 
   const onDelete = () => {
     setLoading(false);
     deleteEventApi(event._id).then(() => {
       setEvents(events.filter((eventItem) => eventItem._id !== event._id));
       setLoading(true);
-      notificationComponent("notification", "delete");
+      notificationComponent(
+        "Notification",
+        "L'évenement est supprimé avec succées"
+      );
     });
   };
 
   const onUpdate = () => {
     setEventSelected(event);
     setIsModalVisible(true);
+  };
+  const eventDetail = () => {
+    setEventSelected(event);
+    setEventVisible(true);
+  };
+  const onVisible = () => {
+    if (event.eventVisible === true) {
+      updateEventApi(event._id, { eventVisible: false });
+    }
+  };
+
+  const onParticipateEvent = () => {
+    // console.log(event);
+    if (event.participants.indexOf(currentUser.id) < 0) {
+      updateEventApi(event._id, {
+        participants: [...event.participants, currentUser.id],
+      });
+      notificationComponent(
+        "Notification",
+        "Vous avez participé à cet evenement "
+      );
+    } else {
+      notificationComponent(
+        "Notification",
+        "Vous etes deja participé à cet evenement "
+      );
+    }
   };
   return (
     <Col span={8} key={event._id}>
@@ -54,22 +87,22 @@ const EventCard = (props) => {
             />,
             <EyeOutlined
               key="stop"
-              onClick={onUpdate}
+              onClick={eventDetail}
               style={{ color: "#060601" }}
             />,
             <CheckOutlined
               key="stop"
-              onClick={onUpdate}
+              onClick={onParticipateEvent}
               style={{ color: "#0779EC" }}
             />,
             <StopOutlined
               key="stop"
-              onClick={onUpdate}
+              onClick={onVisible}
               style={{ color: "#ffcd00" }}
             />,
           ]}
           hoverable
-          style={{ width: 320, marginTop: 40 }}
+          style={{ width: 280, marginTop: 50 }}
           cover={
             <img
               alt="example"
@@ -77,7 +110,7 @@ const EventCard = (props) => {
             />
           }
         >
-          <Meta title={title} description={description} />
+          <Meta title={title} description={description} dateEvent={dateEvent} />
         </Card>
       </Skeleton>
     </Col>

@@ -4,6 +4,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { getAllEventApi } from "../../../Services/EventService";
 import EventCard from "./EventCard";
 import EventForm from "./EventForm";
+import Event from "./Event";
+
 import authService from "../../../Services/authService";
 
 const Events = () => {
@@ -11,6 +13,7 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [eventSelected, setEventSelected] = useState({});
+  const [isEventVisible, setEventVisible] = useState(false);
   const currentUser = authService.getCurrentUser();
 
   const showModal = () => {
@@ -19,7 +22,7 @@ const Events = () => {
   };
 
   async function getEvents() {
-    await getAllEventApi({ creacteBy: currentUser.id })
+    await getAllEventApi({ creacteBy: currentUser.id, eventVisible: true })
       .then((response) => {
         setEvents(response.data);
         setLoading(true);
@@ -54,6 +57,7 @@ const Events = () => {
                 setIsModalVisible={setIsModalVisible}
                 isModalVisible={isModalVisible}
                 setEventSelected={setEventSelected}
+                setEventVisible={setEventVisible}
               />
             ))}
           </Row>
@@ -70,6 +74,14 @@ const Events = () => {
           setLoading={setLoading}
           loading={loading}
           eventSelected={eventSelected}
+          setEventVisible={setEventVisible}
+        />
+      )}
+      {isEventVisible && (
+        <Event
+          isEventVisible={isEventVisible}
+          event={eventSelected}
+          setEventVisible={setEventVisible}
         />
       )}
     </>

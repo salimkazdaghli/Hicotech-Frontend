@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Modal, Form, Input, Select, Row, Radio } from "antd";
+import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
 
 import { addDefiApi, updateDefiApi } from "../../Services/DefiService";
 import authService from "../../Services/authService";
@@ -82,10 +82,10 @@ const DefiForm = (props) => {
         name="form_in_modal"
         initialValues={{
           _id: defiSelected ? defiSelected._id : null,
-          defiName: defiSelected ? defiSelected.defiName : "test",
-          defiObjectif: defiSelected ? defiSelected.defiObjectif : "test",
+          defiName: defiSelected ? defiSelected.defiName : "",
+          defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
-          dateExpiration: defiSelected ? defiSelected.dateExpiration : "",
+
           defiVisible: defiSelected ? defiSelected.defiVisible : "",
         }}
       >
@@ -126,7 +126,7 @@ const DefiForm = (props) => {
           <Input />
         </Form.Item>
 
-        {/* <Form.Item
+        <Form.Item
           label="Date d'expiration "
           name="dateExpiration"
           rules={[
@@ -137,7 +137,7 @@ const DefiForm = (props) => {
           ]}
         >
           <DatePicker format="YYYY/MM/DD" style={{ display: "flex" }} />
-        </Form.Item> */}
+        </Form.Item>
         <Row>
           <Col>
             <Form.Item
@@ -158,8 +158,6 @@ const DefiForm = (props) => {
             </Form.Item>
           </Col>
         </Row>
-
-        <br />
       </Form>
     </Modal>
   );

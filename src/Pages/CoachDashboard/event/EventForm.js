@@ -15,7 +15,6 @@ const EventForm = (props) => {
     events,
     setLoading,
     eventSelected,
-    statistics,
   } = props;
   const modalTitle =
     eventSelected._id === "0000"
@@ -49,7 +48,7 @@ const EventForm = (props) => {
         });
         setEvents(newEvents);
         setLoading(true);
-        notificationComponent("Notification", "Event update ");
+        notificationComponent("Notification", "Event modifié ");
       });
     }
 
@@ -85,7 +84,6 @@ const EventForm = (props) => {
           _id: eventSelected ? eventSelected._id : null,
           title: eventSelected ? eventSelected.title : "test",
           description: eventSelected ? eventSelected.description : "test",
-
           etat: eventSelected ? eventSelected.etat : "",
         }}
       >
