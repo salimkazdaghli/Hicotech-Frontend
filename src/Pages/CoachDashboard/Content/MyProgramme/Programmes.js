@@ -55,7 +55,6 @@ const Programmes = () => {
             ))}
           </Row>
         )}
-        ;
         {!loading && (
           <Row gutter={16}>
             <Col span={8}>

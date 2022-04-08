@@ -29,7 +29,7 @@ const Invitations = () => {
   return (
     <>
       <Button type="primary" onClick={showModal} style={{ float: "right" }}>
-        Send Invotation
+        Send Invitation
       </Button>
       <div className="site-card-wrapper">
         {loading && (
@@ -46,7 +46,6 @@ const Invitations = () => {
             ))}
           </Row>
         )}
-        ;
         {!loading && (
           <Row gutter={16}>
             <Col span={8}>

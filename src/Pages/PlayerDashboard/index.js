@@ -1,11 +1,7 @@
 import { useState } from "react";
 import "./Dashboard.css";
 import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
-import {
-  DesktopOutlined,
-  HomeOutlined,
-  EnvironmentOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
@@ -60,59 +56,8 @@ const Dashboard = () => {
 
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            <NavLink exact to="/coach/dashboard/accueil">
-              Accueil
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="2" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/invitations">
-              Mes Invitations
-            </NavLink>
-          </Menu.Item>
-
-          <Menu.Item key="3" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/mystatisitcs">
-              Mes Statistiques
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="4" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/myskills">
-              Mes Compétences
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="5" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/programmes">
-              Mes Programmes
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="6" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/players">
-              Mes Joueurs
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="7" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/invitations">
-              Invitation
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="8" icon={<EnvironmentOutlined />}>
-            <NavLink exact to="/coach/dashboard/gerer/lieuEntrainement">
-              Lieu Entrainement
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="9" icon={<EnvironmentOutlined />}>
-            <NavLink exact to="/coach/dashboard/manageChallenge">
-              Assigner defi
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="10" icon={<EnvironmentOutlined />}>
-            <NavLink exact to="/coach/dashboard/player/info">
-              Afficher Joueur
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="11" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/defis">
-              Les Défis
+            <NavLink exact to="/joueur/dashboard/mesdefis">
+              Mes défis
             </NavLink>
           </Menu.Item>
         </Menu>

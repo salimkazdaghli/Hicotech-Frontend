@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card, Radio, Modal, Form, Skeleton, Button, Alert } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import disciplineService from "../../../Services/disciplineService";
-import userService from "../../../Services/userService";
-import authService from "../../../Services/authService";
-import useLocalStorage from "../../../Hooks/useLocalStorage";
+import disciplineService from "../../../../Services/disciplineService";
+import userService from "../../../../Services/userService";
+import authService from "../../../../Services/authService";
+import useLocalStorage from "../../../../Hooks/useLocalStorage";
 
 const SelectDescipline = () => {
   const [form] = Form.useForm();

@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, Col, Skeleton, Typography } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { deleteDefiApi } from "../../Services/defiService";
+import { deleteDefiApi } from "../../../../Services/defiService";
 
-import notificationComponent from "../../Components/NotificationComponent";
+import notificationComponent from "../../../../Components/NotificationComponent";
 
 const DefiCard = (props) => {
   const { Meta } = Card;

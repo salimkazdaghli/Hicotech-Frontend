@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Row, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { getAllDefiApi } from "../../Services/defiService";
+import { getAllDefiApi } from "../../../../Services/defiService";
 import DefiCard from "./DefiCard";
 import DefiForm from "./DefiForm";
-import authService from "../../Services/authService";
+import authService from "../../../../Services/authService";
 
 const Defis = () => {
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,6 @@ const Defis = () => {
             ))}
           </Row>
         )}
-        ;
       </div>
       {loading && (
         <DefiForm

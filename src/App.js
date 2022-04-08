@@ -9,9 +9,11 @@ import {
 import LoginPage from "./Pages/Login";
 import LogoutPage from "./Pages/Logout";
 import RegisterPage from "./Pages/Register";
-import Dashboard from "./Pages/CoachDashboard";
+import CoachDashboard from "./Pages/CoachDashboard";
+import PlayerDashboard from "./Pages/PlayerDashboard";
 import CoachRoute from "./Routes/coachRoute";
 import NotFound from "./Pages/Error/notFound";
+import JoueurRoute from "./Routes/joueurRoute";
 import Invitation from "./Pages/CoachDashboard/Content/MyInvitation";
 
 const App = () => (
@@ -21,7 +23,8 @@ const App = () => (
         <Route exact path="/">
           <Redirect to="/login" />
         </Route>
-        <CoachRoute path="/dashboard" component={Dashboard} />
+        <CoachRoute path="/coach/dashboard/" component={CoachDashboard} />
+        <JoueurRoute path="/joueur/dashboard/" component={PlayerDashboard} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={LogoutPage} />
         <Route path="/register" component={RegisterPage} />
