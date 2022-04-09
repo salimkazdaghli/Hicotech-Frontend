@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Dashboard.css";
 import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, NotificationOutlined } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
 import DashboardRouting from "./Routes/DashboardRouting";
@@ -53,11 +53,17 @@ const Dashboard = () => {
             <div style={{ height: "115px" }} />
           )}
         </div>
-
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
             <NavLink exact to="/joueur/dashboard/mesdefis">
               Mes défis
+            </NavLink>
+          </Menu.Item>
+        </Menu>
+        <Menu theme="dark">
+          <Menu.Item key="1" icon={<NotificationOutlined />}>
+            <NavLink exact to="/joueur/dashboard/mesevents">
+              Mes Evénements
             </NavLink>
           </Menu.Item>
         </Menu>
