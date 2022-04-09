@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Row, Button, Spin, Space, Col } from "antd";
+import { Row, Button, Spin, Space, Col, DatePicker, Input, Select } from "antd";
 import { getAllSeanceApi } from "../../../../Services/SeanceService";
 import SeanceCard from "./SeanceCard";
 import SeanceForm from "./SeanceForm";
 import Seance from "./seance";
 import authService from "../../../../Services/authService";
 
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 const Seances = () => {
   const [loading, setLoading] = useState(false);
   const [seances, setSeances] = useState([]);
@@ -33,6 +35,16 @@ const Seances = () => {
   }, []);
   return (
     <>
+      <Space style={{ marginBottom: 16 }}>
+        <Button>AujourdHui</Button>
+        <RangePicker />
+        <Input placeholder="Filter par Lieu" />
+        <Select showSearch placeholder="Filter par joueur ">
+          <Option value="jack">Jack</Option>
+          <Option value="lucy">Lucy</Option>
+          <Option value="tom">Tom</Option>
+        </Select>
+      </Space>
       <Button type="primary" onClick={showModal} style={{ float: "right" }}>
         Nouvelle séance
       </Button>
