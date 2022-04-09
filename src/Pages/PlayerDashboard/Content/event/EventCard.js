@@ -1,6 +1,12 @@
 import React from "react";
-import { Card, Col, Skeleton } from "antd";
-import { StopOutlined, CheckOutlined, EyeOutlined } from "@ant-design/icons";
+import { Card, Col, notification, Skeleton } from "antd";
+import {
+  StopOutlined,
+  CheckOutlined,
+  EyeOutlined,
+  ExclamationCircleOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 
 import { updateEventApi } from "../../../../Services/EventService";
 import notificationComponent from "../../../../Components/NotificationComponent";
@@ -27,10 +33,11 @@ const EventCard = (props) => {
   const onVisible = () => {
     if (event.eventVisible === true) {
       updateEventApi(event._id, { eventVisible: false });
-      notificationComponent(
-        "Notification",
-        "Vous n'etes pas interessé par cet evenement .."
-      );
+      notification.open({
+        message: "Notification",
+        description: "Non interssé ",
+        icon: <ExclamationCircleOutlined style={{ color: "#C1B024" }} />,
+      });
     }
   };
 
@@ -39,15 +46,17 @@ const EventCard = (props) => {
       updateEventApi(event._id, {
         participants: [...event.participants, currentUser.id],
       });
-      notificationComponent(
-        "Notification",
-        "Vous avez participé à cet evenement "
-      );
+      notification.open({
+        message: "Notification",
+        description: "Vous avez participé à cet evenement ",
+        icon: <CheckCircleOutlined style={{ color: "#5FC1F9" }} />,
+      });
     } else {
-      notificationComponent(
-        "Notification",
-        "Vous etes deja participé à cet evenement "
-      );
+      notification.open({
+        message: "Notification",
+        description: "Vous etes deja participé à cet evenement ",
+        icon: <ExclamationCircleOutlined style={{ color: "#F97045" }} />,
+      });
     }
   };
   return (
@@ -56,12 +65,12 @@ const EventCard = (props) => {
         <Card
           actions={[
             <>
-              {" "}
               <EyeOutlined
                 key="stop"
                 onClick={eventDetail}
                 style={{ color: "#030100" }}
               />
+
               <CheckOutlined
                 key="stop"
                 onClick={onParticipateEvent}
@@ -75,11 +84,11 @@ const EventCard = (props) => {
             </>,
           ]}
           hoverable
-          style={{ width: 280, marginTop: 10 }}
+          style={{ width: 300, marginTop: 10 }}
           cover={
             <img
               alt="example"
-              src="https://i.pinimg.com/originals/df/5f/4c/df5f4c6fd3354253afe47e3e6aaef09a.jpg"
+              src="https://www.dynamique-mag.com/wp-content/uploads/94d8155cb7f2702d2b914dbfb56699d5.jpg"
             />
           }
         >

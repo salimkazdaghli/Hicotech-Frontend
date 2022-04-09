@@ -49,7 +49,6 @@ const Event = (props) => {
         <Form.Item label="Date d'évenement " name="dateEvent">
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
-        <p>Participé : Oui</p>
       </Form>
     </Modal>
   );

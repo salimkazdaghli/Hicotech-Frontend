@@ -72,7 +72,7 @@ const EventCard = (props) => {
     } else {
       notificationComponent(
         "Notification",
-        "Vous etes deja participé à cet evenement "
+        "Vous êtes déjà participé à cet evenement "
       );
     }
   };
@@ -81,50 +81,25 @@ const EventCard = (props) => {
       <Skeleton loading={!loading} avatar active>
         <Card
           actions={[
-            <p>
-              {currentUser.role === "coach" && (
-                <>
-                  <CloseOutlined
-                    key="delete"
-                    onClick={onDelete}
-                    style={{ color: "#e11111" }}
-                  />
-                  ,
-                  <FormOutlined
-                    key="stop"
-                    onClick={onUpdate}
-                    style={{ color: "#B918E1" }}
-                  />
-                  ,
-                  <EyeOutlined
-                    key="stop"
-                    onClick={eventDetail}
-                    style={{ color: "#060601" }}
-                  />
-                </>
-              )}
-
-              {!currentUser.role === "coach" && (
-                <>
-                  {" "}
-                  <EyeOutlined
-                    key="stop"
-                    onClick={eventDetail}
-                    style={{ color: "#060601" }}
-                  />
-                  <CheckOutlined
-                    key="stop"
-                    onClick={onParticipateEvent}
-                    style={{ color: "#0779EC" }}
-                  />
-                  <StopOutlined
-                    key="stop"
-                    onClick={onVisible}
-                    style={{ color: "#ffcd00" }}
-                  />
-                </>
-              )}
-            </p>,
+            <>
+              <CloseOutlined
+                key="delete"
+                onClick={onDelete}
+                style={{ color: "#e11111" }}
+              />
+              ,
+              <FormOutlined
+                key="stop"
+                onClick={onUpdate}
+                style={{ color: "#B918E1" }}
+              />
+              ,
+              <EyeOutlined
+                key="stop"
+                onClick={eventDetail}
+                style={{ color: "#060601" }}
+              />
+            </>,
           ]}
           hoverable
           style={{ width: 280, marginTop: 50 }}
@@ -134,6 +109,9 @@ const EventCard = (props) => {
               src="https://i.pinimg.com/originals/df/5f/4c/df5f4c6fd3354253afe47e3e6aaef09a.jpg"
             />
           }
+          // hoverable
+          // style={{ width: 320, marginTop: 40 }}
+          // cover={<img alt="example" src={event.image} />}>
         >
           <Meta title={title} />
         </Card>
