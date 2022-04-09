@@ -16,7 +16,7 @@ const SeanceCard = (props) => {
     setSeanceSelected,
     setSeanceVisible,
   } = props;
-  const { title, description } = seance;
+  const { seanceName } = seance;
   const onDelete = () => {
     setLoading(false);
     deleteSeanceApi(seance._id).then(() => {
@@ -57,9 +57,8 @@ const SeanceCard = (props) => {
           ]}
           hoverable
           style={{ width: 320, marginTop: 40 }}
-          cover={<img alt="example" src={seance.image} />}
         >
-          <Meta title={title} description={description} />
+          <Meta title={seanceName} />
         </Card>
       </Skeleton>
     </Col>

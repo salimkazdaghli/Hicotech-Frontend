@@ -1,6 +1,7 @@
 import React from "react";
-import { Modal, Form, Input, Upload, Button } from "antd";
+import { Modal, Form, Input, Upload, Button, DatePicker } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 import {
   addSeanceApi,
@@ -9,6 +10,7 @@ import {
 import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
+const dateFormat = "YYYY/MM/DD";
 const SeanceForm = (props) => {
   const [form] = Form.useForm();
   const {
@@ -20,8 +22,10 @@ const SeanceForm = (props) => {
     seanceSelected,
   } = props;
   const modalTitle =
-    seanceSelected._id === "0000" ? "Creer un seance" : "Modifier un seance ";
-  const modalBtnText = seanceSelected._id === "0000" ? "Creer" : "Modifier";
+    seanceSelected._id === "0000"
+      ? "Ajouter une séance"
+      : "Modifier une séance ";
+  const modalBtnText = seanceSelected._id === "0000" ? "Ajouter" : "Modifier";
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
@@ -36,7 +40,7 @@ const SeanceForm = (props) => {
         const { data } = response;
         seances.push(data);
         setSeances(seances);
-        notificationComponent("Notification", "Seance ajoute ");
+        notificationComponent("Notification", "Séance est ajouté ");
         setLoading(true);
       });
     } else {
@@ -50,7 +54,7 @@ const SeanceForm = (props) => {
         });
         setSeances(newSeances);
         setLoading(true);
-        notificationComponent("Notification", "Seance update ");
+        notificationComponent("Notification", "Séance est modifié ");
       });
     }
 
@@ -91,28 +95,28 @@ const SeanceForm = (props) => {
         }}
       >
         <Form.Item
-          name="title"
-          label="Title"
+          name="seanceName"
+          label="Titre"
           rules={[
             {
               required: true,
-              message: "email est requis",
+              message: "Ce champs est obligatoire",
             },
           ]}
         >
-          <Input placeholder="title" />
+          <Input placeholder="Titre" />
         </Form.Item>
         <Form.Item
-          label="description "
-          name="description"
+          label="Date séance "
+          name="dateSeance"
           rules={[
             {
               required: true,
-              message: "description est requis",
+              message: "Ce champs est obligatoire",
             },
           ]}
         >
-          <Input placeholder="description" />
+          <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
 
         <Form.Item name="videoLink" label="lien video" rules={[]}>
