@@ -127,19 +127,22 @@ const EventForm = (props) => {
         >
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
-        <Form.Item label="Visible" name="Etats" rules={[]}>
+        <Form.Item
+          label="Visible"
+          name="Etats"
+          rules={[
+            {
+              required: true,
+              message: "Ce champs est obligatoire",
+            },
+          ]}
+        >
           <Select
             mode="simple"
             allowClear
             style={{ width: "100%" }}
             placeholder="Selectionner"
             defaultValue={[]}
-            rules={[
-              {
-                required: true,
-                message: "Ce champs est obligatoire",
-              },
-            ]}
           >
             <Select.Option value="Pour Tous">Pour Tous</Select.Option>
             <Select.Option value="Mes Joueurs">Mes Joueurs</Select.Option>
