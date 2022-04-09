@@ -60,6 +60,11 @@ const Dashboard = () => {
               Mes défis
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="2" icon={<HomeOutlined />}>
+            <NavLink exact to="/joueur/dashboard/seances">
+              Mes seances
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
