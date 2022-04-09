@@ -1,6 +1,5 @@
 import React from "react";
-import { Modal, Form, Input, Upload, Button, DatePicker, Select } from "antd";
-import { v4 as uuidv4 } from "uuid";
+import { Modal, Form, Input, DatePicker, Select } from "antd";
 import moment from "moment";
 
 import {
@@ -10,7 +9,8 @@ import {
 import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
-const dateFormat = "YYYY/MM/DD";
+const dateFormat = "YYYY-MM-DD HH:mm";
+
 const { Option } = Select;
 const SeanceForm = (props) => {
   const [form] = Form.useForm();
@@ -66,8 +66,6 @@ const SeanceForm = (props) => {
     setIsModalVisible(false);
   };
 
-  const children = [];
-  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Modal
       visible={isModalVisible}
@@ -120,7 +118,11 @@ const SeanceForm = (props) => {
             },
           ]}
         >
-          <DatePicker format={dateFormat} style={{ display: "flex" }} />
+          <DatePicker
+            showTime
+            format={dateFormat}
+            style={{ display: "flex" }}
+          />
         </Form.Item>
 
         <Form.Item
