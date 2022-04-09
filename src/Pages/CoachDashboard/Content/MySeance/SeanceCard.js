@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col, Skeleton } from "antd";
-import { StopOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { FormOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteSeanceApi } from "../../../../Services/SeanceService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
@@ -30,10 +30,7 @@ const SeanceCard = (props) => {
     setSeanceSelected(seance);
     setIsModalVisible(true);
   };
-  const seanceDetail = () => {
-    setSeanceSelected(seance);
-    setSeanceVisible(true);
-  };
+
   return (
     <Col span={8} key={seance._id}>
       <Skeleton loading={!loading} avatar active>
@@ -44,15 +41,10 @@ const SeanceCard = (props) => {
               onClick={onDelete}
               style={{ color: "#e11111" }}
             />,
-            <StopOutlined
+            <FormOutlined
               key="stop"
               onClick={onUpdate}
-              style={{ color: "#ffcd00" }}
-            />,
-            <EyeOutlined
-              key="eye"
-              onClick={seanceDetail}
-              style={{ color: "#ffcdaa" }}
+              style={{ color: "#099EC6" }}
             />,
           ]}
           hoverable

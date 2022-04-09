@@ -1,6 +1,6 @@
 import React from "react";
-import { Modal, Form, Input, Upload, Button, DatePicker } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Modal, Form, Input, Upload, Button, DatePicker, Select } from "antd";
+import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 
 import {
@@ -11,6 +11,7 @@ import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
 const dateFormat = "YYYY/MM/DD";
+const { Option } = Select;
 const SeanceForm = (props) => {
   const [form] = Form.useForm();
   const {
@@ -26,7 +27,7 @@ const SeanceForm = (props) => {
       ? "Ajouter une séance"
       : "Modifier une séance ";
   const modalBtnText = seanceSelected._id === "0000" ? "Ajouter" : "Modifier";
-
+  const worker = moment(seanceSelected.dateEvent);
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
     const seance = {
@@ -65,6 +66,7 @@ const SeanceForm = (props) => {
     setIsModalVisible(false);
   };
 
+  const children = [];
   /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Modal
@@ -89,9 +91,11 @@ const SeanceForm = (props) => {
         name="form_in_modal"
         initialValues={{
           _id: seanceSelected ? seanceSelected._id : null,
-          title: seanceSelected ? seanceSelected.title : null,
-          description: seanceSelected ? seanceSelected.description : null,
-          videoLink: seanceSelected ? seanceSelected.videoLink : null,
+          seanceName: seanceSelected ? seanceSelected.seanceName : null,
+          programme: seanceSelected ? seanceSelected.programme : [],
+          player: seanceSelected ? seanceSelected.player : [],
+          statistics: seanceSelected ? seanceSelected.statistics : [],
+          dateSeance: worker,
         }}
       >
         <Form.Item
@@ -119,13 +123,65 @@ const SeanceForm = (props) => {
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
 
-        <Form.Item name="videoLink" label="lien video" rules={[]}>
-          <Input placeholder="lien video" />
+        <Form.Item
+          name="player"
+          label="Joueur"
+          rules={[
+            {
+              required: true,
+              message: "Ce champs est obligatoire",
+            },
+          ]}
+        >
+          <Select showSearch placeholder="Sélectionner joueur ">
+            <Option value="jack">Jack</Option>
+            <Option value="lucy">Lucy</Option>
+            <Option value="tom">Tom</Option>
+          </Select>
         </Form.Item>
-        <Form.Item name="image" rules={[]}>
-          <Upload listType="picture" beforeupload={false}>
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-          </Upload>
+        <Form.Item
+          name="programme"
+          label="Programme"
+          rules={[
+            {
+              required: true,
+              message: "Ce champs est obligatoire",
+            },
+          ]}
+        >
+          <Select showSearch placeholder="Sélectionner joueur ">
+            <Option value="jack">P1</Option>
+            <Option value="lucy">P2</Option>
+            <Option value="tom">P3</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="statistics"
+          label="Statistiques"
+          rules={[
+            {
+              required: true,
+              message: "Ce champs est obligatoire",
+            },
+          ]}
+        >
+          <Select mode="multiple" showSearch placeholder="Sélectionner joueur ">
+            <Option value="jack">P1</Option>
+            <Option value="lucy">P2</Option>
+            <Option value="tom">P3</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="lieu"
+          label="Lieu"
+          rules={[
+            {
+              required: true,
+              message: "Ce champs est obligatoire",
+            },
+          ]}
+        >
+          <Input placeholder="Lieu séance.." />
         </Form.Item>
       </Form>
     </Modal>
