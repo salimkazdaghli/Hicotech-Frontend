@@ -11,7 +11,7 @@ const SeanceCard = (props) => {
           <Meta
             avatar={
               <Avatar style={{ color: "#fff", backgroundColor: "#36a2e1" }}>
-                A
+                S
               </Avatar>
             }
             title={seance.seanceName}
