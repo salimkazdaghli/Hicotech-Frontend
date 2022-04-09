@@ -56,12 +56,12 @@ const EventCard = (props) => {
         <Card
           actions={[
             <>
-              {" "}
               <EyeOutlined
                 key="stop"
                 onClick={eventDetail}
                 style={{ color: "#030100" }}
               />
+
               <CheckOutlined
                 key="stop"
                 onClick={onParticipateEvent}
@@ -75,11 +75,11 @@ const EventCard = (props) => {
             </>,
           ]}
           hoverable
-          style={{ width: 280, marginTop: 10 }}
+          style={{ width: 300, marginTop: 10 }}
           cover={
             <img
               alt="example"
-              src="https://i.pinimg.com/originals/df/5f/4c/df5f4c6fd3354253afe47e3e6aaef09a.jpg"
+              src="https://www.dynamique-mag.com/wp-content/uploads/94d8155cb7f2702d2b914dbfb56699d5.jpg"
             />
           }
         >
