@@ -4,6 +4,7 @@ import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
 import {
   DesktopOutlined,
   HomeOutlined,
+  NotificationOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
@@ -85,6 +86,7 @@ const Dashboard = () => {
               Mes Programmes
             </NavLink>
           </Menu.Item>
+
           <Menu.Item key="6" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/players">
               Mes Joueurs
@@ -113,6 +115,11 @@ const Dashboard = () => {
           <Menu.Item key="11" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/defis">
               Les Défis
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="12" icon={<NotificationOutlined />}>
+            <NavLink exact to="/coach/dashboard/events">
+              Mes évenements
             </NavLink>
           </Menu.Item>
         </Menu>

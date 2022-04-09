@@ -10,6 +10,7 @@ import MyStatistic from "../Content/MyStatistics/MyStatistic";
 import PlayerInfo from "../Content/PlayerInfo/PlayerInfo";
 import Players from "../Content/MyPlayers/Players";
 import Défi from "../Content/Defi/Defis";
+import Events from "../Content/event/Events";
 import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
 
 const DashboardRouting = () => (
@@ -46,6 +47,7 @@ const DashboardRouting = () => (
       path="/coach/dashboard/programmes"
       component={Programmes}
     />
+    <CoachRoute exact path="/coach/dashboard/events" component={Events} />
     <CoachRoute exact path="/coach/dashboard/players" component={Players} />
     <CoachRoute
       exact

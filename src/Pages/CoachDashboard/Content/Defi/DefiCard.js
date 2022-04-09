@@ -19,10 +19,11 @@ const DefiCard = (props) => {
   const {
     title = `${defi.defiName}`,
     description = ` ${defi.defiObjectif} `,
-    defiLien = ` ${defi.defiLien} `,
-    createdAt = `${defi.createdAt}  `,
     dateExpiration = `${defi.dateExpiration} `,
+    defiLien = ` ${defi.defiLien} `,
+    defiVisible = ` ${defi.defiVisible} `,
   } = defi;
+
   const onDelete = () => {
     setLoading(false);
     deleteDefiApi(defi._id).then(() => {
@@ -52,30 +53,35 @@ const DefiCard = (props) => {
             <EditOutlined
               key="stop"
               onClick={onUpdate}
-              style={{ color: "#ffcd00" }}
+              style={{ color: "#A0660D" }}
             />,
           ]}
+          hoverable
+          style={{ width: 290, marginTop: 40 }}
+          cover={
+            <a href={defiLien}>
+              <img
+                alt="Video"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxPguujnk0QFLgGe9aVYlb2W6X9rSW7APDehkusJBjPPtCJD_tK5Ltdx5v2sG6ST8hUJk&usqp=CAU"
+                width="150"
+                height="150"
+              />
+            </a>
+          }
         >
-          <Skeleton loading={loading} avatar active>
-            <Meta title={title} />
-          </Skeleton>
+          <Meta title={title} />
           <Typography paragraph>{description}</Typography>
-          <Typography paragraph>
+          {/* <Typography paragraph>
             <i>
               <b>Créer le :</b>
             </i>{" "}
             <i format="YYYY/MM/DD">{createdAt.dateToFormat}</i>
-          </Typography>
+          </Typography> */}
           <Typography paragraph>
             <i>
               <b>Expiré le :</b>{" "}
             </i>
-            <i format="YYYY/MM/DD">{dateExpiration.dateToFormat}</i>
-          </Typography>
-          <Typography paragraph>
-            <a href={defiLien}>
-              <i>Lien Vidéo : {defiLien} </i>
-            </a>
+            <i format="YYYY/MM/DD">{defi.dateExpiration}</i>
           </Typography>
         </Card>
       </Skeleton>

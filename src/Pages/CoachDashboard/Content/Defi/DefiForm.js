@@ -1,10 +1,15 @@
 import React from "react";
-import { Modal, Form, Input, DatePicker } from "antd";
+import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
+import Moment from "react-moment";
+import moment from "moment";
 import { addDefiApi, updateDefiApi } from "../../../../Services/defiService";
 import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
+const dateFormat = "YYYY/MM/DD";
+
 const DefiForm = (props) => {
+  const { Option } = Select;
   const [form] = Form.useForm();
   const {
     setIsModalVisible,
@@ -15,8 +20,11 @@ const DefiForm = (props) => {
     defiSelected,
   } = props;
   const modalTitle =
-    defiSelected._id === "0000" ? "Ajouter un défi" : "Modifier un defi ";
+    defiSelected._id === "0000"
+      ? "Ajouter un nouveau défi"
+      : "Modifier un défi ";
   const modalBtnText = defiSelected._id === "0000" ? "Créer" : "Modifier";
+  const worker = moment(defiSelected.dateExpiration);
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
@@ -28,9 +36,9 @@ const DefiForm = (props) => {
     if (defiSelected._id === "0000") {
       addDefiApi(defi).then((response) => {
         const { data } = response;
-        defi.push(data);
+        defis.push(data);
         setDefis(defis);
-        notificationComponent("Notification", "défi est ajouté ");
+        notificationComponent("Notification", "Défi ajouté avec succés ");
         setLoading(true);
       });
     } else {
@@ -44,7 +52,7 @@ const DefiForm = (props) => {
         });
         setDefis(newDefis);
         setLoading(true);
-        notificationComponent("Notification", "Modification avec succés ");
+        notificationComponent("Notification", "Défi modifié avec succés ");
       });
     }
 
@@ -78,49 +86,50 @@ const DefiForm = (props) => {
         name="form_in_modal"
         initialValues={{
           _id: defiSelected ? defiSelected._id : null,
-          defiName: defiSelected ? defiSelected.title : "test",
-          description: defiSelected ? defiSelected.description : "test",
-          defiObjectif: defiSelected ? defiSelected.defiObjectif : "test",
+          defiName: defiSelected ? defiSelected.defiName : "",
+          defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
-          dateExpiration: defiSelected ? defiSelected.dateExpiration : "",
+          dateExpiration: worker,
+          defiVisible: defiSelected ? defiSelected.defiVisible : "",
         }}
       >
         <Form.Item
+          label="Le nom "
           name="defiName"
-          label="Nom défi"
           rules={[
             {
               required: true,
-              message: "Ce champs est obligatoire ",
+              message: "Ce champs est requis",
             },
           ]}
         >
-          <Input placeholder="Défi" />
+          <Input />
         </Form.Item>
         <Form.Item
-          label="Objectif"
+          label="Objectif "
           name="defiObjectif"
           rules={[
             {
               required: true,
-              message: "Ce champs est obligatoire",
+              message: "Ce champs est requis",
             },
           ]}
         >
-          <Input.TextArea placeholder="Objectif de défi" />
+          <Input placeholder="Le but ..." />
         </Form.Item>
         <Form.Item
-          label="Lien vidéo"
+          label="Lien Vidéo "
           name="defiLien"
           rules={[
             {
               required: true,
-              message: "Ce champs est obligatoire ",
+              message: "Ce champs est requis",
             },
           ]}
         >
-          <Input placeholder="https://www.youtube.com/" />
+          <Input />
         </Form.Item>
+
         <Form.Item
           label="Date d'expiration "
           name="dateExpiration"
@@ -131,8 +140,28 @@ const DefiForm = (props) => {
             },
           ]}
         >
-          <DatePicker format="YYYY/MM/DD" style={{ display: "flex" }} />
+          <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
+        <Row>
+          <Col>
+            <Form.Item
+              label="Visible :"
+              name="defiVisible"
+              initialValue="defiVisible"
+              rules={[
+                {
+                  required: true,
+                  message: "selectionner la visibilité de défi",
+                },
+              ]}
+            >
+              <Radio.Group defaultValue={defiSelected.defiVisible}>
+                <Radio value="false">non</Radio>
+                <Radio value="true">Oui</Radio>
+              </Radio.Group>
+            </Form.Item>
+          </Col>
+        </Row>
       </Form>
     </Modal>
   );

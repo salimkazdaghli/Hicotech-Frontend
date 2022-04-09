@@ -11,7 +11,6 @@ const Defis = () => {
   const [defis, setDefis] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [defiSelected, setDefiSelected] = useState({});
-
   const currentUser = authService.getCurrentUser();
 
   const showModal = () => {
@@ -39,7 +38,7 @@ const Defis = () => {
         icon={<PlusOutlined />}
         style={{ float: "right" }}
       >
-        Nouveau défi
+        Nouveau Défi
       </Button>
       <div className="site-card-wrapper">
         {loading && (
@@ -59,6 +58,7 @@ const Defis = () => {
             ))}
           </Row>
         )}
+        ;
       </div>
       {loading && (
         <DefiForm
