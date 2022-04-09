@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Modal, Form, Input, Select, Row, Radio } from "antd";
 
-import { addDefiApi, updateDefiApi } from "../../Services/DefiService";
+import { addDefiApi, updateDefiApi } from "../../Services/defiService";
 import authService from "../../Services/authService";
 import notificationComponent from "../../Components/NotificationComponent";
 

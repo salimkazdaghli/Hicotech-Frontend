@@ -1,31 +1,31 @@
 import React from "react";
 import { Card, Col, Skeleton, Typography } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { deleteDefiApi } from "../../Services/defiService";
-import notificationComponent from "../../Components/NotificationComponent";
+import { deleteSeanceApi } from "../../../Services/seanceService";
+import notificationComponent from "../../../Components/NotificationComponent";
 
-const DefiCard = (props) => {
+const SeanceCard = (props) => {
   const { Meta } = Card;
   const {
-    defi,
+    seance,
     loading,
-    defis,
-    setDefis,
+    seances,
+    setSeances,
     setLoading,
     setIsModalVisible,
-    setDefiSelected,
+    setSeanceSelected,
   } = props;
   const {
-    title = `${defi.defiName}`,
-    description = ` ${defi.defiObjectif} `,
-    dateExpiration = `${defi.dateExpiration} `,
-    defiLien = ` ${defi.defiLien} `,
-  } = defi;
+    title = `${seance.seanceName}`,
+    description = ` ${seance.seanceObjectif} `,
+    dateExpiration = `${seance.dateExpiration} `,
+    seanceLien = ` ${seance.seanceLien} `,
+  } = seance;
 
   const onDelete = () => {
     setLoading(false);
-    deleteDefiApi(defi._id).then(() => {
-      setDefis(defis.filter((defiItem) => defiItem._id !== defi._id));
+    deleteSeanceApi(seance._id).then(() => {
+      setSeances(seances.filter((seanceItem) => seanceItem._id !== seance._id));
       setLoading(true);
       notificationComponent(
         "Notification",
@@ -35,11 +35,11 @@ const DefiCard = (props) => {
   };
 
   const onUpdate = () => {
-    setDefiSelected(defi);
+    setSeanceSelected(seance);
     setIsModalVisible(true);
   };
   return (
-    <Col span={8} key={defi._id}>
+    <Col span={8} key={seance._id}>
       <Skeleton loading={!loading} avatar active>
         <Card
           actions={[
@@ -57,7 +57,7 @@ const DefiCard = (props) => {
           hoverable
           style={{ width: 320, marginTop: 40 }}
           cover={
-            <a href={defiLien}>
+            <a href={seanceLien}>
               <img
                 alt="Video"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxPguujnk0QFLgGe9aVYlb2W6X9rSW7APDehkusJBjPPtCJD_tK5Ltdx5v2sG6ST8hUJk&usqp=CAU"
@@ -86,4 +86,4 @@ const DefiCard = (props) => {
     </Col>
   );
 };
-export default DefiCard;
+export default SeanceCard;
