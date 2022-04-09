@@ -11,6 +11,7 @@ import PlayerInfo from "../Content/PlayerInfo/PlayerInfo";
 import Players from "../Content/MyPlayers/Players";
 import Défi from "../Content/Defi/Defis";
 import Events from "../Content/event/Events";
+import Seances from "../Content/MySeance/Seances";
 import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
 
 const DashboardRouting = () => (
@@ -54,6 +55,7 @@ const DashboardRouting = () => (
       path="/coach/dashboard/invitations"
       component={Invitations}
     />
+    <CoachRoute exact path="/coach/dashboard/seances" component={Seances} />
     <CoachRoute
       exact
       path="/coach/dashboard/manageChallenge"
