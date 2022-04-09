@@ -1,6 +1,12 @@
 import React from "react";
-import { Card, Col, Skeleton } from "antd";
-import { StopOutlined, CheckOutlined, EyeOutlined } from "@ant-design/icons";
+import { Card, Col, notification, Skeleton } from "antd";
+import {
+  StopOutlined,
+  CheckOutlined,
+  EyeOutlined,
+  ExclamationCircleOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 
 import { updateEventApi } from "../../../../Services/EventService";
 import notificationComponent from "../../../../Components/NotificationComponent";
@@ -27,10 +33,11 @@ const EventCard = (props) => {
   const onVisible = () => {
     if (event.eventVisible === true) {
       updateEventApi(event._id, { eventVisible: false });
-      notificationComponent(
-        "Notification",
-        "Vous n'etes pas interessé par cet evenement .."
-      );
+      notification.open({
+        message: "Notification",
+        description: "Non interssé ",
+        icon: <ExclamationCircleOutlined style={{ color: "#C1B024" }} />,
+      });
     }
   };
 
@@ -39,15 +46,17 @@ const EventCard = (props) => {
       updateEventApi(event._id, {
         participants: [...event.participants, currentUser.id],
       });
-      notificationComponent(
-        "Notification",
-        "Vous avez participé à cet evenement "
-      );
+      notification.open({
+        message: "Notification",
+        description: "Vous avez participé à cet evenement ",
+        icon: <CheckCircleOutlined style={{ color: "#5FC1F9" }} />,
+      });
     } else {
-      notificationComponent(
-        "Notification",
-        "Vous etes deja participé à cet evenement "
-      );
+      notification.open({
+        message: "Notification",
+        description: "Vous etes deja participé à cet evenement ",
+        icon: <ExclamationCircleOutlined style={{ color: "#F97045" }} />,
+      });
     }
   };
   return (
