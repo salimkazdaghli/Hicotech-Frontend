@@ -25,8 +25,10 @@ const Register = (props, { location }) => {
 
   const register = async (data) => {
     setLoading(true);
+    const role = invi ? "joueur" : "coach";
+    const user = { ...data, role };
     auth
-      .registerUserApi(data)
+      .registerUserApi(user)
       .then(({ data }) => {
         setToken(data.token);
         if (invi) {
