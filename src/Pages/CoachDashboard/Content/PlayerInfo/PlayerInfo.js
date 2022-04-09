@@ -1,263 +1,78 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Form, Select, Empty } from "antd";
+import { Tabs, Form, Select, Empty, message } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import Statistics from "./Statistics";
 import Skills from "./Skills";
 import Alerts from "./Alerts";
 import userService from "../../../../Services/userService";
 import auth from "../../../../Services/authService";
+import filterSessionData from "../../../../utils/filterSessionData";
+import { getAllSeanceApi } from "../../../../Services/SeancesService";
 import { getAllStatisticsApi } from "../../../../Services/StatisticService";
 
 const { Option } = Select;
 const { TabPane } = Tabs;
 
-const sessionData = [
-  {
-    date: "2022-03-18T22:12:13.337Z",
-    creactedBy: "624c7753abed050989505811",
-    player: "624c7753abed050989505811",
-    programme: "624c7753abed050989505811",
-    statistics: [
-      {
-        statistic: {
-          _id: "62350366ea1da8a92a87d64c",
-          statisticName: "100m",
-          statisticType: "compteur",
-          unit: "ml/h",
-          description:
-            "Cette statistique permet de mesurer me test4 d'un joueur",
-          lien: "https://www.alloprof.qc.ca/fr/eleves/bv/sciences/la-masse-et-le-poids-s1004",
-          max: true,
-          nbreFois: 2,
-          alerted: true,
-          discipline: "6231bf886725280bf7288f05",
-          createdAt: "2022-03-18T22:12:13.337Z",
-          updatedAt: "2022-03-18T22:12:13.337Z",
-          __v: 0,
-        },
-        value: 12,
-      },
-      {
-        statistic: {
-          _id: "6235046bea1da8a92a87d655",
-          statisticName: "100m",
-          statisticType: "compteur",
-          unit: "ml/h",
-          description:
-            "Cette statistique permet de mesurer me test4 d'un joueur",
-          lien: "https://www.alloprof.qc.ca/fr/eleves/bv/sciences/la-masse-et-le-poids-s1004",
-          max: true,
-          nbreFois: 2,
-          alerted: true,
-          discipline: "6231bf886725280bf7288f05",
-          createdAt: "2022-03-18T22:12:13.337Z",
-          updatedAt: "2022-03-18T22:12:13.337Z",
-          __v: 0,
-        },
-        value: 120,
-      },
-    ],
-    skills: [
-      {
-        skill: {
-          _id: "623503bdea1da8a92a87d64f",
-          skillName: "jonglage",
-          description: "test",
-          lien: "https://www.google.com/",
-          max: true,
-          nbreFois: 5,
-
-          alerted: true,
-        },
-        value: 5,
-      },
-    ],
-    trainingGround: undefined,
-    feedback: undefined,
-  },
-  {
-    date: "2022-03-18T22:12:13.337Z",
-    creactedBy: "624c7753abed050989505811",
-    player: "624c7753abed050989505811",
-    programme: "624c7753abed050989505811",
-    statistics: [
-      {
-        statistic: {
-          _id: "62350366ea1da8a92a87d64c",
-          statisticName: "100m",
-          statisticType: "compteur",
-          unit: "ml/h",
-          description:
-            "Cette statistique permet de mesurer me test4 d'un joueur",
-          lien: "https://www.alloprof.qc.ca/fr/eleves/bv/sciences/la-masse-et-le-poids-s1004",
-          max: true,
-          nbreFois: 2,
-          alerted: true,
-          discipline: "6231bf886725280bf7288f05",
-          createdAt: "2022-03-18T22:12:13.337Z",
-          updatedAt: "2022-03-18T22:12:13.337Z",
-          __v: 0,
-        },
-        value: 12,
-      },
-      {
-        statistic: {
-          _id: "6235046bea1da8a92a87d655",
-          statisticName: "100m",
-          statisticType: "compteur",
-          unit: "ml/h",
-          description:
-            "Cette statistique permet de mesurer me test4 d'un joueur",
-          lien: "https://www.alloprof.qc.ca/fr/eleves/bv/sciences/la-masse-et-le-poids-s1004",
-          max: true,
-          nbreFois: 2,
-          alerted: true,
-          discipline: "6231bf886725280bf7288f05",
-          createdAt: "2022-03-18T22:12:13.337Z",
-          updatedAt: "2022-03-18T22:12:13.337Z",
-          __v: 0,
-        },
-        value: 120,
-      },
-    ],
-    skills: [
-      {
-        skill: {
-          _id: "623503bdea1da8a92a87d64f",
-          skillName: "jonglage",
-          description: "test",
-          lien: "https://www.google.com/",
-          max: true,
-          nbreFois: 5,
-
-          alerted: true,
-        },
-        value: 5,
-      },
-    ],
-    trainingGround: undefined,
-    feedback: undefined,
-  },
-  {
-    date: "2022-03-18T22:12:13.337Z",
-    creactedBy: "624c7753abed050989505811",
-    player: "624c7753abed050989505811",
-    programme: "624c7753abed050989505811",
-
-    skills: [
-      {
-        skill: {
-          _id: "623503bdea1da8a92a87d614",
-          skillName: "controle",
-          description: "test",
-          lien: "https://www.google.com/",
-          max: true,
-          nbreFois: 5,
-
-          alerted: true,
-        },
-        value: 3,
-      },
-    ],
-    trainingGround: undefined,
-    feedback: undefined,
-  },
-];
-const StatChartData = (arr = [], statId = "") =>
-  arr
-    .filter((session) => !!session?.statistics)
-    .map((session) =>
-      session.statistics
-        .filter((el) => el.statistic._id === statId && el.value !== null)
-        .map((el) => ({
-          value: el.value,
-          date: session.date.slice(0, 10),
-        }))
-    )
-    .filter((arr) => arr.length)
-    .reduce((flat, next) => flat.concat(next), []);
-// const SkillsChartData = (arr = sessionData) =>
-//   arr
-//     .filter((session) => !!session.skills)
-//     .map((session) =>
-//       session.skills
-//         .filter((skill) => skill.value !== null)
-//         .map((el) => ({
-//           name: el.skill.skillName,
-//           value: el.value,
-//         }))
-//     )
-//     .filter((arr) => arr.length)
-//     .reduce((flat, next) => flat.concat(next), [])
-//     .reduce((group, skill) => {
-//       group[skill.name] = (group[skill.name] || 0) + age.age || 1;
-//       return group;
-//     }, {});
-// console.log("SkillsChartData: ", SkillsChartData());
-
 const PlayerInfo = () => {
   const [form] = Form.useForm();
   const [statisticTypes, setStatisticTypes] = useState([]);
   const [statisticData, setStatisticData] = useState([]);
+  const [sessionData, setSessionData] = useState([]);
+  const [skillsData, setSkillData] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(undefined);
+  const [selectedStatistic, setSelectedStatistic] = useState(undefined);
   const [players, setPlayers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const FilterStats = (statId) => {
-    const filtredData = StatChartData(sessionData, statId);
-    setStatisticData(filtredData);
-    // filter session data to get statistics
-    // setStatisticData(statData)
+    setSelectedStatistic(statisticTypes.find((stat) => stat._id === statId));
+    setStatisticData(filterSessionData.StatChartData(sessionData, statId));
   };
-
   useEffect(() => {
-    // fetch statistics and skills and alerts from session (using coach and player ids)
     if (selectedPlayer) {
       if (auth.getCurrentUser()) {
-        getAllStatisticsApi(auth.getCurrentUser().discipline)
+        getAllSeanceApi({
+          creactedBy: auth.getCurrentUser().id,
+          player: selectedPlayer,
+        })
           .then(({ data }) => {
-            setStatisticTypes(data.statistic);
+            setSessionData(data);
+            setSkillData(filterSessionData.SkillsChartData(data));
+            form.submit();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch(() => {
+            setSessionData([]);
+          })
+          .finally(() => setLoading(false));
       }
     }
   }, [selectedPlayer]);
 
   useEffect(() => {
-    // fetch statistics and skills and alerts from session (using coach and player ids)
     if (auth.getCurrentUser()) {
       userService
         .getUserApi(auth.getCurrentUser().id)
         .then(({ data: { myPlayers } }) => {
-          console.log("myPlayers: ", myPlayers);
           setPlayers(myPlayers);
         })
-        .catch((err) => {
-          console.log(err);
+        .then(() => getAllStatisticsApi(auth.getCurrentUser().discipline))
+        .then(({ data }) => {
+          setStatisticTypes(data.statistic);
+          form.submit();
+        })
+        .catch(() => {
+          message.error("Erreur de récupération de données");
         });
     }
   }, []);
 
-  const onFinish = () => {};
-  function onChange(date, dateString) {
-    console.log(date, dateString);
-  }
   return (
-    <Form
-      form={form}
-      autoComplete="off"
-      name="Afficher Info Joueur"
-      initialValues={{
-        remember: true,
-      }}
-      onFinish={onFinish}
-    >
+    <Form form={form} autoComplete="off" name="Afficher Info Joueur">
       <Tabs
         defaultActiveKey="1"
         tabBarExtraContent={
           <Form.Item
-            style={{ margin: 0 }}
+            style={{ margin: 0, minWidth: 350 }}
             name="player"
             label="Sélectionnez joueur :"
             rules={[
@@ -267,7 +82,13 @@ const PlayerInfo = () => {
               },
             ]}
           >
-            <Select placeholder="Joueur" onChange={(p) => setSelectedPlayer(p)}>
+            <Select
+              placeholder="Joueur"
+              onChange={(p) => {
+                setLoading(true);
+                setSelectedPlayer(p);
+              }}
+            >
               {players.map((p) => (
                 <Option key={uuidv4()} value={p._id}>
                   {`${p.firstName} ${p.lastName}`}
@@ -278,7 +99,7 @@ const PlayerInfo = () => {
         }
       >
         <TabPane tab="Statistiques" key="1">
-          {selectedPlayer ? (
+          {selectedPlayer && !loading && sessionData.length !== 0 ? (
             <>
               <Form.Item
                 style={{ maxWidth: "20%" }}
@@ -299,17 +120,20 @@ const PlayerInfo = () => {
                   ))}
                 </Select>
               </Form.Item>
-              <Statistics data={statisticData} />
+              <Statistics
+                data={statisticData}
+                selectedStatistic={selectedStatistic}
+              />
             </>
           ) : (
-            <Empty description="Aucune Donnée" />
+            selectedPlayer && !loading && <Empty description="Aucune Donnée" />
           )}
         </TabPane>
         <TabPane tab="Compétences" key="2">
-          {selectedPlayer ? <Skills /> : <Empty description="Aucune Donnée" />}
+          {selectedPlayer && !loading && <Skills data={skillsData} />}
         </TabPane>
         <TabPane tab="Alerts" key="3">
-          {selectedPlayer ? <Alerts /> : <Empty description="Aucune Donnée" />}
+          {selectedPlayer && <Alerts />}
         </TabPane>
       </Tabs>
     </Form>

@@ -59,20 +59,20 @@ const DefiCard = (props) => {
           <Skeleton loading={loading} avatar active>
             <Meta title={title} />
           </Skeleton>
-          <Typography paragraph>{description}</Typography>
-          <Typography paragraph>
+          <Typography>{description}</Typography>
+          <Typography>
             <i>
               <b>Créer le :</b>
             </i>{" "}
             <i format="YYYY/MM/DD">{createdAt.dateToFormat}</i>
           </Typography>
-          <Typography paragraph>
+          <Typography>
             <i>
               <b>Expiré le :</b>{" "}
             </i>
             <i format="YYYY/MM/DD">{dateExpiration.dateToFormat}</i>
           </Typography>
-          <Typography paragraph>
+          <Typography>
             <a href={defiLien}>
               <i>Lien Vidéo : {defiLien} </i>
             </a>
