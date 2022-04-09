@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
+import { Modal, Form, Input, Select, DatePicker, Button, Upload } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { addEventApi, updateEventApi } from "../../../../Services/EventService";
@@ -127,12 +127,12 @@ const EventForm = (props) => {
         >
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
-        <Form.Item label="Etats" name="Visibilité" rules={[]}>
+        <Form.Item label="Visible" name="Etats" rules={[]}>
           <Select
             mode="simple"
             allowClear
             style={{ width: "100%" }}
-            placeholder="Please select"
+            placeholder="Selectionner"
             defaultValue={[]}
             rules={[
               {
@@ -146,9 +146,11 @@ const EventForm = (props) => {
           </Select>
         </Form.Item>
 
-        <Button type="primary" icon={<DownloadOutlined />}>
-          Télecharger Affiche
-        </Button>
+        <Form.Item name="image" rules={[]}>
+          <Upload listType="picture" beforeupload={false}>
+            <Button icon={<DownloadOutlined />}>Técharger une affiche</Button>
+          </Upload>
+        </Form.Item>
       </Form>
     </Modal>
   );

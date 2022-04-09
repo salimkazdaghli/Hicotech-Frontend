@@ -109,6 +109,9 @@ const EventCard = (props) => {
               src="https://i.pinimg.com/originals/df/5f/4c/df5f4c6fd3354253afe47e3e6aaef09a.jpg"
             />
           }
+          // hoverable
+          // style={{ width: 320, marginTop: 40 }}
+          // cover={<img alt="example" src={event.image} />}>
         >
           <Meta title={title} />
         </Card>
