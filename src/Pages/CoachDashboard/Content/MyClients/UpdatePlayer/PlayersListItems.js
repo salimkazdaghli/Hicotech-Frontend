@@ -7,7 +7,7 @@ const PleyersListItems = ({ data, loading }) => {
   const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   const history = useHistory();
   const goToPlayerProfile = (item) => {
-    history.push("/dashboard/modifier/profileJoueur", { ...item });
+    history.push("/coach/dashboard/modifier/profileJoueur", { ...item });
   };
 
   return (

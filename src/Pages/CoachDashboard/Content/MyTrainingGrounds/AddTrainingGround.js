@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Modal, Button, Typography, Form, Select, Input } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { EnvironmentOutlined, PlusOutlined } from "@ant-design/icons";
-import Location from "../../../Components/Map";
-import gouvernorats from "../../../utils/gouvernorats";
-import auth from "../../../Services/authService";
-import trainingGround from "../../../Services/trainingGround";
+import Location from "../../../../Components/Map";
+import gouvernorats from "../../../../utils/gouvernorats";
+import auth from "../../../../Services/authService";
+import trainingGround from "../../../../Services/trainingGround";
 import "./TrainingGround.css";
 
 const { Option } = Select;

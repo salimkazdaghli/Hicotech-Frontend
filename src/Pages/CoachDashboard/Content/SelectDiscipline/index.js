@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card, Radio, Modal, Form, Skeleton, Button, Alert } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import disciplineService from "../../../Services/disciplineService";
-import { updateUserApi } from "../../../Services/userService";
-import authService from "../../../Services/authService";
-import useLocalStorage from "../../../Hooks/useLocalStorage";
+import disciplineService from "../../../../Services/disciplineService";
+import userService from "../../../../Services/userService";
+import authService from "../../../../Services/authService";
+import useLocalStorage from "../../../../Hooks/useLocalStorage";
 
 const SelectDescipline = () => {
   const [form] = Form.useForm();
@@ -40,7 +40,8 @@ const SelectDescipline = () => {
   };
 
   const onFinish = async (userInput) => {
-    await updateUserApi(authService.getCurrentUser().id, userInput)
+    await userService
+      .updateUserApi(authService.getCurrentUser().id, userInput)
       .then(({ data }) => {
         setToken(data.token);
         setSubmitting(true);
@@ -142,13 +143,4 @@ const SelectDescipline = () => {
   );
 };
 
-// eslint-disable-next-line no-lone-blocks
-{
-  /* <Radio.Group size="large" buttonStyle="outline">
-  <Radio.Button value="Canine">
-    <Card style={{ width: "100%", height: "100%" }}>Content 2 </Card>
-  </Radio.Button>
-  <Radio.Button value="Feline" />
-</Radio.Group> */
-}
 export default SelectDescipline;

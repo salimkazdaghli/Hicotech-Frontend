@@ -3,11 +3,10 @@ import { Row, Col, Alert } from "antd";
 // import InfiniteScroll from "react-infinite-scroll-component";
 import Title from "antd/lib/typography/Title";
 import authService from "../../../../../Services/authService";
-import { getUserApi } from "../../../../../Services/userService";
+import userService from "../../../../../Services/userService";
 import PleyersListItems from "./PlayersListItems";
 
 const DisplayPlayers = () => {
-  //   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -17,7 +16,8 @@ const DisplayPlayers = () => {
     if (authService.getCurrentUser()) {
       setLoading(true);
 
-      getUserApi(authService.getCurrentUser().id)
+      userService
+        .getUserApi(authService.getCurrentUser().id)
         .then(({ data: { myPlayers } }) => {
           setData(myPlayers);
         })

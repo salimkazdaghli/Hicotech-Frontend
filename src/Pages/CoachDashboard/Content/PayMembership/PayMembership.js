@@ -4,7 +4,7 @@ import { Radio, Form, Button, Spin, Row, Col, Alert } from "antd";
 import Title from "antd/lib/typography/Title";
 import "./PayMembership.css";
 import { updateMembership } from "../../../../Services/membershipService";
-import { getUserApi } from "../../../../Services/userService";
+import userService from "../../../../Services/userService";
 import authService from "../../../../Services/authService";
 
 const PayMembership = () => {
@@ -14,15 +14,15 @@ const PayMembership = () => {
   const [alert, setAlert] = useState(null);
   const fetchMembership = () => {
     setLoading(true);
-    getUserApi(authService.getCurrentUser().id).then(
-      ({ data: { subscription } }) => {
+    userService
+      .getUserApi(authService.getCurrentUser().id)
+      .then(({ data: { subscription } }) => {
         setSubscriptionData(subscription);
         form.setFieldsValue({
           subscription,
         });
         setLoading(false);
-      }
-    );
+      });
   };
   useEffect(() => {
     fetchMembership();

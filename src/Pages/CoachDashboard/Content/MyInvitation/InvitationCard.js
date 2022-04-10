@@ -4,8 +4,8 @@ import { StopOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   deleteInvitationApi,
   updateInvitationApi,
-} from "../../Services/InvitationService";
-import notificationComponent from "../../Components/NotificationComponent";
+} from "../../../../Services/InvitationService";
+import notificationComponent from "../../../../Components/NotificationComponent";
 
 const InvitationCard = (props) => {
   const { Meta } = Card;

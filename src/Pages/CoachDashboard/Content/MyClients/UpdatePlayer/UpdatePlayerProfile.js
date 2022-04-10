@@ -21,7 +21,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import React, { useState } from "react";
 import gouvernorats from "../../../../../utils/gouvernorats";
-import { updateUserApi } from "../../../../../Services/userService";
+import userService from "../../../../../Services/userService";
 
 const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
   const [playerData] = useState(user);
@@ -36,7 +36,8 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
         onFinish={(values) => {
           setLoading(true);
           setTimeout(() => {
-            updateUserApi(user._id, values)
+            userService
+              .updateUserApi(user._id, values)
               .then(() => {
                 setAlert({
                   message: "l'utilisateur a été mis à jour avec succès",

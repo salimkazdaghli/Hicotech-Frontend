@@ -1,10 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { Row, Table, Col, Alert, Typography } from "antd";
-
-import { getUserApi } from "../../../Services/userService";
-import authService from "../../../Services/authService";
-import "./TrainingGround.css";
+import userService from "../../../../Services/userService";
+import authService from "../../../../Services/authService";
 
 const { Title } = Typography;
 
@@ -17,7 +15,8 @@ const Players = () => {
     if (authService.getCurrentUser()) {
       setLoading(true);
 
-      getUserApi(authService.getCurrentUser().id)
+      userService
+        .getUserApi(authService.getCurrentUser().id)
         .then((data) => {
           setDataSource(data.data.myPlayers);
         })

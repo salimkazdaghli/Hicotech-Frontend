@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import auth from "../Services/authService";
 
-const JoueurRoute = ({ component: Component, render, ...rest }) => {
+const CoachRoute = ({ component: Component, render, ...rest }) => {
   const currentUser = auth.getCurrentUser();
   return (
     <Route
@@ -21,4 +21,4 @@ const JoueurRoute = ({ component: Component, render, ...rest }) => {
   );
 };
 
-export default JoueurRoute;
+export default CoachRoute;

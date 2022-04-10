@@ -1,8 +1,8 @@
 import React from "react";
 import "./invitation.css";
 import { Button } from "antd";
-import Logo from "../../Assets/logo.svg";
-import { updateInvitationApi } from "../../Services/InvitationService";
+import Logo from "../../../../Assets/logo.svg";
+import { updateInvitationApi } from "../../../../Services/InvitationService";
 
 const InvitationForm = (props) => {
   const { loading, expiration, invi, onChange } = props;

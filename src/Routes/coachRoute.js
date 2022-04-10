@@ -4,17 +4,21 @@ import auth from "../Services/authService";
 
 const CoachRoute = ({ component: Component, render, ...rest }) => {
   const currentUser = auth.getCurrentUser();
+
   return (
     <Route
+      /* eslint-disable react/jsx-props-no-spreading */
       {...rest}
       render={(props) => {
         if (currentUser && currentUser.role === "coach") {
           if (!currentUser.discipline) {
-            if (props.location.pathname !== "/dashboard/select/discipline") {
+            if (
+              props.location.pathname !== "/coach/dashboard/select/discipline"
+            ) {
               return (
                 <Redirect
                   to={{
-                    pathname: "/dashboard/select/discipline",
+                    pathname: "/coach/dashboard/select/discipline",
                   }}
                 />
               );

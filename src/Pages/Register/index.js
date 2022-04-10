@@ -10,7 +10,7 @@ import auth from "../../Services/authService";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 import gouvernorats from "../../utils/gouvernorats";
 import { updateInvitationApi } from "../../Services/InvitationService";
-import { updateUserApi } from "../../Services/userService";
+import userService from "../../Services/userService";
 
 const { Option } = Select;
 
@@ -25,8 +25,10 @@ const Register = (props, { location }) => {
 
   const register = async (data) => {
     setLoading(true);
+    const role = invi ? "joueur" : "coach";
+    const user = { ...data, role };
     auth
-      .registerUserApi(data)
+      .registerUserApi(user)
       .then(({ data }) => {
         setToken(data.token);
         if (invi) {
@@ -36,7 +38,7 @@ const Register = (props, { location }) => {
             expired: true,
             etat: "accepté",
           });
-          updateUserApi(invi.creacteBy._id, {
+          userService.updateUserApi(invi.creacteBy._id, {
             myPlayers: [...invi.creacteBy.myPlayers, acceptedBy.id],
           });
         }
@@ -60,11 +62,11 @@ const Register = (props, { location }) => {
     const currentUser = auth.getCurrentUser();
     if (currentUser) {
       history.push(
-        location && location.state
-          ? location.state.from.pathname
+        location?.state
+          ? location.state?.from?.pathname
           : currentUser.role && currentUser.role === "coach"
-          ? "/dashboard"
-          : "/test"
+          ? "/coach/dashboard"
+          : "/joueur/dashboard/"
       );
     }
   }, [token]);

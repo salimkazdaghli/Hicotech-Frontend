@@ -1,50 +1,84 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import AccueilPage from "../Content/Accueil";
-import GererDefi from "../Content/GererDefi";
-import ManageTrainingGround from "../Content/ManageTrainingGround";
-import Invitations from "../../Invitation/Invitations";
-import Programmes from "../programme/Programmes";
-import Players from "../Content/Players";
+import ManageTrainingGround from "../Content/MyTrainingGrounds/ManageTrainingGround";
+import Invitations from "../Content/MyInvitation/Invitations";
+import Programmes from "../Content/MyProgramme/Programmes";
 import SelectDiscipline from "../Content/SelectDiscipline";
 import CoachRoute from "../../../Routes/coachRoute";
 import MySkills from "../Content/MySkills/MySkills";
 import MyStatistic from "../Content/MyStatistics/MyStatistic";
-import Profile from "../Content/Profile";
-import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
-import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
 import PayMembership from "../Content/PayMembership/PayMembership";
+import PlayerInfo from "../Content/PlayerInfo/PlayerInfo";
+import Players from "../Content/MyPlayers/Players";
+import Défi from "../Content/Defi/Defis";
+import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
+import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
+import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
 
 const DashboardRouting = () => (
   <Switch>
-    <Route exact path="/dashboard/accueil" component={AccueilPage} />
-    <Route exact path="/dashboard/profile" component={GererDefi} />
-    <Route
+    <CoachRoute exact path="/coach/dashboard/accueil" component={AccueilPage} />
+    <CoachRoute
       exact
-      path="/dashboard/gerer/lieuEntrainement"
+      path="/coach/dashboard/gerer/lieuEntrainement"
       component={ManageTrainingGround}
     />
-    <Route exact path="/dashboard/profile" component={Profile} />
-    <Route exact path="/dashboard/invitations" component={Invitations} />
-    <Route exact path="/dashboard/programmes" component={Programmes} />
-    <Route exact path="/dashboard/players" component={Players} />
     <CoachRoute
       exact
-      path="/dashboard/select/discipline"
+      path="/coach/dashboard/select/discipline"
       component={SelectDiscipline}
     />
-    <CoachRoute exact path="/dashboard/invitations" component={Invitations} />
-    <Route exact path="/dashboard/myskills" component={MySkills} />
-    <Route exact path="/dashboard/profile" component={Profile} />
-    <Route exact path="/dashboard/mystatisitcs" component={MyStatistic} />
-    <CoachRoute exact path="/dashboard/modifier" component={DisplayPlayers} />
     <CoachRoute
       exact
-      path="/dashboard/payer-abonnement"
+      path="/coach/dashboard/invitations"
+      component={Invitations}
+    />
+    <CoachRoute exact path="/coach/dashboard/myskills" component={MySkills} />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/mystatisitcs"
+      component={MyStatistic}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/player/info"
+      component={PlayerInfo}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/programmes"
+      component={Programmes}
+    />
+    <CoachRoute exact path="/coach/dashboard/players" component={Players} />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/invitations"
+      component={Invitations}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/manageChallenge"
+      component={ShowChallenges}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/manageChallenge"
+      component={ShowChallenges}
+    />
+    <CoachRoute exact path="/coach/dashboard/defis" component={Défi} />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/payer-abonnement"
       component={PayMembership}
     />
     <CoachRoute
       exact
-      path="/dashboard/modifier/profileJoueur"
+      path="/coach/dashboard/modifyPlayers"
+      component={DisplayPlayers}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/modifier/profileJoueur"
       component={ModifyPlayer}
     />
   </Switch>

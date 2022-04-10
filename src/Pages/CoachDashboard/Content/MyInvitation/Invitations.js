@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Row, Button, Spin, Space, Col } from "antd";
-import { getAllInvitationApi } from "../../Services/InvitationService";
+import { getAllInvitationApi } from "../../../../Services/InvitationService";
 import InvitationCard from "./InvitationCard";
 import SendInvitation from "./SendInvitation";
-import authService from "../../Services/authService";
+import authService from "../../../../Services/authService";
 
 const Invitations = () => {
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const Invitations = () => {
   return (
     <>
       <Button type="primary" onClick={showModal} style={{ float: "right" }}>
-        Send Invotation
+        Send Invitation
       </Button>
       <div className="site-card-wrapper">
         {loading && (
@@ -46,7 +46,6 @@ const Invitations = () => {
             ))}
           </Row>
         )}
-        ;
         {!loading && (
           <Row gutter={16}>
             <Col span={8}>

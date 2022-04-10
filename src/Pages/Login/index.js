@@ -41,8 +41,8 @@ const Login = ({ location }) => {
         location.state
           ? location.state.from.pathname
           : currentUser.role && currentUser.role === "coach"
-          ? "/dashboard"
-          : "/test"
+          ? "/coach/dashboard"
+          : "/joueur/dashboard"
       );
     }
   }, [token]);
