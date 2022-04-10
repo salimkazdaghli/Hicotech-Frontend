@@ -24,7 +24,7 @@ import gouvernorats from "../../../../../utils/gouvernorats";
 import { updateUserApi } from "../../../../../Services/userService";
 
 const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
-  const [data] = useState(user);
+  const [playerData] = useState(user);
 
   const [loading, setLoading] = useState(false);
 
@@ -36,10 +36,13 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
         onFinish={(values) => {
           setLoading(true);
           setTimeout(() => {
-            updateUserApi(data._id, values)
-              .then(({ data: { message, type, data } }) => {
-                setAlert({ message, type });
-                setPlayer(data);
+            updateUserApi(user._id, values)
+              .then(() => {
+                setAlert({
+                  message: "l'utilisateur a été mis à jour avec succès",
+                  type: "success",
+                });
+                setPlayer({ ...playerData, ...values });
                 setTimeout(() => {
                   setAlert(null);
                 }, 2000);
@@ -69,7 +72,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
         >
           <Col span={9}>
             <Form.Item
-              initialValue={data.firstName}
+              initialValue={playerData.firstName}
               label="Nom joueur"
               name="firstName"
               rules={[
@@ -87,7 +90,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           </Col>
           <Col span={9}>
             <Form.Item
-              initialValue={data.lastName}
+              initialValue={playerData.lastName}
               label="Prénom joueur"
               name="lastName"
               rules={[
@@ -102,7 +105,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           </Col>
           <Col span={9}>
             <Form.Item
-              initialValue={data.sexe}
+              initialValue={playerData.sexe}
               label="sexe :"
               name="sexe"
               rules={[
@@ -122,7 +125,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
             <Form.Item
               label="date de naissance :"
               name="dateOfBirth"
-              initialValue={moment(data.dateOfBirth)}
+              initialValue={moment(playerData.dateOfBirth)}
               rules={[
                 {
                   type: "object",
@@ -140,7 +143,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           </Col>
           <Col span={9}>
             <Form.Item
-              initialValue={data.email}
+              initialValue={playerData.email}
               label="email :"
               name="email"
               rules={[
@@ -162,7 +165,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           </Col>
           <Col span={9}>
             <Form.Item
-              initialValue={data.city}
+              initialValue={playerData.city}
               label="gouvernorat :"
               name="city"
               rules={[
@@ -184,7 +187,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           <Col span={9}>
             <Form.Item
               label="Hauteur"
-              initialValue={data.height}
+              initialValue={playerData.height}
               name="height"
               rules={[
                 {
@@ -204,7 +207,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           <Col span={9}>
             <Form.Item
               label="poids"
-              initialValue={data.weight}
+              initialValue={playerData.weight}
               name="weight"
               rules={[
                 {
@@ -224,7 +227,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           <Col span={8}>
             <Form.Item
               label="active"
-              initialValue={data.active}
+              initialValue={playerData.active}
               name="active"
               rules={[
                 {
@@ -242,7 +245,7 @@ const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
           <Col span={8}>
             <Form.Item
               label="Prix d'une séance"
-              initialValue={data.sessionPrice}
+              initialValue={playerData.sessionPrice}
               name="sessionPrice"
               rules={[
                 {

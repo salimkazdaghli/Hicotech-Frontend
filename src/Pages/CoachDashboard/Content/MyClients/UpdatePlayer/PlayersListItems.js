@@ -23,6 +23,7 @@ const PleyersListItems = ({ data, loading }) => {
       <Spin spinning={loading}>
         <List
           dataSource={data}
+          rowKey={(record) => record._id}
           renderItem={(item) => (
             <List.Item key={uuidv4()} onClick={() => goToPlayerProfile(item)}>
               <Skeleton loading={loading} avatar>

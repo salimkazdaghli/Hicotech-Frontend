@@ -1,58 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { List, Avatar } from "antd";
-// import InfiniteScroll from "react-infinite-scroll-component";
+import { Divider } from "antd";
+import Title from "antd/lib/typography/Title";
+import { useEffect, useState } from "react";
+import authService from "../../../../../Services/authService";
+import { getObjectiveByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import StatisticObjective from "./StatisticObjective";
+import SkillObjective from "./SkillObjective";
 
-const DisplayStats = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    fetch(
-      "https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo"
-    )
-      .then((res) => res.json())
-      .then((body) => {
-        setData([...data, ...body.results]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
+const DisplayStats = ({ player, setAlert }) => {
+  const [objectiveData, setObjectiveData] = useState([]);
+  const [rerender, setRerender] = useState(false);
 
   useEffect(() => {
-    loadMoreData();
-  }, []);
-
+    getObjectiveByCoachAndPlayerApi({
+      creactedBy: authService.getCurrentUser().id,
+      player: player._id,
+    }).then(({ data }) => {
+      setObjectiveData(data);
+    });
+  }, [rerender]);
   return (
-    <div
-      id="scrollableDiv"
-      style={{
-        height: 400,
-        overflow: "auto",
-        padding: "0 16px",
-        border: "1px solid rgba(140, 140, 140, 0.35)",
-      }}
-    >
-      <List
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item key={item.id}>
-            <List.Item.Meta
-              avatar={<Avatar src={item.picture.large} />}
-              title={<a href="https://ant.design">{item.name.last}</a>}
-              description={item.email}
-            />
-            <div>Content</div>
-          </List.Item>
-        )}
+    <>
+      <Divider orientation="center">
+        <Title level={4}> Les Statistiques à atteindre</Title>
+      </Divider>
+      <StatisticObjective
+        objectiveData={objectiveData}
+        setObjectiveData={setObjectiveData}
+        setAlert={setAlert}
+        player={player}
+        setRerender={setRerender}
+        rerender={rerender}
       />
-    </div>
+
+      <Divider orientation="center">
+        <Title level={4}> Les Compétences à atteindre</Title>
+      </Divider>
+      <SkillObjective
+        objectiveData={objectiveData}
+        setObjectiveData={setObjectiveData}
+        setAlert={setAlert}
+        player={player}
+        setRerender={setRerender}
+        rerender={rerender}
+      />
+    </>
   );
 };
-
 export default DisplayStats;

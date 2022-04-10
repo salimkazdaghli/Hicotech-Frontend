@@ -1,15 +1,5 @@
 import { useState } from "react";
-import {
-  PageHeader,
-  Tabs,
-  Button,
-  Statistic,
-  Tag,
-  Avatar,
-  Row,
-  Col,
-  Alert,
-} from "antd";
+import { PageHeader, Tabs, Statistic, Row, Col, Alert } from "antd";
 import { useLocation } from "react-router-dom";
 import Title from "antd/lib/typography/Title";
 import UpdatePlayerProfile from "./UpdatePlayerProfile";
@@ -22,7 +12,6 @@ const ModifyPlayer = () => {
   const [player, setPlayer] = useState(user);
   const [alert, setAlert] = useState(null);
   const { TabPane } = Tabs;
-  const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   return (
     <>
       <Title>Modifier Joueur</Title>
@@ -86,7 +75,7 @@ const ModifyPlayer = () => {
           />
         </TabPane>
         <TabPane tab="Les Buts à atteindre" key="2">
-          <DisplayStats />
+          <DisplayStats player={player} setAlert={setAlert} />
         </TabPane>
       </Tabs>
     </>

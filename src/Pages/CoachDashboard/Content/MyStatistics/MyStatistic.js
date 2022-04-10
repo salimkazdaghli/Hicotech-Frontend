@@ -28,11 +28,6 @@ import {
 } from "../../../../Services/StatisticService";
 import StatisticFormField from "./StatisticFormField";
 import authService from "../../../../Services/authService";
-// import {
-//   setAlert,
-//   alertMessage,
-//   showAlert,
-// } from "../../../utils/alertComponent";
 
 const { TextArea } = Input;
 const MyStatistic = () => {
