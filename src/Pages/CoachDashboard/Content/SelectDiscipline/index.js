@@ -143,13 +143,4 @@ const SelectDescipline = () => {
   );
 };
 
-// eslint-disable-next-line no-lone-blocks
-{
-  /* <Radio.Group size="large" buttonStyle="outline">
-  <Radio.Button value="Canine">
-    <Card style={{ width: "100%", height: "100%" }}>Content 2 </Card>
-  </Radio.Button>
-  <Radio.Button value="Feline" />
-</Radio.Group> */
-}
 export default SelectDescipline;

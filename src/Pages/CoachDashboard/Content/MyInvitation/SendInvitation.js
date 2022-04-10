@@ -57,9 +57,7 @@ const SendInvitation = (props) => {
             form.resetFields();
             handleOk(values);
           })
-          .catch(() => {
-            // console.log('Validate Failed:', info);
-          });
+          .catch(() => {});
       }}
     >
       <Form

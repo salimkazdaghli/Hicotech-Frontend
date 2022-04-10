@@ -4,8 +4,8 @@ import Title from "antd/lib/typography/Title";
 import React, { useState } from "react";
 
 const DisplayInfo = () => {
-  const [loading, setLoading] = useState(false);
-  const [skeleton, setSkeleton] = useState(false);
+  const [loading] = useState(false);
+  const [skeleton] = useState(false);
 
   return !skeleton ? (
     <Spin spinning={loading}>
