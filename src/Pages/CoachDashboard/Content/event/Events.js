@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Button } from "antd";
+import { Row, Button, Spin, Space, Col } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { getAllEventApi } from "../../../../Services/EventService";
 
@@ -67,7 +67,15 @@ const Events = () => {
             ))}
           </Row>
         )}
-        ;
+        {!loading && (
+          <Row gutter={16}>
+            <Col span={8}>
+              <Space size="middle" style={{ marginTop: 250, marginLeft: 600 }}>
+                <Spin size="large" tip="Loading..." />
+              </Space>
+            </Col>
+          </Row>
+        )}
       </div>
       {loading && (
         <EventForm

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Button } from "antd";
+import { Row, Button, Spin, Space, Col } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { getAllDefiApi } from "../../../../Services/defiService";
 import DefiCard from "./DefiCard";
@@ -58,7 +58,15 @@ const Defis = () => {
             ))}
           </Row>
         )}
-        ;
+        {!loading && (
+          <Row gutter={16}>
+            <Col span={8}>
+              <Space size="middle" style={{ marginTop: 250, marginLeft: 600 }}>
+                <Spin size="large" tip="Loading..." />
+              </Space>
+            </Col>
+          </Row>
+        )}
       </div>
       {loading && (
         <DefiForm
