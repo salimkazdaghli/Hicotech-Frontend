@@ -7,11 +7,14 @@ import SelectDiscipline from "../Content/SelectDiscipline";
 import CoachRoute from "../../../Routes/coachRoute";
 import MySkills from "../Content/MySkills/MySkills";
 import MyStatistic from "../Content/MyStatistics/MyStatistic";
+import PayMembership from "../Content/PayMembership/PayMembership";
 import PlayerInfo from "../Content/PlayerInfo/PlayerInfo";
 import Players from "../Content/MyPlayers/Players";
 import Défi from "../Content/Defi/Defis";
 import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
 import CancelSession from "../Content/CancelSession/CancelSession";
+import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
+import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
 
 const DashboardRouting = () => (
   <Switch>
@@ -68,6 +71,21 @@ const DashboardRouting = () => (
       exact
       path="/coach/dashboard/annulerSeance"
       component={CancelSession}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/payer-abonnement"
+      component={PayMembership}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/modifyPlayers"
+      component={DisplayPlayers}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/modifier/profileJoueur"
+      component={ModifyPlayer}
     />
   </Switch>
 );

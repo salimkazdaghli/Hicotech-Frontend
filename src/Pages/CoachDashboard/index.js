@@ -120,6 +120,16 @@ const Dashboard = () => {
               Annuler Seance
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="13" icon={<DesktopOutlined />}>
+            <NavLink exact to="/coach/dashboard/payer-abonnement">
+              Mon Abonnement
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="14" icon={<DesktopOutlined />}>
+            <NavLink exact to="/coach/dashboard/modifyPlayers">
+              Modifier Joueurs
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
