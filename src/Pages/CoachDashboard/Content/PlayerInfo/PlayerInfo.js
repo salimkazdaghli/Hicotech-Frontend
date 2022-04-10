@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Form, Select, Empty, message } from "antd";
+import { Tabs, Form, Select, Empty, message, Spin } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import Statistics from "./Statistics";
 import Skills from "./Skills";
@@ -99,7 +99,17 @@ const PlayerInfo = () => {
         }
       >
         <TabPane tab="Statistiques" key="1">
-          {selectedPlayer && !loading && sessionData.length !== 0 ? (
+          {loading ? (
+            <div
+              style={{
+                marginTop: 80,
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              <Spin size="large" tip="Chargement..." />
+            </div>
+          ) : selectedPlayer && sessionData.length !== 0 ? (
             <>
               <Form.Item
                 style={{ maxWidth: "20%" }}
@@ -126,11 +136,23 @@ const PlayerInfo = () => {
               />
             </>
           ) : (
-            selectedPlayer && !loading && <Empty description="Aucune Donnée" />
+            selectedPlayer && <Empty description="Aucune Donnée" />
           )}
         </TabPane>
         <TabPane tab="Compétences" key="2">
-          {selectedPlayer && !loading && <Skills data={skillsData} />}
+          {loading ? (
+            <div
+              style={{
+                marginTop: 80,
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              <Spin size="large" tip="Chargement..." />
+            </div>
+          ) : (
+            selectedPlayer && <Skills data={skillsData} />
+          )}
         </TabPane>
         <TabPane tab="Alerts" key="3">
           {selectedPlayer && <Alerts />}

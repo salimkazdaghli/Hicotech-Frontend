@@ -31,7 +31,7 @@ const StatChartData = (arr = [], statId = "") =>
         .filter((el) => el.statistic._id === statId && el.value !== null)
         .map((el) => ({
           value: el.value,
-          date: session.createdAt.slice(0, 10),
+          date: session.dateSeance.slice(0, 10),
         }))
     )
     .filter((arr) => arr.length)
