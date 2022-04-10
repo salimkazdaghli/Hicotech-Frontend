@@ -115,6 +115,11 @@ const Dashboard = () => {
               Les Défis
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="12" icon={<DesktopOutlined />}>
+            <NavLink exact to="/coach/dashboard/annulerSeance">
+              Annuler Seance
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="13" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/payer-abonnement">
               Mon Abonnement

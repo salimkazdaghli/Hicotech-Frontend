@@ -12,6 +12,7 @@ import PlayerInfo from "../Content/PlayerInfo/PlayerInfo";
 import Players from "../Content/MyPlayers/Players";
 import Défi from "../Content/Defi/Defis";
 import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
+import CancelSession from "../Content/CancelSession/CancelSession";
 import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
 import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
 
@@ -66,6 +67,11 @@ const DashboardRouting = () => (
       component={ShowChallenges}
     />
     <CoachRoute exact path="/coach/dashboard/defis" component={Défi} />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/annulerSeance"
+      component={CancelSession}
+    />
     <CoachRoute
       exact
       path="/coach/dashboard/payer-abonnement"
