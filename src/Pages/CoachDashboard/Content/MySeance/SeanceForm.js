@@ -32,7 +32,6 @@ const SeanceForm = (props) => {
     const currentUser = authService.getCurrentUser();
     const seance = {
       ...values,
-      image: values.image.fileList[0].thumbUrl,
       creacteBy: currentUser.id,
     };
     setLoading(false);
@@ -41,7 +40,7 @@ const SeanceForm = (props) => {
         const { data } = response;
         seances.push(data);
         setSeances(seances);
-        notificationComponent("Notification", "Séance est ajouté ");
+        notificationComponent("Notification", "Seance ajoute ");
         setLoading(true);
       });
     } else {
@@ -55,7 +54,7 @@ const SeanceForm = (props) => {
         });
         setSeances(newSeances);
         setLoading(true);
-        notificationComponent("Notification", "Séance est modifié ");
+        notificationComponent("Notification", "Seance update ");
       });
     }
 
@@ -90,9 +89,7 @@ const SeanceForm = (props) => {
         initialValues={{
           _id: seanceSelected ? seanceSelected._id : null,
           seanceName: seanceSelected ? seanceSelected.seanceName : null,
-          programme: seanceSelected ? seanceSelected.programme : [],
-          player: seanceSelected ? seanceSelected.player : [],
-          statistics: seanceSelected ? seanceSelected.statistics : [],
+
           dateSeance: worker,
         }}
       >
@@ -142,8 +139,8 @@ const SeanceForm = (props) => {
           </Select>
         </Form.Item>
         <Form.Item
-          name="programme"
-          label="Programme"
+          name="seance"
+          label="Seance"
           rules={[
             {
               required: true,
