@@ -12,11 +12,10 @@ const ModifySkill = ({
   setRerender,
   rerender,
 }) => {
-  const [visible, setVisible] = useState(false);
+  const [, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
   const [form] = Form.useForm();
-  const [ModifiedStat, setModifiedStat] = useState();
+  const [, setModifiedStat] = useState();
   useEffect(() => {
     form.setFieldsValue({
       value: dataToEdit.value,

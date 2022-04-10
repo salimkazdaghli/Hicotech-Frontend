@@ -12,11 +12,10 @@ const ModifyStat = ({
   setRerender,
   rerender,
 }) => {
-  const [visible, setVisible] = useState(false);
+  const [, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
   const [form] = Form.useForm();
-  const [ModifiedStat, setModifiedStat] = useState();
+  const [, setModifiedStat] = useState();
   useEffect(() => {
     form.setFieldsValue({
       value: dataToEdit.value,
@@ -29,9 +28,7 @@ const ModifyStat = ({
       done: dataToEdit.done,
     });
   }, [dataToEdit]);
-  const showModal = () => {
-    setVisible(true);
-  };
+
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
