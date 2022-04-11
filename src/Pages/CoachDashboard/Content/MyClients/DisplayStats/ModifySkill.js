@@ -69,20 +69,11 @@ const ModifySkill = ({
         setRerender(!rerender);
         form.resetFields();
       });
-    // setLoading(true);
-    // addSkillApi(newStatistic).then(({ data: { message, data } }) => {
-    //   setConfirmLoading(false);
-    //   // setStatData(...statData, data);
-    //   setShowModal(!showModal);
-    //   resetStatForm();
-    //   setStatData((pre) => [data, ...pre]);
-    //   setLoading(false);
-    //   setAlert(message, 2000);
-    // });
   };
 
   return (
     <Modal
+      getContainer={false}
       visible={modalVisible}
       confirmLoading={confirmLoading}
       onCancel={handleCancel}

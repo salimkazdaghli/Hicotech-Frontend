@@ -16,7 +16,11 @@ const Dashboard = () => {
   };
   const userMenu = (
     <Menu>
-      <Menu.Item key="1">Mon Profil</Menu.Item>
+      <Menu.Item key="1">
+        <NavLink exact to="/joueur/dashboard/modifierProfile">
+          Mon Profile
+        </NavLink>
+      </Menu.Item>
       <Menu.Divider />
       <Menu.Item
         onClick={() => {

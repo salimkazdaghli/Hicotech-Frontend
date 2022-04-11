@@ -33,11 +33,6 @@ const ModifyPlayer = () => {
           src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
         }}
         title={`${player.firstName} ${player.lastName}`}
-        // tags={
-        //   <Tag color={player.active ? "green" : "red"}>
-        //     {player.active ? "active" : "pas active"}
-        //   </Tag>
-        // }
         extra={[
           <Statistic
             title="Status"
@@ -50,6 +45,18 @@ const ModifyPlayer = () => {
           <Statistic
             title="Prix Séance"
             value={player.sessionPrice ? `${player.sessionPrice} TND` : "--"}
+            valueStyle={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            style={{
+              marginRight: "100px",
+            }}
+          />,
+          <Statistic
+            title="IMC"
+            value={player.IMC.name}
             valueStyle={{
               flex: 1,
               justifyContent: "center",
