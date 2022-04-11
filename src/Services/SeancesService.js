@@ -7,6 +7,10 @@ export function getSeanceApi(id) {
   return axios.get(`/api/seances/${id}`);
 }
 
+export function annulerSeanceApi(id, data) {
+  return axios.put(`/api/seances/annuler/${id}`, data);
+}
+
 export function updateSeanceApi(id, data) {
   return axios.put(`/api/seances/${id}`, data);
 }
