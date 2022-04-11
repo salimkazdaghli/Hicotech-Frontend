@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Button, Typography, Form, Select, Input } from "antd";
+import { Modal, Button, Typography, Form, Select, Input, message } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { EnvironmentOutlined, PlusOutlined } from "@ant-design/icons";
 import Location from "../../../../Components/Map";
@@ -10,7 +10,7 @@ import "./TrainingGround.css";
 
 const { Option } = Select;
 const { Title } = Typography;
-const AddTrainingGround = ({ setAlert, setRefrech }) => {
+const AddTrainingGround = ({ setRefrech }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [openMap, setOpenMap] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,13 +45,22 @@ const AddTrainingGround = ({ setAlert, setRefrech }) => {
       trainingGround
         .addTrainingGroudApi(data)
         .then(({ data }) => {
-          setAlert(data);
+          message.success({
+            content: data.message,
+            duration: 3,
+          });
         })
         .catch((err) => {
           if (err && err.response && err.response.data.error) {
-            setAlert(err.response.data.error);
+            message.error({
+              content: err.response.data.error.message,
+              duration: 3,
+            });
           } else {
-            setAlert({ type: "error", message: "erreur de serveur" });
+            message.error({
+              content: "Erreur de serveur",
+              duration: 3,
+            });
           }
         })
         .finally(() => {

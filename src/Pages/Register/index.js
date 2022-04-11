@@ -1,6 +1,14 @@
-/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Row, Col, DatePicker, Select, Alert } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Row,
+  Col,
+  DatePicker,
+  Select,
+  message,
+} from "antd";
 import "./Register.css";
 import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -17,9 +25,7 @@ const { Option } = Select;
 const Register = (props, { location }) => {
   const { invi } = props;
   const user = invi ? invi.userData : null;
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const [token, setToken] = useLocalStorage("token", null);
   const history = useHistory();
 
@@ -42,14 +48,19 @@ const Register = (props, { location }) => {
             myPlayers: [...invi.creacteBy.myPlayers, acceptedBy.id],
           });
         }
-        setError(false);
       })
       .catch((err) => {
         setToken(null);
         if (err.response.data.error) {
-          setError(err.response.data.error);
+          message.error({
+            content: err.response.data.error.message,
+            duration: 3,
+          });
         } else {
-          setError("erreur de serveur");
+          message.error({
+            content: "Erreur de serveur",
+            duration: 3,
+          });
         }
       })
       .finally(() => setLoading(false));
@@ -85,7 +96,6 @@ const Register = (props, { location }) => {
         }}
         onFinish={onFinish}
       >
-        {error && <Alert message={error} type="error" showIcon closable />}
         <br />
         <div className="logo-center">
           <img src={Logo} height={130} width={130} alt="" />

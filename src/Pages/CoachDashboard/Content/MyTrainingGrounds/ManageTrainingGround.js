@@ -1,16 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Table,
-  Col,
-  Modal,
-  Alert,
-  Form,
-  Input,
-  Button,
-  Select,
-} from "antd";
+import { Table, Modal, Form, Input, Button, Select, message } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -32,7 +22,6 @@ const ManageTrainingGround = () => {
   const [dataSource, setDataSource] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refetch, setRefetch] = useState(0);
-  const [alert, setAlert] = useState(null);
   const [editing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
 
@@ -46,9 +35,15 @@ const ManageTrainingGround = () => {
         })
         .catch((err) => {
           if (err && err.response && err.response.data.error) {
-            setAlert(err.response.data.error);
+            message.error({
+              content: err.response.data.error.message,
+              duration: 3,
+            });
           } else {
-            setAlert({ type: "error", message: "erreur de serveur" });
+            message.error({
+              content: "Erreur de serveur",
+              duration: 3,
+            });
           }
         })
         .finally(() => {
@@ -62,16 +57,25 @@ const ManageTrainingGround = () => {
     trainingGround
       .updateTrainingGroudApi(rowToEdit, data)
       .then(({ data }) => {
-        setAlert(data);
+        message.success({
+          content: data.message,
+          duration: 3,
+        });
         setRowToEdit(null);
         setIsEditing(false);
         setRefetch((prev) => prev + 1);
       })
       .catch((err) => {
         if (err && err.response && err.response.data.error) {
-          setAlert(err.response.data.error);
+          message.error({
+            content: err.response.data.error.message,
+            duration: 3,
+          });
         } else {
-          setAlert({ type: "error", message: "erreur de serveur" });
+          message.error({
+            content: "Erreur de serveur",
+            duration: 3,
+          });
         }
       })
       .finally(() => {
@@ -91,14 +95,23 @@ const ManageTrainingGround = () => {
         trainingGround
           .deleteTrainingGroudApi(id)
           .then(({ data }) => {
-            setAlert(data);
+            message.success({
+              content: data.message,
+              duration: 3,
+            });
             setRefetch((prev) => prev + 1);
           })
           .catch((err) => {
             if (err && err.response && err.response.data.error) {
-              setAlert(err.response.data.error);
+              message.error({
+                content: err.response.data.error.message,
+                duration: 3,
+              });
             } else {
-              setAlert({ type: "error", message: "erreur de serveur" });
+              message.error({
+                content: "Erreur de serveur",
+                duration: 3,
+              });
             }
           })
           .finally(() => {
@@ -260,19 +273,7 @@ const ManageTrainingGround = () => {
   ];
   return (
     <>
-      {alert && (
-        <Row justify="center">
-          <Col>
-            <Alert
-              message={alert.message}
-              type={alert.type}
-              showIcon
-              closable
-            />
-          </Col>
-        </Row>
-      )}
-      <AddTrainingGround setAlert={setAlert} setRefrech={setRefetch} />
+      <AddTrainingGround setRefrech={setRefetch} />
       <Form form={form} onFinish={onFinish}>
         <Table
           tableLayout="fixed"
