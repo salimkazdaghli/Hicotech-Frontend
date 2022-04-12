@@ -41,3 +41,6 @@ export function addObjectiveApi(data) {
 export function deleteObjectiveApi(id) {
   return axios.delete(`/api/objectives/${id}`);
 }
+export function addObjectiveStatByCoachAndPlayerApi(id, data) {
+  return axios.put(`/api/addObjectiveStat/${id}`, data);
+}

@@ -56,7 +56,7 @@ const ModifyPlayer = () => {
           />,
           <Statistic
             title="IMC"
-            value={player.IMC.name}
+            value={player.IMC ? player.IMC.name : "--"}
             valueStyle={{
               flex: 1,
               justifyContent: "center",

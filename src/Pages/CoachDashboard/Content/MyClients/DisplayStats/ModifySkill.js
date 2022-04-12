@@ -1,6 +1,5 @@
 import { Modal, Form, Row, Col, InputNumber, DatePicker, Radio } from "antd";
-import moment from "moment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { updateObjectiveSkillByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
 
 const ModifySkill = ({
@@ -16,18 +15,6 @@ const ModifySkill = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const [, setModifiedStat] = useState();
-  useEffect(() => {
-    form.setFieldsValue({
-      value: dataToEdit.value,
-      beforeDate: moment(dataToEdit.beforeDate),
-      done: dataToEdit.done,
-    });
-    setModifiedStat({
-      value: dataToEdit.value,
-      beforeDate: dataToEdit.beforeDate,
-      done: dataToEdit.done,
-    });
-  }, [dataToEdit]);
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {

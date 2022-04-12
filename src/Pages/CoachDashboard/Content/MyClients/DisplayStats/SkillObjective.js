@@ -1,4 +1,9 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { Button, List, Spin } from "antd";
 import Title from "antd/lib/typography/Title";
 import moment from "moment";
@@ -85,6 +90,17 @@ const StatisticObjective = ({
                   "DD/MM/YYYY"
                 )}`}
               />
+              {item.done ? (
+                <>
+                  <CheckOutlined style={{ color: "green" }} />
+                  <span> achevé</span>
+                </>
+              ) : (
+                <>
+                  <CloseOutlined style={{ color: "#e11111" }} />
+                  <span> non achevé</span>
+                </>
+              )}
             </List.Item>
           )}
         />
