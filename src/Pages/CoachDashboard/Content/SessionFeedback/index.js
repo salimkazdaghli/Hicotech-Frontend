@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Spin, Tabs, message } from "antd";
+import { Typography, Spin, message } from "antd";
 import authService from "../../../../Services/authService";
 import SessionsCards from "./SessionsCards";
 import { getAllSeanceApi } from "../../../../Services/SeancesService";
