@@ -86,6 +86,7 @@ const SessionsCards = ({ data = [], setRefetch }) => {
           <Form.Item
             label="L'objectif global de la séance est atteint :"
             name="goalAcheived"
+            valuePropName="checked"
             rules={[
               {
                 required: true,
