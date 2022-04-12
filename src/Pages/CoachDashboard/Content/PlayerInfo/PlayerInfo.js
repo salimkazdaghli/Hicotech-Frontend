@@ -38,7 +38,6 @@ const PlayerInfo = () => {
           .then(({ data }) => {
             setSessionData(data);
             setSkillData(filterSessionData.SkillsChartData(data));
-            form.submit();
           })
           .catch(() => {
             setSessionData([]);
@@ -122,7 +121,7 @@ const PlayerInfo = () => {
                   },
                 ]}
               >
-                <Select placeholder="Statestique" onChange={FilterStats}>
+                <Select placeholder="Statistique" onChange={FilterStats}>
                   {statisticTypes.map((stat) => (
                     <Option key={uuidv4()} value={stat._id}>
                       {stat.statisticName}

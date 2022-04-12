@@ -8,7 +8,7 @@ const { Meta } = Card;
 const CancelSession = ({ data = [] }) => (
   <Row gutter={[16, 16]}>
     {data.length === 0 ? (
-      <Empty description="Aucune Donnée" style={{ margin: "auto" }} />
+      <Empty description="Aucune séance annulée" style={{ margin: "auto" }} />
     ) : (
       data.map((session) => (
         <Col key={uuidv4()}>
