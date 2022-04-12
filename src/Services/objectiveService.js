@@ -44,3 +44,6 @@ export function deleteObjectiveApi(id) {
 export function addObjectiveStatByCoachAndPlayerApi(id, data) {
   return axios.put(`/api/addObjectiveStat/${id}`, data);
 }
+export function addObjectiveSkillByCoachAndPlayerApi(id, data) {
+  return axios.put(`/api/addObjectiveSkill/${id}`, data);
+}

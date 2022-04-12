@@ -11,6 +11,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import authService from "../../../../../Services/authService";
 import { deleteObjectiveSkillByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import AddSkillObjectiveForm from "./AddSkillObjectiveForm";
 import ModifySkill from "./ModifySkill";
 
 const StatisticObjective = ({
@@ -23,6 +24,8 @@ const StatisticObjective = ({
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dataToEdit, setDataToEdit] = useState({});
+  const [addSkillModalVisible, setAddSkillModalVisible] = useState(false);
+
   const showModal = (item) => {
     setDataToEdit(item);
     setModalVisible(true);
@@ -51,11 +54,38 @@ const StatisticObjective = ({
         objectiveData={objectiveData}
         setAlert={setAlert}
       />
+      <AddSkillObjectiveForm
+        setAlert={setAlert}
+        modalVisible={addSkillModalVisible}
+        setModalVisible={setAddSkillModalVisible}
+        rerender={rerender}
+        setRerender={setRerender}
+        objectiveData={objectiveData}
+        setLoading={setLoading}
+      />
       <Spin spinning={loading}>
         <List
           size="large"
           rowKey={uuidv4()}
-          header={<Title level={5}>Liste des Compétences :</Title>}
+          header={
+            <>
+              <Title style={{ display: "inline-block" }} level={5}>
+                Liste des Compétences :
+              </Title>
+              <Button
+                size="middle"
+                style={{
+                  float: "right",
+                  justifyContent: "flex-end",
+                  alignItems: "end",
+                }}
+                type="primary"
+                onClick={() => setAddSkillModalVisible(!addSkillModalVisible)}
+              >
+                Ajouter
+              </Button>
+            </>
+          }
           bordered
           dataSource={objectiveData.skills}
           renderItem={(item) => (

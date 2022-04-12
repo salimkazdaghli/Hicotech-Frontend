@@ -11,7 +11,7 @@ import { Fragment, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import authService from "../../../../../Services/authService";
 import { deleteObjectiveByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
-import AddSkillObjectiveForm from "./AddSkillObjectiveForm";
+import AddStatObjectiveForm from "./AddStatObjectiveForm";
 import ModifyStat from "./ModifyStat";
 
 const StatisticObjective = ({
@@ -56,7 +56,7 @@ const StatisticObjective = ({
         objectiveData={objectiveData}
         setAlert={setAlert}
       />
-      <AddSkillObjectiveForm
+      <AddStatObjectiveForm
         setAlert={setAlert}
         modalVisible={addStatModalVisible}
         setModalVisible={setAddStatModalVisible}

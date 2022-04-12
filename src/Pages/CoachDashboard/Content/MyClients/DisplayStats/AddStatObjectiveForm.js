@@ -11,12 +11,12 @@ import {
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import authService from "../../../../../Services/authService";
-import { addObjectiveSkillByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
-import { getAllSkillsApi } from "../../../../../Services/StatisticService";
+import { addObjectiveStatByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { getAllStatisticsApi } from "../../../../../Services/StatisticService";
 
 const { Option } = Select;
 
-const AddSkillObjectiveForm = ({
+const AddStatObjectiveForm = ({
   modalVisible,
   setModalVisible,
   setAlert,
@@ -26,17 +26,17 @@ const AddSkillObjectiveForm = ({
   setLoading,
 }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [skillData, setSkillData] = useState([]);
+  const [statData, setStatData] = useState([]);
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
-      skill: undefined,
+      statistic: undefined,
       value: undefined,
       beforeDate: moment(),
       done: undefined,
     });
-    getAllSkillsApi(authService.getCurrentUser().discipline)
-      .then(({ data: { skill } }) => setSkillData(skill))
+    getAllStatisticsApi(authService.getCurrentUser().discipline)
+      .then(({ data: { statistic } }) => setStatData(statistic))
       .catch(() => {
         setAlert({ type: "error", message: "erreur de serveur" });
         setTimeout(() => {
@@ -54,13 +54,13 @@ const AddSkillObjectiveForm = ({
   const handleOk = () => {
     form.validateFields();
   };
-  const onAddSkillObjective = (values) => {
+  const onAddStatObjective = (values) => {
     setConfirmLoading(true);
     setLoading(true);
-    addObjectiveSkillByCoachAndPlayerApi(objectiveData._id, values).then(() => {
+    addObjectiveStatByCoachAndPlayerApi(objectiveData._id, values).then(() => {
       setAlert({
         type: "success",
-        message: "compétence ajouter avec succés!",
+        message: "statistique ajouter avec succés!",
       });
     });
 
@@ -78,11 +78,11 @@ const AddSkillObjectiveForm = ({
       visible={modalVisible}
       confirmLoading={confirmLoading}
       onCancel={handleCancel}
-      title="Ajouter une compétence à atteindre"
+      title="Ajouter une statistique à atteindre"
       okText="Ajouter"
       cancelText="Annuler"
       okButtonProps={{
-        form: "add-competence-form",
+        form: "add-statistic-form",
         key: "ok",
         htmlType: "submit",
       }}
@@ -91,33 +91,33 @@ const AddSkillObjectiveForm = ({
       width={700}
     >
       <Form
-        id="add-competence-form"
+        id="add-statistic-form"
         layout="vertical"
         form={form}
-        onFinish={onAddSkillObjective}
+        onFinish={onAddStatObjective}
       >
         {/* row one */}
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
-              label="sélectionner compétence"
-              name="skill"
+              label="sélectionner statistisque"
+              name="statistic"
               rules={[
                 {
                   required: true,
-                  message: "veuillez sélectionner la compétence!",
+                  message: "veuillez sélectionner la satistique!",
                 },
               ]}
             >
               <Select
-                placeholder="sélectionner la compétence"
+                placeholder="sélectionner la statistique"
                 style={{ width: 240 }}
                 allowClear
                 maxTagCount="responsive"
               >
-                {skillData.map((skill) => (
-                  <Option key={skill._id} value={skill._id}>
-                    {`${skill.skillName}`}
+                {statData.map((stat) => (
+                  <Option key={stat._id} value={stat._id}>
+                    {`${stat.statisticName}`}
                   </Option>
                 ))}
               </Select>
@@ -133,12 +133,12 @@ const AddSkillObjectiveForm = ({
               rules={[
                 {
                   required: true,
-                  message: "entrer la valeur du compétence à atteindre!",
+                  message: "entrer la valeur du statistique à atteindre!",
                 },
               ]}
             >
               <InputNumber
-                placeholder="Valeur compétence"
+                placeholder="Valeur statistique"
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -185,4 +185,4 @@ const AddSkillObjectiveForm = ({
   );
 };
 
-export default AddSkillObjectiveForm;
+export default AddStatObjectiveForm;
