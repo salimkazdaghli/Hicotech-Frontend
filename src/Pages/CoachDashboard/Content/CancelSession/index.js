@@ -56,7 +56,7 @@ const CancelSession = () => {
             <ToCancelSessions data={SessionData} setRefetch={setRefetch} />
           )}
         </TabPane>
-        <TabPane tab="séances annulé" key="2">
+        <TabPane tab="séances annulées" key="2">
           {loading ? (
             <Spin
               tip="Chargement..."

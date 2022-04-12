@@ -10,36 +10,34 @@ import {
   Modal,
   Form,
   Input,
+  Switch,
 } from "antd";
 import {
   ClockCircleOutlined,
-  CloseOutlined,
+  MessageOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 import authService from "../../../../Services/authService";
-import { annulerSeanceApi } from "../../../../Services/SeancesService";
+import { updateSeanceApi } from "../../../../Services/SeancesService";
 
 const { Meta } = Card;
 const { TextArea } = Input;
-const ToCancelSessions = ({ data = [], setRefetch }) => {
+const SessionsCards = ({ data = [], setRefetch }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedSessionId, setSelectedSessionId] = useState(undefined);
 
-  const markCancelled = (userInput) => {
+  const updateSession = (userInputsData) => {
     if (authService.getCurrentUser()) {
       setLoading(true);
-      annulerSeanceApi(selectedSessionId, {
-        sessionCancelled: {
-          isCancelled: true,
-          reason: userInput.reason,
-        },
+      updateSeanceApi(selectedSessionId, {
+        feedback: userInputsData,
       })
         .then(() => {
           message.success({
-            content: "La séance a été annulée avec succès",
+            content: "Votre feedback a été enregistré avec succès",
             duration: 2,
           });
           setRefetch((prev) => prev + 1);
@@ -79,23 +77,42 @@ const ToCancelSessions = ({ data = [], setRefetch }) => {
       >
         <Form
           form={form}
-          layout="vertical"
           name="annuler séance"
-          onFinish={markCancelled}
+          onFinish={updateSession}
+          initialValues={{
+            goalAcheived: true,
+          }}
         >
           <Form.Item
-            label="Préciser la raison :"
-            name="reason"
+            label="L'objectif global de la séance est atteint :"
+            name="goalAcheived"
             rules={[
               {
                 required: true,
-                message: "Veuillez préciser la raison",
+                message: "Veuillez préciser si l’objectif a été atteint",
+              },
+            ]}
+          >
+            <Switch
+              checkedChildren="Oui"
+              unCheckedChildren="Non"
+              defaultChecked
+            />
+          </Form.Item>
+          <Form.Item
+            label="Description : "
+            name="description"
+            labelCol={{ span: 24 }}
+            rules={[
+              {
+                required: true,
+                message: "Veuillez préciser la raison :",
               },
             ]}
           >
             <TextArea
-              placeholder="raison de l'annulation"
-              autoSize={{ minRows: 2, maxRows: 3 }}
+              placeholder="donnez une description"
+              autoSize={{ minRows: 3, maxRows: 3 }}
             />
           </Form.Item>
         </Form>
@@ -103,8 +120,8 @@ const ToCancelSessions = ({ data = [], setRefetch }) => {
       <Row gutter={[16, 16]}>
         {data.length === 0 ? (
           <Empty
-            description="Aucune séance à annuler"
-            style={{ margin: "auto" }}
+            description="Aucune séance trouvée"
+            style={{ margin: "auto", marginTop: 50 }}
           />
         ) : (
           data.map((session) => (
@@ -116,7 +133,7 @@ const ToCancelSessions = ({ data = [], setRefetch }) => {
                       <Avatar
                         style={{ color: "white", backgroundColor: "#7265e6" }}
                       >
-                        {session?.creactedBy?.firstName.charAt(0)}
+                        {session?.creactedBy?.firstName?.charAt(0)}
                       </Avatar>
                     }
                     title={
@@ -150,15 +167,14 @@ const ToCancelSessions = ({ data = [], setRefetch }) => {
                 style={{ width: 410, marginTop: 16 }}
                 actions={[
                   <Button
-                    className="redHoverColor"
-                    style={{ width: "100%", color: "red" }}
+                    style={{ width: "100%" }}
                     onClick={() => {
                       setSelectedSessionId(session._id);
                       setIsModalVisible(true);
                     }}
                   >
-                    <CloseOutlined twoToneColor="red" />
-                    Anuuler
+                    <MessageOutlined />
+                    Votre feedback
                   </Button>,
                 ]}
               >
@@ -174,4 +190,4 @@ const ToCancelSessions = ({ data = [], setRefetch }) => {
   );
 };
 
-export default ToCancelSessions;
+export default SessionsCards;
