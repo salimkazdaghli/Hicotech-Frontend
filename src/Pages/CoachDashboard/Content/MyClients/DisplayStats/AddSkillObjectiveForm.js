@@ -64,10 +64,9 @@ const AddSkillObjectiveForm = ({
       });
     });
 
-    setTimeout(() => {
-      setAlert(null);
-      setLoading(false);
-    }, 1000);
+    setAlert(null);
+    setLoading(false);
+    resetStatForm();
     setConfirmLoading(false);
     setModalVisible(false);
     setRerender(!rerender);

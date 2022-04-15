@@ -125,6 +125,11 @@ const Dashboard = () => {
               Modifier Joueurs
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="16" icon={<DesktopOutlined />}>
+            <NavLink exact to="/coach/dashboard/detailSeance">
+              Afficher detail séance
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
