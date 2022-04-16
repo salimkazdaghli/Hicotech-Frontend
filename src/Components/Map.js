@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from "react";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
