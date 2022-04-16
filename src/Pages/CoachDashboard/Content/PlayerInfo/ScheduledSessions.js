@@ -1,33 +1,18 @@
 import { useEffect, useState } from "react";
-import { Calendar, Badge, Modal, Row, Col } from "antd";
+import { Calendar, Badge, Modal, Row, Col, Button } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import { Map, TileLayer, Marker } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-
-import { ClockCircleOutlined, CalendarOutlined } from "@ant-design/icons";
-
-const DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-});
-L.Marker.prototype.options.icon = DefaultIcon;
-const MyMarker = (props) => {
-  const initMarker = (ref) => {
-    if (ref) {
-      ref.leafletElement.openPopup();
-    }
-  };
-
-  return <Marker ref={initMarker} {...props} />;
-};
+import {
+  ClockCircleOutlined,
+  CalendarOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
+import Map from "../../../../Components/Map";
 
 const ScheduledSessions = ({ sessionData = [] }) => {
   const [sessionDates, setsessionDates] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedSession, setSelectedSession] = useState({});
+  const [openMap, setOpenMap] = useState(false);
   useEffect(() => {
     setsessionDates(
       sessionData.map((session) => {
@@ -102,20 +87,25 @@ const ScheduledSessions = ({ sessionData = [] }) => {
           </Col>
         </Row>
         <br />
-        <strong>Lieu : </strong>
+        <strong>
+          Lieu :{" "}
+          <Button
+            onClick={() => {
+              setOpenMap(true);
+            }}
+            icon={<EnvironmentOutlined />}
+          >
+            Ouvrir la carte
+          </Button>{" "}
+        </strong>
         <br />
         <br />
         <Map
-          className="markercluster-map"
-          center={{ lat: 33.94944031898135, lng: 9.79101609438658 }}
-          zoom={6}
-          style={{ minHeight: "250px" }}
-        >
-          <TileLayer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-          {selectedSession?.trainingGround?.coordinates && (
-            <MyMarker position={selectedSession?.trainingGround?.coordinates} />
-          )}
-        </Map>
+          visible={openMap}
+          editable={false}
+          setvisibility={setOpenMap}
+          initialPosition={selectedSession?.trainingGround?.coordinates}
+        />
       </Modal>
       <Calendar dateCellRender={dateCellRender} />
     </>
