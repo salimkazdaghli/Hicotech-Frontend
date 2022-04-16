@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Form, Select, Empty, message, Spin } from "antd";
+import { Tabs, Form, Select, Empty, message } from "antd";
 import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
 import Statistics from "./Statistics";
 import Skills from "./Skills";
 import Alerts from "./Alerts";
@@ -9,6 +10,8 @@ import auth from "../../../../Services/authService";
 import filterSessionData from "../../../../utils/filterSessionData";
 import { getAllSeanceApi } from "../../../../Services/SeancesService";
 import { getAllStatisticsApi } from "../../../../Services/StatisticService";
+import ScheduledSessions from "./ScheduledSessions";
+import Loading from "../../../../Components/Loading";
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -28,6 +31,7 @@ const PlayerInfo = () => {
     setSelectedStatistic(statisticTypes.find((stat) => stat._id === statId));
     setStatisticData(filterSessionData.StatChartData(sessionData, statId));
   };
+
   useEffect(() => {
     if (selectedPlayer) {
       if (auth.getCurrentUser()) {
@@ -36,6 +40,7 @@ const PlayerInfo = () => {
           player: selectedPlayer,
         })
           .then(({ data }) => {
+            console.log("data: ", data);
             setSessionData(data);
             setSkillData(filterSessionData.SkillsChartData(data));
           })
@@ -46,6 +51,38 @@ const PlayerInfo = () => {
       }
     }
   }, [selectedPlayer]);
+  (function filterAlert() {
+    const filtredData = sessionData
+      .filter((session) => !!session.statistics)
+      .map((session) =>
+        session.statistics
+          .filter((el) => el.statistic.alerted === true)
+          .map((el) => ({
+            name: el?.statistic.statisticName,
+            value: el?.value,
+            alertedAfter: el?.statistic?.nbreFois,
+            toMaximize: el?.statistic?.max,
+          }))
+      )
+      .filter((arr) => arr.length)
+      .reduce((flat, next) => flat.concat(next), []);
+
+    // console.log("filtredData: ", filtredData);
+    const grouped = _(filtredData).groupBy("name").value();
+    console.log("grouped: ", grouped);
+  })();
+  function isIncreasing(arr, nb) {
+    let result = true;
+    if (arr.length >= nb) {
+      const reversedArr = arr.slice().reverse();
+      for (let i = 0; i < nb; i += 1) {
+        if (reversedArr[i + 1].value < reversedArr[i].value) {
+          result = false;
+          break;
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     if (auth.getCurrentUser()) {
@@ -99,15 +136,7 @@ const PlayerInfo = () => {
       >
         <TabPane tab="Statistiques" key="1">
           {loading ? (
-            <div
-              style={{
-                marginTop: 80,
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              <Spin size="large" tip="Chargement..." />
-            </div>
+            <Loading />
           ) : selectedPlayer && sessionData.length !== 0 ? (
             <>
               <Form.Item
@@ -140,20 +169,19 @@ const PlayerInfo = () => {
         </TabPane>
         <TabPane tab="Compétences" key="2">
           {loading ? (
-            <div
-              style={{
-                marginTop: 80,
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              <Spin size="large" tip="Chargement..." />
-            </div>
+            <Loading />
           ) : (
             selectedPlayer && <Skills data={skillsData} />
           )}
         </TabPane>
-        <TabPane tab="Alerts" key="3">
+        <TabPane tab="séances prévues" key="3">
+          {loading ? (
+            <Loading />
+          ) : (
+            selectedPlayer && <ScheduledSessions sessionData={sessionData} />
+          )}
+        </TabPane>
+        <TabPane tab="Alerts" key="4">
           {selectedPlayer && <Alerts />}
         </TabPane>
       </Tabs>
