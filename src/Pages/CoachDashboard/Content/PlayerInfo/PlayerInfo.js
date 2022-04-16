@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Tabs, Form, Select, Empty, message } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import _ from "lodash";
 import Statistics from "./Statistics";
 import Skills from "./Skills";
 import Alerts from "./Alerts";
@@ -40,7 +39,6 @@ const PlayerInfo = () => {
           player: selectedPlayer,
         })
           .then(({ data }) => {
-            console.log("data: ", data);
             setSessionData(data);
             setSkillData(filterSessionData.SkillsChartData(data));
           })
@@ -51,38 +49,6 @@ const PlayerInfo = () => {
       }
     }
   }, [selectedPlayer]);
-  (function filterAlert() {
-    const filtredData = sessionData
-      .filter((session) => !!session.statistics)
-      .map((session) =>
-        session.statistics
-          .filter((el) => el.statistic.alerted === true)
-          .map((el) => ({
-            name: el?.statistic.statisticName,
-            value: el?.value,
-            alertedAfter: el?.statistic?.nbreFois,
-            toMaximize: el?.statistic?.max,
-          }))
-      )
-      .filter((arr) => arr.length)
-      .reduce((flat, next) => flat.concat(next), []);
-
-    // console.log("filtredData: ", filtredData);
-    const grouped = _(filtredData).groupBy("name").value();
-    console.log("grouped: ", grouped);
-  })();
-  function isIncreasing(arr, nb) {
-    let result = true;
-    if (arr.length >= nb) {
-      const reversedArr = arr.slice().reverse();
-      for (let i = 0; i < nb; i += 1) {
-        if (reversedArr[i + 1].value < reversedArr[i].value) {
-          result = false;
-          break;
-        }
-      }
-    }
-  }
 
   useEffect(() => {
     if (auth.getCurrentUser()) {

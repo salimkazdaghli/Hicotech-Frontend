@@ -28,6 +28,8 @@ const Location = ({
   initialPosition = null,
   visible = false,
   setvisibility = () => {},
+  editable = true,
+  title = "L'emplacement :",
 }) => {
   const [position, setPosition] = useState(initialPosition);
   const handleClick = (e) => {
@@ -46,19 +48,20 @@ const Location = ({
   return (
     <div>
       <Modal
-        title="Veuillez sélectionner l'emplacement."
+        title={title}
         visible={visible}
-        onOk={handleOk}
+        onOk={editable ? handleOk : () => {}}
         onCancel={handleCancel}
         okText="Confirmer"
         cancelText="Annuler"
+        {...(!editable && { footer: () => null })}
       >
         <Map
           className="markercluster-map"
           center={center}
           zoom={zoom}
           style={{ minHeight: "300px" }}
-          onClick={handleClick}
+          onClick={editable ? handleClick : () => {}}
         >
           <TileLayer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
           {position && <MyMarker position={position} />}
