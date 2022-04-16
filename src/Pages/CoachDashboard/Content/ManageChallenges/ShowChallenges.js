@@ -34,13 +34,13 @@ const ShowChallenges = () => {
       title: "Défi",
       dataIndex: "defi",
       key: uuidv4(),
-      render: (Défi) => <p>{Défi.defiName}</p>,
+      render: (Défi) => <p>{Défi?.defiName}</p>,
     },
     {
       title: "Objectif",
       dataIndex: "defi",
       key: uuidv4(),
-      render: (objectif) => <p>{objectif.defiObjectif}</p>,
+      render: (objectif) => <p>{objectif?.defiObjectif}</p>,
     },
     {
       title: "Date Limite",
@@ -49,10 +49,10 @@ const ShowChallenges = () => {
       render: (deadline) => (
         <>
           <p>
-            <CalendarOutlined /> {deadline.slice(0, 10)}
+            <CalendarOutlined /> {deadline?.slice(0, 10)}
           </p>
           <p>
-            <ClockCircleOutlined /> {deadline.slice(11, 19)}
+            <ClockCircleOutlined /> {deadline?.slice(11, 19)}
           </p>
         </>
       ),
@@ -95,7 +95,7 @@ const ShowChallenges = () => {
         ) : (
           <ul style={{ padding: 0 }}>
             {players.map((p) => (
-              <li>{`${p.firstName} ${p.lastName}`}</li>
+              <li>{`${p?.firstName} ${p?.lastName}`}</li>
             ))}
           </ul>
         ),
