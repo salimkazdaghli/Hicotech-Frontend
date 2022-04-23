@@ -6,6 +6,7 @@ import {
   HomeOutlined,
   EnvironmentOutlined,
   MessageOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
@@ -76,6 +77,7 @@ const Dashboard = () => {
               Mes Statistiques
             </NavLink>
           </Menu.Item>
+
           <Menu.Item key="4" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/myskills">
               Mes Compétences
@@ -134,6 +136,11 @@ const Dashboard = () => {
           <Menu.Item key="15" icon={<MessageOutlined />}>
             <NavLink exact to="/coach/dashboard/FeedbackSeance">
               FeedBack Séance
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="16" icon={<NotificationOutlined />}>
+            <NavLink exact to="/coach/dashboard/events">
+              Mes évenements
             </NavLink>
           </Menu.Item>
         </Menu>
