@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Col, Skeleton, Typography } from "antd";
+import moment from "moment";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteDefiApi } from "../../../../Services/defiService";
 
@@ -23,6 +24,9 @@ const DefiCard = (props) => {
     createdAt = `${defi.createdAt}  `,
     dateExpiration = `${defi.dateExpiration} `,
   } = defi;
+  const DateExpiration = moment(dateExpiration).format("YYYY-MM-DD");
+  const DateCreation = moment(createdAt).format("YYYY-MM-DD");
+
   const onDelete = () => {
     setLoading(false);
     deleteDefiApi(defi._id).then(() => {
@@ -52,30 +56,41 @@ const DefiCard = (props) => {
             <EditOutlined
               key="stop"
               onClick={onUpdate}
-              style={{ color: "#ffcd00" }}
+              style={{ color: "#A0660D" }}
             />,
           ]}
+          hoverable
+          style={{ width: 320, marginTop: 40 }}
+          cover={
+            <a href={defiLien}>
+              <img
+                alt="Video"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxPguujnk0QFLgGe9aVYlb2W6X9rSW7APDehkusJBjPPtCJD_tK5Ltdx5v2sG6ST8hUJk&usqp=CAU"
+                width="90"
+                height="90"
+              />
+            </a>
+          }
         >
-          <Skeleton loading={loading} avatar active>
-            <Meta title={title} />
-          </Skeleton>
-          <Typography>{description}</Typography>
-          <Typography>
+          <Meta title={title} />
+          <Typography paragraph>{description}</Typography>
+          <Typography paragraph>
             <i>
               <b>Créer le :</b>
             </i>{" "}
-            <i format="YYYY/MM/DD">{createdAt.dateToFormat}</i>
+            <moment>
+              {" "}
+              <i>{DateCreation}</i>
+            </moment>
           </Typography>
-          <Typography>
+          <Typography paragraph>
             <i>
               <b>Expiré le :</b>{" "}
             </i>
-            <i format="YYYY/MM/DD">{dateExpiration.dateToFormat}</i>
-          </Typography>
-          <Typography>
-            <a href={defiLien}>
-              <i>Lien Vidéo : {defiLien} </i>
-            </a>
+            <moment>
+              {" "}
+              <i>{DateExpiration}</i>
+            </moment>
           </Typography>
         </Card>
       </Skeleton>
