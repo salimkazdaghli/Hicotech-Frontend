@@ -37,7 +37,7 @@ const EventForm = (props) => {
         const { data } = response;
         events.push(data);
         setEvents(events);
-        notificationComponent("Notification", "Event ajoute ");
+        notificationComponent("Notification", "Ajout avec succées ");
         setLoading(true);
       });
     } else {
@@ -51,7 +51,7 @@ const EventForm = (props) => {
         });
         setEvents(newEvents);
         setLoading(true);
-        notificationComponent("Notification", "Event modifié ");
+        notificationComponent("Notification", "Modification avec succées ");
       });
     }
 
@@ -85,8 +85,8 @@ const EventForm = (props) => {
         name="form_in_modal"
         initialValues={{
           _id: eventSelected ? eventSelected._id : null,
-          title: eventSelected ? eventSelected.title : "test",
-          description: eventSelected ? eventSelected.description : "test",
+          title: eventSelected ? eventSelected.title : "",
+          description: eventSelected ? eventSelected.description : "",
           etat: eventSelected ? eventSelected.etat : "",
           dateEvent: worker,
         }}

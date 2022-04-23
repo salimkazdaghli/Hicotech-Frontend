@@ -51,33 +51,7 @@ const EventCard = (props) => {
     setEventSelected(event);
     setEventVisible(true);
   };
-  const onVisible = () => {
-    if (event.eventVisible === true) {
-      updateEventApi(event._id, { eventVisible: false });
-      notificationComponent(
-        "Notification",
-        "Vous n'etes pas interessé par cet evenement .."
-      );
-    }
-  };
 
-  const onParticipateEvent = () => {
-    // console.log(event);
-    if (event.participants.indexOf(currentUser.id) < 0) {
-      updateEventApi(event._id, {
-        participants: [...event.participants, currentUser.id],
-      });
-      notificationComponent(
-        "Notification",
-        "Vous avez participé à cet evenement "
-      );
-    } else {
-      notificationComponent(
-        "Notification",
-        "Vous etes deja participé à cet evenement "
-      );
-    }
-  };
   return (
     <Col span={5} key={event._id}>
       <Skeleton loading={!loading} avatar active>
