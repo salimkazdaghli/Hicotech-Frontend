@@ -15,6 +15,7 @@ import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
 import CancelSession from "../Content/CancelSession/index";
 import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
 import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
+import Events from "../Content/event/Events";
 import SessionFeedback from "../Content/SessionFeedback";
 
 const DashboardRouting = () => (
@@ -88,6 +89,7 @@ const DashboardRouting = () => (
       path="/coach/dashboard/FeedbackSeance"
       component={SessionFeedback}
     />
+    <CoachRoute exact path="/coach/dashboard/events" component={Events} />
   </Switch>
 );
 
