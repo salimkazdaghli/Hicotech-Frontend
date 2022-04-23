@@ -66,8 +66,8 @@ const DefiCard = (props) => {
               <img
                 alt="Video"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxPguujnk0QFLgGe9aVYlb2W6X9rSW7APDehkusJBjPPtCJD_tK5Ltdx5v2sG6ST8hUJk&usqp=CAU"
-                width="150"
-                height="150"
+                width="90"
+                height="90"
               />
             </a>
           }
@@ -87,7 +87,6 @@ const DefiCard = (props) => {
             <i>
               <b>Expiré le :</b>{" "}
             </i>
-
             <moment>
               {" "}
               <i>{DateExpiration}</i>

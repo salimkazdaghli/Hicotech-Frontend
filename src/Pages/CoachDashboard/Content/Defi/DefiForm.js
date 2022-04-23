@@ -7,6 +7,7 @@ import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
 const dateFormat = "YYYY/MM/DD";
+
 const DefiForm = (props) => {
   const [form] = Form.useForm();
   const {
@@ -37,14 +38,17 @@ const DefiForm = (props) => {
         setLoading(true);
       });
     } else {
+      console.log(defiSelected.defiVisible);
       updateDefiApi(defiSelected._id, defi).then((res) => {
         const { data } = res;
         const newDefis = defis.map((defiItem) => {
           if (defiItem._id === defiSelected._id) {
             return data;
           }
+
           return defiItem;
         });
+
         setDefis(newDefis);
         setLoading(true);
         notificationComponent("Notification", "Modification avec succés ");
@@ -57,7 +61,6 @@ const DefiForm = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
   return (
     <Modal
       visible={isModalVisible}
@@ -85,11 +88,11 @@ const DefiForm = (props) => {
           defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
           dateExpiration: worker,
-          defiVisible: defiSelected ? defiSelected.defiVisible : "",
+          // defiVisible: defiSelected ? defiSelected.defiVisible :"",
         }}
       >
         <Form.Item
-          label="Le nom "
+          label="Nom "
           name="defiName"
           rules={[
             {
@@ -126,7 +129,7 @@ const DefiForm = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Date d'expiration "
+          label="Date d'éxpiration "
           name="dateExpiration"
           rules={[
             {
@@ -137,26 +140,25 @@ const DefiForm = (props) => {
         >
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
-        <Row>
-          <Col>
+        {/* <Row>
+          <Col>    
             <Form.Item
               label="Visible :"
               name="defiVisible"
-              initialValue="defiVisible"
               rules={[
                 {
                   required: true,
                   message: "selectionner la visibilité de défi",
                 },
-              ]}
-            >
+              ]} >  
+             
               <Radio.Group defaultValue={defiSelected.defiVisible}>
-                <Radio value="false">non</Radio>
+                <Radio value="false">Non</Radio>
                 <Radio value="true">Oui</Radio>
               </Radio.Group>
             </Form.Item>
           </Col>
-        </Row>
+        </Row> */}
       </Form>
     </Modal>
   );
