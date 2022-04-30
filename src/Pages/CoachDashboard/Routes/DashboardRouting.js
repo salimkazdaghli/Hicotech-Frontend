@@ -17,6 +17,7 @@ import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
 import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
 import Events from "../Content/event/Events";
 import SessionFeedback from "../Content/SessionFeedback";
+import SeanceUpdate from "../Content/Seance/seanceUpdate";
 
 const DashboardRouting = () => (
   <Switch>
@@ -90,6 +91,11 @@ const DashboardRouting = () => (
       component={SessionFeedback}
     />
     <CoachRoute exact path="/coach/dashboard/events" component={Events} />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/seance/:id"
+      component={SeanceUpdate}
+    />
   </Switch>
 );
 
