@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
-import { Table, Tag } from "antd";
+import { Table, Tag, message } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { ClockCircleOutlined, CalendarOutlined } from "@ant-design/icons";
 import authService from "../../../../Services/authService";
@@ -22,7 +22,12 @@ const ShowChallenges = () => {
         .then(({ data }) => {
           setDataSource(() => data);
         })
-        .catch(() => {})
+        .catch(() => {
+          message.error({
+            content: "Erreur de serveur",
+            duration: 3,
+          });
+        })
         .finally(() => {
           setLoading(false);
         });

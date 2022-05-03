@@ -37,7 +37,12 @@ const AddChallenge = ({ setRefrech }) => {
         creacteBy: authService.getCurrentUser().id,
       })
         .then(({ data }) => setChallengeData(data))
-        .catch((err) => console.log(err));
+        .catch(() =>
+          message.error({
+            content: "Erreur de serveur",
+            duration: 3,
+          })
+        );
     }
   }, []);
 
