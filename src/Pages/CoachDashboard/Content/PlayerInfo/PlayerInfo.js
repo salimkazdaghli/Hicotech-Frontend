@@ -63,7 +63,11 @@ const PlayerInfo = () => {
           form.submit();
         })
         .catch(() => {
-          message.error("Erreur de récupération de données");
+          message.error({
+            content:
+              "Une erreur s’est produite lors de la récupération des données",
+            duration: 3,
+          });
         });
     }
   }, []);
@@ -148,7 +152,11 @@ const PlayerInfo = () => {
           )}
         </TabPane>
         <TabPane tab="Alerts" key="4">
-          {selectedPlayer && <Alerts />}
+          {loading ? (
+            <Loading />
+          ) : (
+            selectedPlayer && <Alerts selectedPlayer={selectedPlayer} />
+          )}
         </TabPane>
       </Tabs>
     </Form>
