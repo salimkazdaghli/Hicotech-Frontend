@@ -29,10 +29,6 @@ const Seances = () => {
   const [key, setKey] = useState("1");
   const [seanceSelected, setSeanceSelected] = useState({});
 
-  const showDrawer = () => {
-    setVisible(true);
-  };
-
   const onClose = () => {
     setVisible(false);
   };
@@ -61,9 +57,7 @@ const Seances = () => {
   }, []);
   function callback(key) {
     if (key === "2") {
-      // console.log(new Date());
       setKey("2");
-      // console.log(moment(new Date).format("yyyy-MM-DDT23:59:59"));
       getSeancesByDate({
         from: moment(new Date()).format("yyyy-MM-DDT00:00:00"),
         to: moment(new Date()).format("yyyy-MM-DDT23:59:59"),
