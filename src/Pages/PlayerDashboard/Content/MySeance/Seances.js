@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Tabs, Row, Col, Spin, Space } from "antd";
+import {
+  Typography,
+  Tabs,
+  Row,
+  Col,
+  Spin,
+  Space,
+  Drawer,
+  Collapse,
+} from "antd";
 import moment from "moment";
 import {
   getSeancePlayerApi,
@@ -10,12 +19,23 @@ import authService from "../../../../Services/authService";
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
+const { Panel } = Collapse;
 
 const Seances = () => {
   const [loading, setLoading] = useState(false);
   const [seances, setSeances] = useState({});
+  const [visible, setVisible] = useState(false);
   const currentUser = authService.getCurrentUser();
   const [key, setKey] = useState("1");
+  const [seanceSelected, setSeanceSelected] = useState({});
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   async function getSeances() {
     setLoading(false);
@@ -66,6 +86,8 @@ const Seances = () => {
                     seance={seance}
                     key={seance._id}
                     loading={loading}
+                    setVisible={setVisible}
+                    setSeanceSelected={setSeanceSelected}
                   />
                 ))}
               </Row>
@@ -94,6 +116,54 @@ const Seances = () => {
             </Space>
           </Col>
         </Row>
+      )}
+      {visible && (
+        <Drawer
+          title={seanceSelected.seanceName}
+          placement="right"
+          onClose={onClose}
+          size="large"
+          visible={visible}
+          key={seanceSelected._id}
+        >
+          <p>Programme : {seanceSelected.programme.title} </p>
+          <p>
+            coach : {seanceSelected.creactedBy.firstName}{" "}
+            {seanceSelected.creactedBy.lastName}{" "}
+          </p>
+          <p>
+            Date Seance :{" "}
+            {moment(seanceSelected.dateSeance).format("YYYY-MM-DD HH:MM")}
+          </p>
+          <p>
+            trainingGround: {seanceSelected.trainingGround.city} ,{" "}
+            {seanceSelected.trainingGround.address}{" "}
+          </p>
+          {seanceSelected.feedback && (
+            <p>
+              feedback: <br /> {seanceSelected.feedback.description}{" "}
+            </p>
+          )}
+          {seanceSelected.sessionCancelled.isCancelled && (
+            <p>sessionCancelled {seanceSelected.sessionCancelled.reason} </p>
+          )}
+          <Collapse defaultActiveKey={["1"]} onChange={callback}>
+            <Panel header="statistic" key="2">
+              {seanceSelected.statistics.map(({ statistic }) => (
+                <p>
+                  {statistic.statisticName} <br /> {statistic.description}
+                </p>
+              ))}
+            </Panel>
+            <Panel header="Skills" key="3">
+              {seanceSelected.skills.map(({ skill }) => (
+                <p>
+                  {skill.statisticName} <br /> {skill.description}
+                </p>
+              ))}
+            </Panel>
+          </Collapse>
+        </Drawer>
       )}
     </>
   );
