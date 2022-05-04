@@ -1,94 +1,105 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Calendar, Badge } from "antd";
-import { getAllSeanceApi } from "../../../../Services/SeancesService";
-import "./seance.css";
+import { Typography, Tabs, Row, Col, Spin, Space } from "antd";
+import moment from "moment";
+import {
+  getSeancePlayerApi,
+  getAllSeanceApi,
+} from "../../../../Services/SeancesService";
+import SeanceCard from "./SeanceCard";
+import authService from "../../../../Services/authService";
 
+const { TabPane } = Tabs;
 const { Title } = Typography;
-
-function getListData(value) {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-        { type: "error", content: "This is error event." },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: "warning", content: "This is warning event" },
-        { type: "success", content: "This is very long usual event。。...." },
-        { type: "error", content: "This is error event 1." },
-        { type: "error", content: "This is error event 2." },
-        { type: "error", content: "This is error event 3." },
-        { type: "error", content: "This is error event 4." },
-      ];
-      break;
-    default:
-  }
-  return listData || [];
-}
-
-function dateCellRender(value) {
-  const listData = getListData(value);
-  return (
-    <ul className="events">
-      {listData.map((item) => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function getMonthData(value) {
-  if (value.month() === 8) {
-    return 1394;
-  }
-}
-
-function monthCellRender(value) {
-  const num = getMonthData(value);
-  return num ? (
-    <div className="notes-month">
-      <section>{num}</section>
-      <span>Backlog number</span>
-    </div>
-  ) : null;
-}
 
 const Seances = () => {
   const [loading, setLoading] = useState(false);
   const [seances, setSeances] = useState({});
+  const currentUser = authService.getCurrentUser();
+  const [key, setKey] = useState("1");
 
   async function getSeances() {
-    await getAllSeanceApi()
+    setLoading(false);
+    await getAllSeanceApi({ player: currentUser.id })
       .then((response) => {
         setSeances(response.data);
         setLoading(true);
       })
       .catch(() => {});
-    console.log(seances);
+  }
+  async function getSeancesByDate(data) {
+    setLoading(false);
+    await getSeancePlayerApi(currentUser.id, data)
+      .then((response) => {
+        setSeances(response.data);
+        setLoading(true);
+      })
+      .catch(() => {});
   }
 
   useEffect(() => {
     getSeances();
   }, []);
+  function callback(key) {
+    if (key === "2") {
+      // console.log(new Date());
+      setKey("2");
+      // console.log(moment(new Date).format("yyyy-MM-DDT23:59:59"));
+      getSeancesByDate({
+        from: moment(new Date()).format("yyyy-MM-DDT00:00:00"),
+        to: moment(new Date()).format("yyyy-MM-DDT23:59:59"),
+      });
+    } else if (key === "1") {
+      setKey("1");
+      getSeances({});
+    }
+  }
   return (
     <>
-      <Title level={2}>Mes Défis :</Title>
-      <Calendar
-        dateCellRender={dateCellRender}
-        monthCellRender={monthCellRender}
-      />
+      <Title level={2}>les séances :</Title>
+      {loading && (
+        <Tabs defaultActiveKey={key} onChange={callback}>
+          <TabPane tab="Toutes les séances " key="1">
+            <div className="site-card-wrapper">
+              <Row gutter={16}>
+                {seances.map((seance) => (
+                  <SeanceCard
+                    seance={seance}
+                    key={seance._id}
+                    loading={loading}
+                  />
+                ))}
+              </Row>
+            </div>
+          </TabPane>
+
+          <TabPane tab="les séances D`aujourdui " key="2">
+            <div className="site-card-wrapper">
+              <Row gutter={16}>
+                {seances.map((seance) => (
+                  <SeanceCard
+                    seance={seance}
+                    key={seance._id}
+                    loading={loading}
+                  />
+                ))}
+              </Row>
+            </div>
+          </TabPane>
+
+          <TabPane tab="Tab 3" key="3">
+            Content of Tab Pane 3
+          </TabPane>
+        </Tabs>
+      )}
+      {!loading && (
+        <Row gutter={16}>
+          <Col span={8}>
+            <Space size="middle" style={{ marginTop: 250, marginLeft: 600 }}>
+              <Spin size="large" tip="Loading..." />
+            </Space>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
