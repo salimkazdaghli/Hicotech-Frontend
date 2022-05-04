@@ -101,6 +101,8 @@ const Seances = () => {
                     seance={seance}
                     key={seance._id}
                     loading={loading}
+                    setVisible={setVisible}
+                    setSeanceSelected={setSeanceSelected}
                   />
                 ))}
               </Row>
