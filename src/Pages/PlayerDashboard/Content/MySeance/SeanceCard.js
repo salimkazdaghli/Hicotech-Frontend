@@ -1,12 +1,18 @@
-import React from "react";
-import { Skeleton, Card, Avatar, Col } from "antd";
+import React, { useState } from "react";
+import { Skeleton, Card, Avatar, Col, Button, Drawer } from "antd";
+import moment from "moment";
 
 const SeanceCard = (props) => {
   const { Meta } = Card;
-  const { seance, loading } = props;
+  const { seance, loading, setVisible, setSeanceSelected } = props;
+  const show = () => {
+    setSeanceSelected(seance);
+    console.log(seance);
+    setVisible(true);
+  };
   return (
     <Col span={8}>
-      <Card style={{ marginTop: 16 }} actions={[]}>
+      <Card style={{ marginTop: 16 }} actions={[]} onClick={show}>
         <Skeleton loading={!loading} avatar active>
           <Meta
             avatar={
@@ -16,7 +22,9 @@ const SeanceCard = (props) => {
             }
             title={seance.seanceName}
           />
-          <p> DateSeance : {seance.dateSeance} </p>
+          <p>
+            DateSeance : {moment(seance.dateSeance).format("YYYY-MM-DD HH:MM")}
+          </p>
         </Skeleton>
       </Card>
     </Col>
