@@ -71,8 +71,7 @@ const Seances = () => {
               </Row>
             </div>
           </TabPane>
-
-          <TabPane tab="les séances D`aujourdui " key="2">
+          <TabPane tab="Les séances D`aujourdui " key="2">
             <div className="site-card-wrapper">
               <Row gutter={16}>
                 {seances.map((seance) => (
@@ -84,10 +83,6 @@ const Seances = () => {
                 ))}
               </Row>
             </div>
-          </TabPane>
-
-          <TabPane tab="Tab 3" key="3">
-            Content of Tab Pane 3
           </TabPane>
         </Tabs>
       )}
