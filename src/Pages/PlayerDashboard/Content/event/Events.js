@@ -16,7 +16,7 @@ const Events = () => {
   const [isEventVisible, setEventVisible] = useState(false);
 
   async function getEvents() {
-    await getAllEventApi({ eventVisible: true })
+    await getAllEventApi({ eventVisible: true, etat: "Pour Tous" })
       .then((response) => {
         setEvents(response.data);
         setLoading(true);
