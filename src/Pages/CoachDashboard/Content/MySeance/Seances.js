@@ -10,6 +10,7 @@ import {
   Select,
   Table,
 } from "antd";
+import moment from "moment";
 import { getAllSeanceApi } from "../../../../Services/SeancesService";
 import userService from "../../../../Services/userService";
 import { getAllProgrammeApi } from "../../../../Services/ProgrammeService";
@@ -43,12 +44,11 @@ const Seances = () => {
     },
     {
       title: "Joueur",
-      dataIndex: ["player", "firstName"],
+      dataIndex: ["player", "email"],
     },
     {
       title: "Date",
       dataIndex: "dateSeance",
-
       key: "dateSeance",
     },
     {
@@ -100,8 +100,8 @@ const Seances = () => {
       programme: "prog 2",
     },
   ];
-  const [data, setData] = useState(data2);
 
+  const [data, setData] = useState(data2);
   const showModal = () => {
     setSeanceSelected({ _id: "0000" });
     setIsModalVisible(true);
@@ -115,13 +115,17 @@ const Seances = () => {
       })
       .catch(() => {});
   }
-
   const onJoueurChange = (value) => {
-    const dataChange = data2.filter((seance) => seance.joueur === value);
+    const dataChange = dataSource.filter(
+      (seance) => seance.player.email === value
+    );
     setData(dataChange);
   };
-  const onLieuxChange = (value) => {
-    const dataChange = data2.filter((seance) => seance.lieu === value);
+  const onProgrammeChange = (value) => {
+    setLoading(true);
+    const dataChange = dataSource.filter(
+      (seance) => seance.programme.title === value
+    );
     setData(dataChange);
   };
 
@@ -149,7 +153,6 @@ const Seances = () => {
         <Button key={date} onClick={onDateNowChange}>
           {date}
         </Button>
-        <RangePicker />
         <Select
           showSearch
           onChange={onJoueurChange}
@@ -157,13 +160,13 @@ const Seances = () => {
         >
           {playersData.map((player) => (
             <Option key={player._id} value={player._id}>
-              {`${player.firstName} ${player.lastName}`}
+              {`${player.email}`}
             </Option>
           ))}
         </Select>
         <Select
           showSearch
-          onChange={onLieuxChange}
+          onChange={onProgrammeChange}
           placeholder="Filter par programme "
         >
           {programmes.map((programme) => (
