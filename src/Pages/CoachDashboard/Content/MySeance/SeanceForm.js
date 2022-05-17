@@ -154,21 +154,21 @@ const SeanceForm = (props) => {
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
-              label="nom du seance"
+              label="Nom du séance"
               name="seanceName"
               rules={[
                 {
                   required: true,
-                  message: "veuillez entrer le nom du seance ",
+                  message: "veuillez entrer le nom du séance ",
                 },
               ]}
             >
-              <Input placeholder="nom du seance" />
+              <Input placeholder="nom du séance" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              label="dateSeance"
+              label="date de Séance"
               name="dateSeance"
               rules={[
                 {
@@ -177,23 +177,19 @@ const SeanceForm = (props) => {
                 },
               ]}
             >
-              <DatePicker
-                format="YYYY/MM/DD"
-                placeholder="Date seance"
-                style={{ display: "flex" }}
-              />
+              <DatePicker format="YYYY/MM/DD" style={{ display: "flex" }} />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
-              label="player"
+              label="Joueur"
               name="player"
               rules={[
                 {
                   required: true,
-                  message: "veuillez entrer player ",
+                  message: "veuillez entrer le joueur  ",
                 },
               ]}
             >
@@ -213,12 +209,12 @@ const SeanceForm = (props) => {
           </Col>
           <Col span={12}>
             <Form.Item
-              label="programme"
+              label="Programme"
               name="programme"
               rules={[
                 {
                   required: true,
-                  message: "veuillez entrer programme ",
+                  message: "veuillez entrer le programme ",
                 },
               ]}
             >
@@ -248,7 +244,7 @@ const SeanceForm = (props) => {
                       {...restField}
                       name={[name, "statistic"]}
                       rules={[{ required: true, message: "Missing statistic" }]}
-                      label="statistic"
+                      label="Statistic"
                     >
                       <Select
                         allowClear
@@ -269,9 +265,9 @@ const SeanceForm = (props) => {
                       {...restField}
                       name={[name, "value"]}
                       rules={[{ required: true, message: "statistic value" }]}
-                      label="statistic value"
+                      label="Valeur de statistic"
                     >
-                      <Input placeholder="statistic value" />
+                      <Input placeholder="valeur" />
                     </Form.Item>
                   </Col>
                   <MinusCircleOutlined onClick={() => remove(name)} />
@@ -284,7 +280,7 @@ const SeanceForm = (props) => {
                   block
                   icon={<PlusOutlined />}
                 >
-                  Add statistic value
+                  Ajouter une statistique
                 </Button>
               </Form.Item>
             </>
@@ -300,7 +296,7 @@ const SeanceForm = (props) => {
                       {...restField}
                       name={[name, "skill"]}
                       rules={[{ required: true, message: "Missing skill" }]}
-                      label="skill"
+                      label="Skill"
                     >
                       <Select
                         allowClear
@@ -336,7 +332,7 @@ const SeanceForm = (props) => {
                   block
                   icon={<PlusOutlined />}
                 >
-                  Add skills value
+                  Ajouter skills
                 </Button>
               </Form.Item>
             </>
@@ -345,12 +341,12 @@ const SeanceForm = (props) => {
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
-              label="trainingGround"
+              label="Terrain d'entrainement"
               name="trainingGround"
               rules={[
                 {
                   required: true,
-                  message: "veuillez entrer trainingGround ",
+                  message: "veuillez entrer terrain d'entrainement ",
                 },
               ]}
             >
@@ -358,7 +354,7 @@ const SeanceForm = (props) => {
                 allowClear
                 maxTagCount="responsive"
                 style={{ width: "100%" }}
-                placeholder="trainingGround"
+                placeholder="Emplacement"
               >
                 {grounds.map((ground) => (
                   <Option key={ground._id} value={ground._id}>

@@ -11,8 +11,9 @@ import {
   Table,
 } from "antd";
 import { getAllSeanceApi } from "../../../../Services/SeancesService";
+import userService from "../../../../Services/userService";
+import { getAllProgrammeApi } from "../../../../Services/ProgrammeService";
 import SeanceForm from "./SeanceForm";
-import Seance from "./seance";
 import authService from "../../../../Services/authService";
 
 const { RangePicker } = DatePicker;
@@ -22,10 +23,11 @@ const Seances = () => {
   const [seances, setSeances] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [seanceSelected, setSeanceSelected] = useState({});
-  const [isSeanceVisible, setSeanceVisible] = useState(false);
+  const [playersData, setplayersData] = useState([]);
+  const [programmes, setProgrammes] = useState([]);
   const [lieux, setLieux] = useState(["tunis", "Beja"]);
   const [joueurs, setJoueurs] = useState(["test1", "test2"]);
-
+  const [dataSource, setDataSource] = useState(null);
   const currentUser = authService.getCurrentUser();
 
   const current = new Date();
@@ -35,39 +37,24 @@ const Seances = () => {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Nom séance",
+      dataIndex: "seanceName",
+      key: "seanceName",
     },
     {
       title: "Joueur",
-      dataIndex: "joueur",
-      key: "joueur",
-    },
-    {
-      title: "Competance",
-      dataIndex: "competences",
-      key: "competences",
+      dataIndex: ["player", "firstName"],
     },
     {
       title: "Date",
-      dataIndex: "jour",
-      key: "jour",
+      dataIndex: "dateSeance",
+
+      key: "dateSeance",
     },
     {
       title: "Programme",
-      dataIndex: "programme",
+      dataIndex: ["programme", "title"],
       key: "programme",
-    },
-    {
-      title: "Statistique",
-      key: "statistique",
-      dataIndex: "statistique",
-    },
-    {
-      title: "Lieu",
-      key: "lieu",
-      dataIndex: "lieu",
     },
   ];
 
@@ -123,11 +110,12 @@ const Seances = () => {
   async function getSeances() {
     await getAllSeanceApi({ creacteBy: currentUser.id })
       .then((response) => {
-        setSeances(response.data);
+        setDataSource(response.data);
         setLoading(true);
       })
       .catch(() => {});
   }
+
   const onJoueurChange = (value) => {
     const dataChange = data2.filter((seance) => seance.joueur === value);
     setData(dataChange);
@@ -142,6 +130,17 @@ const Seances = () => {
     setData(dataChange);
   };
   useEffect(() => {
+    userService
+      .getUserApi(authService.getCurrentUser().id)
+      .then(({ data: { myPlayers } }) => {
+        setplayersData(myPlayers);
+      })
+      .catch(() => {});
+    getAllProgrammeApi({ creacteBy: currentUser.id })
+      .then((response) => {
+        setProgrammes(response.data);
+      })
+      .catch(() => {});
     getSeances();
   }, []);
   return (
@@ -156,17 +155,21 @@ const Seances = () => {
           onChange={onJoueurChange}
           placeholder="Filter par joueur "
         >
-          {joueurs.map((joueur) => (
-            <Option key={joueur}>{joueur}</Option>
+          {playersData.map((player) => (
+            <Option key={player._id} value={player._id}>
+              {`${player.firstName} ${player.lastName}`}
+            </Option>
           ))}
         </Select>
         <Select
           showSearch
           onChange={onLieuxChange}
-          placeholder="Filter par Lieu "
+          placeholder="Filter par programme "
         >
-          {lieux.map((lieu) => (
-            <Option key={lieu}>{lieu}</Option>
+          {programmes.map((programme) => (
+            <Option key={programme._id} value={programme._id}>
+              {programme.title}
+            </Option>
           ))}
         </Select>
       </Space>
@@ -174,7 +177,16 @@ const Seances = () => {
         Nouvelle séance
       </Button>
       <div className="site-card-wrapper">
-        {loading && <Table columns={columns} dataSource={data} />}
+        {loading && (
+          <Table
+            tableLayout="fixed"
+            columns={columns}
+            dataSource={dataSource}
+            pagination={{
+              pageSize: 5,
+            }}
+          />
+        )}
         {!loading && (
           <Row gutter={16}>
             <Col span={8}>
@@ -195,13 +207,6 @@ const Seances = () => {
           setLoading={setLoading}
           loading={loading}
           seanceSelected={seanceSelected}
-        />
-      )}
-      {isSeanceVisible && (
-        <Seance
-          isSeanceVisible={isSeanceVisible}
-          seance={seanceSelected}
-          setSeanceVisible={setSeanceVisible}
         />
       )}
     </>
