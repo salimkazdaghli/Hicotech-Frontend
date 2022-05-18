@@ -5,8 +5,10 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { getSeanceApi } from "../../../../Services/SeancesService";
 import "./ShowSessionDetail.css";
+import Map from "../../../../Components/Map";
 
 const ShowSessionDetails = ({ SessionId }) => {
+  const [openMap, setOpenMap] = useState(false);
   const data = {
     feedback: {
       goalAcheived: false,
@@ -185,6 +187,7 @@ const ShowSessionDetails = ({ SessionId }) => {
   };
   const [loading, setLoading] = useState(false);
   const [SessionData, setSessionData] = useState(data);
+  console.log(SessionData);
   useEffect(() => {
     setLoading(true);
     getSeanceApi(SessionId).then(({ data }) => {
@@ -315,21 +318,17 @@ const ShowSessionDetails = ({ SessionId }) => {
                         icon={<FullscreenOutlined />}
                         size="small"
                         type="primary"
-                        onClick={() => setVisible(true)}
+                        onClick={() => setOpenMap(true)}
                       >
                         Consulter
                       </Button>
-                      <Image
-                        width={200}
-                        style={{ display: "none" }}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                        preview={{
-                          visible,
-                          src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-                          onVisibleChange: (value) => {
-                            setVisible(value);
-                          },
-                        }}
+                      <Map
+                        visible={openMap}
+                        editable={false}
+                        setvisibility={setOpenMap}
+                        initialPosition={
+                          SessionData?.trainingGround?.coordinates
+                        }
                       />
                     </>
                   }

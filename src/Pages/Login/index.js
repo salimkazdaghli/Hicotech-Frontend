@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Form, Input, Button, Alert } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import auth from "../../Services/authService";
 import "./Login.css";
@@ -10,7 +10,6 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
 
 const Login = ({ location }) => {
   const history = useHistory();
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useLocalStorage("token", null);
   const login = async (data) => {
@@ -19,14 +18,19 @@ const Login = ({ location }) => {
       .loginUserApi(data)
       .then(({ data }) => {
         setToken(data.token);
-        setError(false);
       })
       .catch((err) => {
         setToken(null);
         if (err && err.response && err.response.data.error) {
-          setError(err.response.data.error);
+          message.error({
+            content: err.response.data.error.message,
+            duration: 3,
+          });
         } else {
-          setError("erreur de serveur");
+          message.error({
+            content: "Erreur de serveur",
+            duration: 3,
+          });
         }
       })
       .finally(() => setLoading(false));
@@ -56,7 +60,6 @@ const Login = ({ location }) => {
         }}
         onFinish={onFinish}
       >
-        {error && <Alert message={error} type="error" showIcon closable />}
         <br />
         <div className="logo-center">
           <img src={Logo} height={130} width={130} alt="" />

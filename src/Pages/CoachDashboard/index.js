@@ -5,6 +5,8 @@ import {
   DesktopOutlined,
   HomeOutlined,
   EnvironmentOutlined,
+  MessageOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
@@ -75,6 +77,7 @@ const Dashboard = () => {
               Mes Statistiques
             </NavLink>
           </Menu.Item>
+
           <Menu.Item key="4" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/myskills">
               Mes Compétences
@@ -115,6 +118,11 @@ const Dashboard = () => {
               Les Défis
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="12" icon={<DesktopOutlined />}>
+            <NavLink exact to="/coach/dashboard/annulerSeance">
+              Annuler Séance
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="13" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/payer-abonnement">
               Mon Abonnement
@@ -125,7 +133,17 @@ const Dashboard = () => {
               Modifier Joueurs
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="16" icon={<DesktopOutlined />}>
+          <Menu.Item key="15" icon={<MessageOutlined />}>
+            <NavLink exact to="/coach/dashboard/FeedbackSeance">
+              FeedBack Séance
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="16" icon={<NotificationOutlined />}>
+            <NavLink exact to="/coach/dashboard/events">
+              Mes évenements
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="17" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/detailSeance">
               Afficher detail séance
             </NavLink>

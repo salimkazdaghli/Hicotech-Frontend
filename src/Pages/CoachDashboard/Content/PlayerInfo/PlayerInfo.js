@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Form, Select, Empty, message, Spin } from "antd";
+import { Tabs, Form, Select, Empty, message } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import Statistics from "./Statistics";
 import Skills from "./Skills";
@@ -9,6 +9,8 @@ import auth from "../../../../Services/authService";
 import filterSessionData from "../../../../utils/filterSessionData";
 import { getAllSeanceApi } from "../../../../Services/SeancesService";
 import { getAllStatisticsApi } from "../../../../Services/StatisticService";
+import ScheduledSessions from "./ScheduledSessions";
+import Loading from "../../../../Components/Loading";
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -28,6 +30,7 @@ const PlayerInfo = () => {
     setSelectedStatistic(statisticTypes.find((stat) => stat._id === statId));
     setStatisticData(filterSessionData.StatChartData(sessionData, statId));
   };
+
   useEffect(() => {
     if (selectedPlayer) {
       if (auth.getCurrentUser()) {
@@ -38,7 +41,6 @@ const PlayerInfo = () => {
           .then(({ data }) => {
             setSessionData(data);
             setSkillData(filterSessionData.SkillsChartData(data));
-            form.submit();
           })
           .catch(() => {
             setSessionData([]);
@@ -61,7 +63,11 @@ const PlayerInfo = () => {
           form.submit();
         })
         .catch(() => {
-          message.error("Erreur de récupération de données");
+          message.error({
+            content:
+              "Une erreur s’est produite lors de la récupération des données",
+            duration: 3,
+          });
         });
     }
   }, []);
@@ -100,15 +106,7 @@ const PlayerInfo = () => {
       >
         <TabPane tab="Statistiques" key="1">
           {loading ? (
-            <div
-              style={{
-                marginTop: 80,
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              <Spin size="large" tip="Chargement..." />
-            </div>
+            <Loading />
           ) : selectedPlayer && sessionData.length !== 0 ? (
             <>
               <Form.Item
@@ -122,7 +120,7 @@ const PlayerInfo = () => {
                   },
                 ]}
               >
-                <Select placeholder="Statestique" onChange={FilterStats}>
+                <Select placeholder="Statistique" onChange={FilterStats}>
                   {statisticTypes.map((stat) => (
                     <Option key={uuidv4()} value={stat._id}>
                       {stat.statisticName}
@@ -141,21 +139,24 @@ const PlayerInfo = () => {
         </TabPane>
         <TabPane tab="Compétences" key="2">
           {loading ? (
-            <div
-              style={{
-                marginTop: 80,
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              <Spin size="large" tip="Chargement..." />
-            </div>
+            <Loading />
           ) : (
             selectedPlayer && <Skills data={skillsData} />
           )}
         </TabPane>
-        <TabPane tab="Alerts" key="3">
-          {selectedPlayer && <Alerts />}
+        <TabPane tab="séances prévues" key="3">
+          {loading ? (
+            <Loading />
+          ) : (
+            selectedPlayer && <ScheduledSessions sessionData={sessionData} />
+          )}
+        </TabPane>
+        <TabPane tab="Alerts" key="4">
+          {loading ? (
+            <Loading />
+          ) : (
+            selectedPlayer && <Alerts selectedPlayer={selectedPlayer} />
+          )}
         </TabPane>
       </Tabs>
     </Form>

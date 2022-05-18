@@ -12,9 +12,13 @@ import PlayerInfo from "../Content/PlayerInfo/PlayerInfo";
 import Players from "../Content/MyPlayers/Players";
 import Défi from "../Content/Defi/Defis";
 import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
+import CancelSession from "../Content/CancelSession/index";
 import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
 import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
 import SelectSession from "../Content/MySessions/SelectSession";
+import Events from "../Content/event/Events";
+import SessionFeedback from "../Content/SessionFeedback";
+import SeanceUpdate from "../Content/Seance/seanceUpdate";
 
 const DashboardRouting = () => (
   <Switch>
@@ -61,12 +65,12 @@ const DashboardRouting = () => (
       path="/coach/dashboard/manageChallenge"
       component={ShowChallenges}
     />
+    <CoachRoute exact path="/coach/dashboard/defis" component={Défi} />
     <CoachRoute
       exact
-      path="/coach/dashboard/manageChallenge"
-      component={ShowChallenges}
+      path="/coach/dashboard/annulerSeance"
+      component={CancelSession}
     />
-    <CoachRoute exact path="/coach/dashboard/defis" component={Défi} />
     <CoachRoute
       exact
       path="/coach/dashboard/payer-abonnement"
@@ -81,6 +85,17 @@ const DashboardRouting = () => (
       exact
       path="/coach/dashboard/modifier/profileJoueur"
       component={ModifyPlayer}
+    />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/FeedbackSeance"
+      component={SessionFeedback}
+    />
+    <CoachRoute exact path="/coach/dashboard/events" component={Events} />
+    <CoachRoute
+      exact
+      path="/coach/dashboard/seance/:id"
+      component={SeanceUpdate}
     />
     <CoachRoute
       exact
