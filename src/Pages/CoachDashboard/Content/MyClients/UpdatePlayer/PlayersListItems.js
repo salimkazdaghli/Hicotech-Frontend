@@ -6,8 +6,8 @@ import { useHistory } from "react-router-dom";
 const PleyersListItems = ({ data, loading }) => {
   const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   const history = useHistory();
-  const goToPlayerProfile = (item) => {
-    history.push("/coach/dashboard/modifier/profileJoueur", { ...item });
+  const goToPlayerProfile = (id) => {
+    history.push("/coach/dashboard/modifier/profileJoueur", { id });
   };
 
   return (
@@ -25,7 +25,10 @@ const PleyersListItems = ({ data, loading }) => {
           dataSource={data}
           rowKey={(record) => record._id}
           renderItem={(item) => (
-            <List.Item key={uuidv4()} onClick={() => goToPlayerProfile(item)}>
+            <List.Item
+              key={uuidv4()}
+              onClick={() => goToPlayerProfile(item._id)}
+            >
               <Skeleton loading={loading} avatar>
                 <List.Item.Meta
                   avatar={
