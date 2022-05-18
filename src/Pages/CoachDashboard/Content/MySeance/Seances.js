@@ -58,50 +58,7 @@ const Seances = () => {
     },
   ];
 
-  const data2 = [
-    {
-      key: "1",
-      name: "S1",
-      joueur: "test2",
-      competences: "compet 4",
-      statistique: "stat 2",
-      jour: "09/04/2022",
-      lieu: "tunis",
-      programme: "prog 2",
-    },
-    {
-      key: "2",
-      name: "S2",
-      joueur: "test2",
-      competences: "compet 4",
-      statistique: "stat 2",
-      jour: "29/04/2022",
-      lieu: "tunis",
-      programme: "prog 3",
-    },
-    {
-      key: "3",
-      name: "S3",
-      joueur: "test2",
-      competences: "compet 4",
-      statistique: "stat 2",
-      jour: "09/04/2022",
-      lieu: "Beja",
-      programme: "prog 2",
-    },
-    {
-      key: "4",
-      name: "S3",
-      joueur: "test2",
-      competences: "compet 4",
-      statistique: "stat 2",
-      jour: "10/04/2022",
-      lieu: "Beja",
-      programme: "prog 2",
-    },
-  ];
-
-  const [data, setData] = useState(data2);
+  const [data1, setData] = useState(dataSource);
   const showModal = () => {
     setSeanceSelected({ _id: "0000" });
     setIsModalVisible(true);
@@ -122,17 +79,17 @@ const Seances = () => {
     setData(dataChange);
   };
   const onProgrammeChange = (value) => {
-    setLoading(true);
     const dataChange = dataSource.filter(
       (seance) => seance.programme.title === value
     );
+    console.log(dataChange);
     setData(dataChange);
   };
 
-  const onDateNowChange = (value) => {
-    const dataChange = data2.filter((seance) => seance.jour === value);
-    setData(dataChange);
-  };
+  // const onDateNowChange = (value) => {
+  //   const dataChange = data2.filter((seance) => seance.jour === value);
+  //   setData(dataChange);
+  // };
   useEffect(() => {
     userService
       .getUserApi(authService.getCurrentUser().id)
@@ -150,9 +107,7 @@ const Seances = () => {
   return (
     <>
       <Space style={{ marginBottom: 16 }}>
-        <Button key={date} onClick={onDateNowChange}>
-          {date}
-        </Button>
+        <Button key={date}>{date}</Button>
         <Select
           showSearch
           onChange={onJoueurChange}
