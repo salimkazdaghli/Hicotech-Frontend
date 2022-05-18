@@ -1,7 +1,7 @@
 import { Modal, Form, Row, Col, InputNumber, DatePicker, Radio } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { updateObjectiveStatByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { updateStatObjectiveApi } from "../../../../../Services/StatisticObjectiveService";
 
 const ModifyStat = ({
   modalVisible,
@@ -44,16 +44,12 @@ const ModifyStat = ({
   const onModifyStats = (values) => {
     setModifiedStat(values);
     setConfirmLoading(true);
-    updateObjectiveStatByCoachAndPlayerApi(
-      objectiveData._id,
-      dataToEdit._id,
-      values
-    )
-      .then(({ data }) => {
-        setAlert(data);
-        setTimeout(() => {
-          setAlert(null);
-        }, 1400);
+    updateStatObjectiveApi(dataToEdit._id, values)
+      .then(() => {
+        setAlert({
+          type: "success",
+          message: "statistique modifier avec succés!",
+        });
       })
       .catch((err) => {
         if (err && err.response && err.response.data.error) {
@@ -109,7 +105,7 @@ const ModifyStat = ({
                 },
               ]}
             >
-              <InputNumber placeholder="Valeur statistique" />
+              <InputNumber min={1} placeholder="Valeur statistique" />
             </Form.Item>
           </Col>
         </Row>
@@ -126,7 +122,7 @@ const ModifyStat = ({
                 },
               ]}
             >
-              <DatePicker />
+              <DatePicker showTime format="DD-MM-YYYY HH:mm:ss" />
             </Form.Item>
           </Col>
         </Row>

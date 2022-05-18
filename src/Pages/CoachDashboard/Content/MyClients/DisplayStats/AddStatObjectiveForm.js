@@ -11,7 +11,7 @@ import {
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import authService from "../../../../../Services/authService";
-import { addObjectiveStatByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { addObjectiveApi } from "../../../../../Services/StatisticObjectiveService";
 import { getAllStatisticsApi } from "../../../../../Services/StatisticService";
 
 const { Option } = Select;
@@ -24,6 +24,7 @@ const AddStatObjectiveForm = ({
   setRerender,
   objectiveData,
   setLoading,
+  player,
 }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [statData, setStatData] = useState([]);
@@ -39,9 +40,6 @@ const AddStatObjectiveForm = ({
       .then(({ data: { statistic } }) => setStatData(statistic))
       .catch(() => {
         setAlert({ type: "error", message: "erreur de serveur" });
-        setTimeout(() => {
-          setAlert(null);
-        }, 1000);
       });
   }, []);
   const resetStatForm = () => {
@@ -57,7 +55,11 @@ const AddStatObjectiveForm = ({
   const onAddStatObjective = (values) => {
     setConfirmLoading(true);
     setLoading(true);
-    addObjectiveStatByCoachAndPlayerApi(objectiveData._id, values).then(() => {
+    addObjectiveApi({
+      ...values,
+      creactedBy: authService.getCurrentUser().id,
+      player: player._id,
+    }).then(() => {
       setAlert({
         type: "success",
         message: "statistique ajouter avec succés!",
@@ -156,7 +158,7 @@ const AddStatObjectiveForm = ({
                 },
               ]}
             >
-              <DatePicker />
+              <DatePicker showTime format="DD-MM-YYYY HH:mm:ss" />
             </Form.Item>
           </Col>
         </Row>

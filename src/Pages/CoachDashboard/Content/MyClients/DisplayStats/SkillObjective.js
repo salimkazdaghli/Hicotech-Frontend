@@ -10,7 +10,7 @@ import moment from "moment";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import authService from "../../../../../Services/authService";
-import { deleteObjectiveSkillByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { deleteSkillObjectiveApi } from "../../../../../Services/SkillObjectiveService";
 import AddSkillObjectiveForm from "./AddSkillObjectiveForm";
 import ModifySkill from "./ModifySkill";
 
@@ -32,16 +32,19 @@ const StatisticObjective = ({
   };
   const handleDelete = (id) => {
     setLoading(true);
-    deleteObjectiveSkillByCoachAndPlayerApi(id, {
-      creactedBy: authService.getCurrentUser().id,
-      player: player._id,
-    }).then(({ data }) => {
-      setAlert(data);
-      setTimeout(() => {
-        setLoading(null);
-        setRerender(!rerender);
-      }, 750);
-    });
+    deleteSkillObjectiveApi(id)
+      .then(() => {
+        setAlert({
+          type: "success",
+          message: "objective suprimmer avec succées!",
+        });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(null);
+          setRerender(!rerender);
+        }, 1000);
+      });
   };
   return (
     <>
@@ -62,6 +65,7 @@ const StatisticObjective = ({
         setRerender={setRerender}
         objectiveData={objectiveData}
         setLoading={setLoading}
+        player={player}
       />
       <Spin spinning={loading}>
         <List
@@ -87,7 +91,7 @@ const StatisticObjective = ({
             </>
           }
           bordered
-          dataSource={objectiveData.skills}
+          dataSource={objectiveData}
           renderItem={(item) => (
             <List.Item
               actions={[

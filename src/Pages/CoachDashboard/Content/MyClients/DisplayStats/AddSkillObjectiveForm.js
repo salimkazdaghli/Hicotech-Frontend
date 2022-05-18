@@ -11,8 +11,8 @@ import {
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import authService from "../../../../../Services/authService";
-import { addObjectiveSkillByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
-import { getAllSkillsApi } from "../../../../../Services/StatisticService";
+import { addObjectiveApi } from "../../../../../Services/SkillObjectiveService";
+import { getAllSkillsApi } from "../../../../../Services/SkillService";
 
 const { Option } = Select;
 
@@ -22,7 +22,7 @@ const AddSkillObjectiveForm = ({
   setAlert,
   rerender,
   setRerender,
-  objectiveData,
+  player,
   setLoading,
 }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -57,7 +57,11 @@ const AddSkillObjectiveForm = ({
   const onAddSkillObjective = (values) => {
     setConfirmLoading(true);
     setLoading(true);
-    addObjectiveSkillByCoachAndPlayerApi(objectiveData._id, values).then(() => {
+    addObjectiveApi({
+      ...values,
+      creactedBy: authService.getCurrentUser().id,
+      player: player._id,
+    }).then(() => {
       setAlert({
         type: "success",
         message: "compétence ajouter avec succés!",

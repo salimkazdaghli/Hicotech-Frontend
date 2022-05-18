@@ -1,6 +1,7 @@
 import { Modal, Form, Row, Col, InputNumber, DatePicker, Radio } from "antd";
-import { useState } from "react";
-import { updateObjectiveSkillByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { updateSkillObjectiveApi } from "../../../../../Services/SkillObjectiveService";
 
 const ModifySkill = ({
   modalVisible,
@@ -15,6 +16,19 @@ const ModifySkill = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const [, setModifiedStat] = useState();
+  useEffect(() => {
+    form.setFieldsValue({
+      value: dataToEdit.value,
+      beforeDate: moment(dataToEdit.beforeDate),
+      done: dataToEdit.done,
+    });
+    setModifiedStat({
+      value: dataToEdit.value,
+      beforeDate: dataToEdit.beforeDate,
+      done: dataToEdit.done,
+    });
+  }, [dataToEdit]);
+
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
@@ -27,19 +41,15 @@ const ModifySkill = ({
     setModalVisible(false);
     setRerender(!rerender);
   };
-  const onModifySkill = (values) => {
+  const onModifyStats = (values) => {
     setModifiedStat(values);
     setConfirmLoading(true);
-    updateObjectiveSkillByCoachAndPlayerApi(
-      objectiveData._id,
-      dataToEdit._id,
-      values
-    )
-      .then(({ data }) => {
-        setAlert(data);
-        setTimeout(() => {
-          setAlert(null);
-        }, 1400);
+    updateSkillObjectiveApi(dataToEdit._id, values)
+      .then(() => {
+        setAlert({
+          type: "success",
+          message: "compétence modifier avec succés!",
+        });
       })
       .catch((err) => {
         if (err && err.response && err.response.data.error) {
@@ -64,11 +74,11 @@ const ModifySkill = ({
       visible={modalVisible}
       confirmLoading={confirmLoading}
       onCancel={handleCancel}
-      title="Modifier une compétence"
+      title="Modifier un Objective de compétence"
       okText="Modifier"
       cancelText="Annuler"
       okButtonProps={{
-        form: "competence-update-form",
+        form: "skill-update-form",
         key: "ok",
         htmlType: "submit",
       }}
@@ -77,10 +87,10 @@ const ModifySkill = ({
       width={700}
     >
       <Form
-        id="competence-update-form"
+        id="skill-update-form"
         layout="vertical"
         form={form}
-        onFinish={onModifySkill}
+        onFinish={onModifyStats}
       >
         {/* row one */}
         <Row gutter={[16, 16]}>
@@ -91,11 +101,11 @@ const ModifySkill = ({
               rules={[
                 {
                   required: true,
-                  message: "entrer la valeur du statistique à atteindre!",
+                  message: "entrer la valeur du compétence à atteindre!",
                 },
               ]}
             >
-              <InputNumber placeholder="Valeur statistique" />
+              <InputNumber min={1} placeholder="Valeur compétence" />
             </Form.Item>
           </Col>
         </Row>
@@ -112,7 +122,7 @@ const ModifySkill = ({
                 },
               ]}
             >
-              <DatePicker />
+              <DatePicker showTime format="DD-MM-YYYY HH:mm:ss" />
             </Form.Item>
           </Col>
         </Row>

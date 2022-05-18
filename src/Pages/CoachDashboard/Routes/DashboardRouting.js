@@ -14,7 +14,7 @@ import Défi from "../Content/Defi/Defis";
 import ShowChallenges from "../Content/ManageChallenges/ShowChallenges";
 import DisplayPlayers from "../Content/MyClients/UpdatePlayer/DisplayPlayers";
 import ModifyPlayer from "../Content/MyClients/UpdatePlayer/ModifyPlayer";
-import ShowSessionDetails from "../Content/MySessions/ShowSessionDetails";
+import SelectSession from "../Content/MySessions/SelectSession";
 
 const DashboardRouting = () => (
   <Switch>
@@ -85,7 +85,7 @@ const DashboardRouting = () => (
     <CoachRoute
       exact
       path="/coach/dashboard/detailSeance"
-      component={ShowSessionDetails}
+      component={SelectSession}
     />
   </Switch>
 );

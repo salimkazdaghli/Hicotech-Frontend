@@ -7,10 +7,9 @@ import {
 import { Button, List, Spin } from "antd";
 import Title from "antd/lib/typography/Title";
 import moment from "moment";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import authService from "../../../../../Services/authService";
-import { deleteObjectiveByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { deleteStatObjectiveApi } from "../../../../../Services/StatisticObjectiveService";
 import AddStatObjectiveForm from "./AddStatObjectiveForm";
 import ModifyStat from "./ModifyStat";
 
@@ -31,12 +30,12 @@ const StatisticObjective = ({
   };
   const handleDelete = (id) => {
     setLoading(true);
-    deleteObjectiveByCoachAndPlayerApi(id, {
-      creactedBy: authService.getCurrentUser().id,
-      player: player._id,
-    })
-      .then(({ data }) => {
-        setAlert(data);
+    deleteStatObjectiveApi(id)
+      .then(() => {
+        setAlert({
+          type: "success",
+          message: "objective suprimmer avec succées!",
+        });
       })
       .finally(() => {
         setTimeout(() => {
@@ -64,6 +63,7 @@ const StatisticObjective = ({
         setRerender={setRerender}
         objectiveData={objectiveData}
         setLoading={setLoading}
+        player={player}
       />
       <Spin spinning={loading}>
         <List
@@ -89,7 +89,7 @@ const StatisticObjective = ({
             </>
           }
           bordered
-          dataSource={objectiveData.statistics}
+          dataSource={objectiveData}
           renderItem={(item) => (
             <List.Item
               actions={[
@@ -119,7 +119,7 @@ const StatisticObjective = ({
               <List.Item.Meta
                 title={`atteindre ${item.value} ${item.statistic.unit} en ${item.statistic.statisticName}`}
                 description={`avant le ${moment(item.beforeDate).format(
-                  "DD/MM/YYYY"
+                  "DD-MM-YYYY HH:mm:ss"
                 )}`}
               />
               {item.done ? (

@@ -1,13 +1,12 @@
 import { EyeOutlined, FullscreenOutlined } from "@ant-design/icons";
-import { Badge, Image, Button, Col, Divider, Row, Rate } from "antd";
-import ColumnGroup from "antd/lib/table/ColumnGroup";
+import { Badge, Image, Button, Col, Divider, Row, Rate, Tag, Spin } from "antd";
 import Title from "antd/lib/typography/Title";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { getSeanceApi } from "../../../../Services/SeancesService";
 import "./ShowSessionDetail.css";
 
-const ShowSessionDetails = () => {
+const ShowSessionDetails = ({ SessionId }) => {
   const data = {
     feedback: {
       goalAcheived: false,
@@ -17,6 +16,7 @@ const ShowSessionDetails = () => {
     seanceName: "Préparation physique ",
     dateSeance: "2022-04-03T23:00:00.000Z",
     createdAt: "2022-04-08T20:52:57.904Z",
+    SessionStatus: "Planifié",
     creactedBy: {
       _id: "6248cc7d5c813ecf19b27257",
       firstName: "Hassene",
@@ -183,11 +183,13 @@ const ShowSessionDetails = () => {
       __v: 0,
     },
   };
+  const [loading, setLoading] = useState(false);
   const [SessionData, setSessionData] = useState(data);
   useEffect(() => {
-    getSeanceApi("625b19ca69da0cc9797a8165").then(({ data }) => {
-      console.log(data);
-      setSessionData(data);
+    setLoading(true);
+    getSeanceApi(SessionId).then(({ data }) => {
+      setSessionData({ ...data });
+      setLoading(false);
     });
   }, []);
   const [visible, setVisible] = useState(false);
@@ -200,10 +202,22 @@ const ShowSessionDetails = () => {
 
   const DescriptionItem = newLocal;
   return (
-    <>
-      <Title>Détails séance</Title>
-      <Row gutter={[24, 24]} justify="space-between">
-        <Col span={11} style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+    <Spin spinning={loading}>
+      <Row
+        gutter={[24, 24]}
+        justify={
+          SessionData.sessionCancelled.isCancelled ? "start" : "space-around"
+        }
+      >
+        <Col
+          span={
+            SessionData.sessionCancelled &&
+            SessionData.sessionCancelled.isCancelled
+              ? 24
+              : 11
+          }
+          style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+        >
           <p className="site-description-item-profile-p">Les Infos Générales</p>
           <Row>
             <Col span={12}>
@@ -234,14 +248,19 @@ const ShowSessionDetails = () => {
                 content={
                   <Badge
                     status={
+                      SessionData.sessionCancelled &&
                       SessionData.sessionCancelled.isCancelled
                         ? "error"
-                        : "processing"
+                        : SessionData.SessionStatus === "Planifié"
+                        ? "processing"
+                        : "success"
                     }
                     text={
                       SessionData.sessionCancelled.isCancelled
                         ? "Annuler"
-                        : "En Attente"
+                        : SessionData.SessionStatus === "Planifié"
+                        ? "Planifié"
+                        : "Terminé"
                     }
                   />
                 }
@@ -259,223 +278,252 @@ const ShowSessionDetails = () => {
             </Row>
           )}
         </Col>
-        <Col
-          span={12}
-          offset={8}
-          style={{
-            backgroundColor: "#f5f5f5",
-            padding: "20px",
-            marginLeft: "1px",
-          }}
-        >
-          <p className="site-description-item-profile-p">
-            Lieu d&apos;entrainement
-          </p>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem
-                title="Ville"
-                content={SessionData.trainingGround.city}
-              />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem
-                title="Adresse"
-                content={SessionData.trainingGround.address}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem
-                title="Lieu dans le map"
-                content={
-                  <>
-                    <Button
-                      icon={<FullscreenOutlined />}
-                      size="small"
-                      type="primary"
-                      onClick={() => setVisible(true)}
-                    >
-                      Consulter
-                    </Button>
-                    <Image
-                      width={200}
-                      style={{ display: "none" }}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                      preview={{
-                        visible,
-                        src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-                        onVisibleChange: (value) => {
-                          setVisible(value);
-                        },
-                      }}
-                    />
-                  </>
-                }
-              />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-      <Divider />
-      <Row gutter={[24, 24]} justify="space-between">
-        <Col
-          span={11}
-          style={{
-            backgroundColor: "#f5f5f5",
-            padding: "20px",
-          }}
-        >
-          <p className="site-description-item-profile-p">
-            Le programme de la séance
-          </p>
-          {SessionData.programme ? (
-            <>
-              <Row>
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Titre"
-                    content={SessionData.programme.title}
-                  />
-                </Col>
-                <Col span={24}>
-                  <DescriptionItem
-                    title="Description"
-                    content={SessionData.programme.description}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Image Programme"
-                    content={
-                      <>
-                        <Button
-                          icon={<EyeOutlined />}
-                          size="small"
-                          type="primary"
-                          onClick={() => setVisible(true)}
-                        >
-                          Consulter
-                        </Button>
-                        <Image
-                          width={200}
-                          style={{ display: "none" }}
-                          src={SessionData.programme.image}
-                          preview={{
-                            visible,
-                            src: SessionData.programme.image,
-                            onVisibleChange: (value) => {
-                              setVisible(value);
-                            },
-                          }}
-                        />
-                      </>
-                    }
-                  />
-                </Col>
-              </Row>
-            </>
-          ) : (
-            <p>Pas de programme</p>
-          )}
-        </Col>
-        <Col
-          span={12}
-          style={{
-            backgroundColor: "#f5f5f5",
-            padding: "20px",
-          }}
-        >
-          <p className="site-description-item-profile-p">
-            Le feedback de la séance
-          </p>
-          {SessionData.feedback ? (
+        {!SessionData.sessionCancelled.isCancelled && (
+          <Col
+            span={12}
+            offset={8}
+            style={{
+              backgroundColor: "#f5f5f5",
+              padding: "20px",
+              marginLeft: "1px",
+            }}
+          >
+            <p className="site-description-item-profile-p">
+              Lieu d&apos;entrainement
+            </p>
             <Row>
-              <Col span={16}>
+              <Col span={12}>
                 <DescriptionItem
-                  title="Objectif atteint"
+                  title="Ville"
+                  content={SessionData.trainingGround.city}
+                />
+              </Col>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Adresse"
+                  content={SessionData.trainingGround.address}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Lieu dans le map"
                   content={
-                    <Badge
-                      status={
-                        SessionData.feedback.goalAcheived ? "success" : "error"
-                      }
-                      text={SessionData.feedback.goalAcheived ? "Oui" : "Non"}
-                    />
+                    <>
+                      <Button
+                        icon={<FullscreenOutlined />}
+                        size="small"
+                        type="primary"
+                        onClick={() => setVisible(true)}
+                      >
+                        Consulter
+                      </Button>
+                      <Image
+                        width={200}
+                        style={{ display: "none" }}
+                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                        preview={{
+                          visible,
+                          src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+                          onVisibleChange: (value) => {
+                            setVisible(value);
+                          },
+                        }}
+                      />
+                    </>
                   }
                 />
               </Col>
-              <Col span={16}>
-                <DescriptionItem
-                  title="Le feedback"
-                  content={SessionData.feedback.description}
-                />
+            </Row>
+          </Col>
+        )}
+      </Row>
+      {!SessionData.sessionCancelled.isCancelled && (
+        <>
+          <>
+            <Divider />
+            <Row gutter={[24, 24]} justify="space-between">
+              <Col
+                span={11}
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  padding: "20px",
+                }}
+              >
+                <p className="site-description-item-profile-p">
+                  Le programme de la séance
+                </p>
+                {SessionData.programme ? (
+                  <>
+                    <Row>
+                      <Col span={12}>
+                        <DescriptionItem
+                          title="Titre"
+                          content={SessionData.programme.title}
+                        />
+                      </Col>
+                      <Col span={24}>
+                        <DescriptionItem
+                          title="Description"
+                          content={SessionData.programme.description}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={12}>
+                        <DescriptionItem
+                          title="Image Programme"
+                          content={
+                            <>
+                              <Button
+                                icon={<EyeOutlined />}
+                                size="small"
+                                type="primary"
+                                onClick={() => setVisible(true)}
+                              >
+                                Consulter
+                              </Button>
+                              <Image
+                                width={200}
+                                style={{ display: "none" }}
+                                src={SessionData.programme.image}
+                                preview={{
+                                  visible,
+                                  onVisibleChange: (value) => {
+                                    setVisible(value);
+                                  },
+                                }}
+                              />
+                            </>
+                          }
+                        />
+                      </Col>
+                    </Row>
+                  </>
+                ) : (
+                  <p>Pas de programme</p>
+                )}
+              </Col>
+              <Col
+                span={12}
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  padding: "20px",
+                }}
+              >
+                <p className="site-description-item-profile-p">
+                  Le feedback de la séance
+                </p>
+                {SessionData.feedback ? (
+                  <Row>
+                    <Col span={16}>
+                      <DescriptionItem
+                        title="Objectif atteint"
+                        content={
+                          <Badge
+                            status={
+                              SessionData.feedback.goalAcheived
+                                ? "success"
+                                : "error"
+                            }
+                            text={
+                              SessionData.feedback.goalAcheived ? "Oui" : "Non"
+                            }
+                          />
+                        }
+                      />
+                    </Col>
+                    <Col span={16}>
+                      <DescriptionItem
+                        title="Le feedback"
+                        content={SessionData.feedback.description}
+                      />
+                    </Col>
+                  </Row>
+                ) : (
+                  <Row justify="start">
+                    <Col span={16}>
+                      <p>{`pas ${
+                        SessionData.SessionStatus === "Planifié" ? "encore" : ""
+                      } de feedback`}</p>
+                    </Col>
+                  </Row>
+                )}
               </Col>
             </Row>
-          ) : (
-            <Row justify="start">
-              <Col span={16}>
-                <p>pas de feedback</p>
-              </Col>
-            </Row>
-          )}
-        </Col>
-      </Row>
-      {/* row three */}
-      <Divider />
-      <Row gutter={[24, 24]} justify="space-between">
-        <Col
-          span={11}
-          style={{
-            backgroundColor: "#f5f5f5",
-            padding: "20px",
-          }}
-        >
-          <p className="site-description-item-profile-p">
-            Les Statistiques mesurées
-          </p>
-          {SessionData.statistics ? (
-            SessionData.statistics.map((el) => (
-              <Row key={el._id}>
-                <DescriptionItem
-                  title={el.statistic.statisticName}
-                  content={`${el.value ? el.value : "pas encore mesurée"} ${
-                    el.value ? el.statistic.unit : ""
-                  }`}
-                />
-              </Row>
-            ))
-          ) : (
-            <p>non encore mesuré</p>
-          )}
-        </Col>
-        <Col
-          span={12}
-          style={{
-            backgroundColor: "#f5f5f5",
-            padding: "20px",
-          }}
-        >
-          <p className="site-description-item-profile-p">
-            Les Compétences mesurées
-          </p>
-          {SessionData.skills ? (
-            SessionData.skills.map((el) => (
-              <Row key={el._id}>
-                <DescriptionItem
-                  title={el.skill.skillName}
-                  content={<Rate allowHalf value={el.value} />}
-                />
-              </Row>
-            ))
-          ) : (
-            <p>non encore mesuré</p>
-          )}
-        </Col>
-      </Row>
-    </>
+          </>
+          <Divider />
+          <Row gutter={[24, 24]} justify="space-between">
+            <Col
+              span={11}
+              style={{
+                minHeight: "110px",
+                backgroundColor: "#f5f5f5",
+                padding: "20px",
+              }}
+            >
+              <p className="site-description-item-profile-p">
+                {`Les Statistiques ${
+                  SessionData.SessionStatus === "Planifié" ? "à" : ""
+                } mesurées`}
+              </p>
+              {SessionData.statistics.length > 0 ? (
+                SessionData.SessionStatus === "Terminé" ? (
+                  SessionData.statistics.map((el) => (
+                    <Row key={el._id}>
+                      <DescriptionItem
+                        title={el.statistic.statisticName}
+                        content={`${el.value ? el.value : "non mesurée"} ${
+                          el.value ? el.statistic.unit : ""
+                        }`}
+                      />
+                    </Row>
+                  ))
+                ) : (
+                  SessionData.statistics.map((el) => (
+                    <Tag color="blue">{el.statistic.statisticName}</Tag>
+                  ))
+                )
+              ) : (
+                <p>Non mesuré</p>
+              )}
+            </Col>
+            <Col
+              span={12}
+              style={{
+                backgroundColor: "#f5f5f5",
+                padding: "20px",
+              }}
+            >
+              <p className="site-description-item-profile-p">
+                {`Les Compétences ${
+                  SessionData.SessionStatus === "Planifié" ? "à" : ""
+                } mesurées`}
+              </p>
+              {SessionData.skills && SessionData.skills.length > 0 ? (
+                SessionData.SessionStatus === "Terminé" ? (
+                  SessionData.skills.map((el) => (
+                    <Row key={el._id}>
+                      <DescriptionItem
+                        title={el.skill.skillName}
+                        content={<Rate allowHalf value={el.value} />}
+                      />
+                    </Row>
+                  ))
+                ) : (
+                  SessionData.skills.map((el) => (
+                    <Tag color="blue">{el.skill.skillName}</Tag>
+                  ))
+                )
+              ) : (
+                <p>non encore mesuré</p>
+              )}
+            </Col>
+          </Row>
+        </>
+      )}
+    </Spin>
   );
 };
 
