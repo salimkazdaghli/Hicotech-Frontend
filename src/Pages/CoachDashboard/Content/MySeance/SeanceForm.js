@@ -6,7 +6,6 @@ import moment from "moment";
 
 import {
   addSeanceApi,
-  updateSeanceApi,
   getSeanceApi,
 } from "../../../../Services/SeancesService";
 
@@ -18,8 +17,6 @@ import trainingGround from "../../../../Services/trainingGround";
 import { getAllStatisticsApi } from "../../../../Services/StatisticService";
 import { getAllSkillsApi } from "../../../../Services/SkillService";
 
-const dateFormat = "YYYY-MM-DD HH:mm";
-
 const { Option } = Select;
 const SeanceForm = (props) => {
   const [form] = Form.useForm();
@@ -30,12 +27,8 @@ const SeanceForm = (props) => {
     seances,
     seanceSelected,
   } = props;
-  const modalTitle =
-    seanceSelected._id === "0000"
-      ? "Ajouter une séance"
-      : "Modifier une séance ";
-  const modalBtnText = seanceSelected._id === "0000" ? "Ajouter" : "Modifier";
-  const worker = moment(seanceSelected.dateEvent);
+  const modalTitle = "Ajouter une séance";
+  const modalBtnText = "Ajouter";
   const [loading, setLoading] = useState(false);
   const [programmes, setProgrammes] = useState([]);
   const currentUser = authService.getCurrentUser();
@@ -59,19 +52,6 @@ const SeanceForm = (props) => {
         setSeances(seances);
         notificationComponent("Notification", "Seance ajoute ");
         setLoading(true);
-      });
-    } else {
-      updateSeanceApi(seanceSelected._id, seance).then((res) => {
-        const { data } = res;
-        const newSeances = seances.map((seanceItem) => {
-          if (seanceItem._id === seanceSelected._id) {
-            return data;
-          }
-          return seanceItem;
-        });
-        setSeances(newSeances);
-        setLoading(true);
-        notificationComponent("Notification", "Seance update ");
       });
     }
 

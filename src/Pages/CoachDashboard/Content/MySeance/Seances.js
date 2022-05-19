@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Button,
-  Spin,
-  Space,
-  Col,
-  DatePicker,
-  Input,
-  Select,
-  Table,
-} from "antd";
-import moment from "moment";
+import { Row, Button, Spin, Space, Col, Select, Table } from "antd";
+import { EditOutlined } from "@ant-design/icons";
+
 import { getAllSeanceApi } from "../../../../Services/SeancesService";
 import userService from "../../../../Services/userService";
 import { getAllProgrammeApi } from "../../../../Services/ProgrammeService";
 import SeanceForm from "./SeanceForm";
 import authService from "../../../../Services/authService";
 
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 const Seances = () => {
   const [loading, setLoading] = useState(false);
@@ -26,9 +16,8 @@ const Seances = () => {
   const [seanceSelected, setSeanceSelected] = useState({});
   const [playersData, setplayersData] = useState([]);
   const [programmes, setProgrammes] = useState([]);
-  const [lieux, setLieux] = useState(["tunis", "Beja"]);
-  const [joueurs, setJoueurs] = useState(["test1", "test2"]);
   const [dataSource, setDataSource] = useState(null);
+  const [dataSourceAll, setDataSourceAll] = useState(null);
   const currentUser = authService.getCurrentUser();
 
   const current = new Date();
@@ -56,9 +45,17 @@ const Seances = () => {
       dataIndex: ["programme", "title"],
       key: "programme",
     },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <EditOutlined />
+        </Space>
+      ),
+    },
   ];
 
-  const [data1, setData] = useState(dataSource);
   const showModal = () => {
     setSeanceSelected({ _id: "0000" });
     setIsModalVisible(true);
@@ -68,28 +65,23 @@ const Seances = () => {
     await getAllSeanceApi({ creacteBy: currentUser.id })
       .then((response) => {
         setDataSource(response.data);
+        setDataSourceAll(response.data);
         setLoading(true);
       })
       .catch(() => {});
   }
   const onJoueurChange = (value) => {
-    const dataChange = dataSource.filter(
-      (seance) => seance.player.email === value
+    const dataChange = dataSourceAll.filter(
+      (seance) => seance.player && seance.player.email === value
     );
-    setData(dataChange);
+    setDataSource(dataChange);
   };
   const onProgrammeChange = (value) => {
-    const dataChange = dataSource.filter(
-      (seance) => seance.programme.title === value
+    const dataChange = dataSourceAll.filter(
+      (seance) => seance.programme && seance.programme.title === value
     );
-    console.log(dataChange);
-    setData(dataChange);
+    setDataSource(dataChange);
   };
-
-  // const onDateNowChange = (value) => {
-  //   const dataChange = data2.filter((seance) => seance.jour === value);
-  //   setData(dataChange);
-  // };
   useEffect(() => {
     userService
       .getUserApi(authService.getCurrentUser().id)
@@ -114,7 +106,7 @@ const Seances = () => {
           placeholder="Filter par joueur "
         >
           {playersData.map((player) => (
-            <Option key={player._id} value={player._id}>
+            <Option key={player._id} value={player.email}>
               {`${player.email}`}
             </Option>
           ))}
@@ -125,7 +117,7 @@ const Seances = () => {
           placeholder="Filter par programme "
         >
           {programmes.map((programme) => (
-            <Option key={programme._id} value={programme._id}>
+            <Option key={programme._id} value={programme.title}>
               {programme.title}
             </Option>
           ))}
