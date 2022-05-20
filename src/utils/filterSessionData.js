@@ -5,13 +5,13 @@ const SkillsChartData = (arr = []) => {
     .filter((session) => !!session.skills)
     .map((session) =>
       session.skills
-        .filter((skill) => skill.value !== null)
+        .filter((skill) => skill.value !== null && skill.skill)
         .map((el) => ({
           name: el.skill.skillName,
           value: el.value,
         }))
     )
-    .filter((arr) => arr.length)
+    .filter((arr) => arr.length !== 0)
     .reduce((flat, next) => flat.concat(next), []);
 
   const grouped = _(filtredData)
