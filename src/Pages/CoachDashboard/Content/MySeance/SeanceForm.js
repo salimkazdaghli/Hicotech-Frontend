@@ -213,7 +213,6 @@ const SeanceForm = (props) => {
             </Form.Item>
           </Col>
         </Row>
-
         <Form.List name="statistics">
           {(fields, { add, remove }) => (
             <>
