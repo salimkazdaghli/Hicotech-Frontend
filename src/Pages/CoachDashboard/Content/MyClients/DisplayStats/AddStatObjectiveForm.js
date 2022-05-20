@@ -22,7 +22,6 @@ const AddStatObjectiveForm = ({
   setAlert,
   rerender,
   setRerender,
-  objectiveData,
   setLoading,
   player,
 }) => {

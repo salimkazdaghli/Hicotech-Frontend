@@ -25,7 +25,6 @@ const DisplayStats = ({ player, setAlert }) => {
       });
       setObjectiveData(statData.data);
       setSkillData(skilldata.data);
-      console.log(skilldata.data);
     };
     fetchData();
   }, [rerender]);
