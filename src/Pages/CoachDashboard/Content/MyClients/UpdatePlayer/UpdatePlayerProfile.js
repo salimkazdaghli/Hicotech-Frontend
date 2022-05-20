@@ -19,18 +19,34 @@ import {
 } from "antd";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import gouvernorats from "../../../../../utils/gouvernorats";
 import userService from "../../../../../Services/userService";
 
 const UpdatePlayerProfile = ({ user, setAlert, setPlayer }) => {
-  const [playerData] = useState(user);
-
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+  const [playerData, setPLayerData] = useState(user);
+  useEffect(() => {
+    form.setFieldsValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      sexe: user.sexe,
+      dateOfBirth: moment(user.dateOfBirth),
+      email: user.email,
+      city: user.city,
+      active: user.active,
+      height: user.height,
+      weight: user.weight,
+      sessionPrice: user.sessionPrice,
+    });
+    setPLayerData(user);
+  }, [user]);
 
   return (
     <Spin spinning={loading}>
       <Form
+        form={form}
         layout="vertical"
         name="modify-player"
         onFinish={(values) => {
