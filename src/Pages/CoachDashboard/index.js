@@ -146,13 +146,11 @@ const Dashboard = () => {
           <Menu.Item key="17" icon={<NotificationOutlined />}>
             <NavLink exact to="/coach/dashboard/seances">
               Mes séances
-             </NavLink>
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="18" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/detailSeance">
               Afficher detail séance
-              </NavLink>
-          </Menu.Item>
             </NavLink>
           </Menu.Item>
         </Menu>
