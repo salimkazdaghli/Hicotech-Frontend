@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Spin, Tabs } from "antd";
+import { Typography, message, Tabs, Spin } from "antd";
 import authService from "../../../../Services/authService";
 import TodoChallenges from "./TodoChallenges";
 import DoneChallenges from "./DoneChallenges";
@@ -45,7 +45,12 @@ const MyChallenges = () => {
             )
           );
         })
-        .catch(() => console.log(""))
+        .catch(() =>
+          message.error({
+            content: "Erreur de serveur",
+            duration: 3,
+          })
+        )
         .finally(() => setLoading(false));
     }
   }, [refetch]);

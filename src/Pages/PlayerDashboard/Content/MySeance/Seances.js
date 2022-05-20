@@ -1,94 +1,166 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Calendar, Badge } from "antd";
-import { getAllSeanceApi } from "../../../../Services/SeancesService";
-import "./seance.css";
+import {
+  Typography,
+  Tabs,
+  Row,
+  Col,
+  Spin,
+  Space,
+  Drawer,
+  Collapse,
+} from "antd";
+import moment from "moment";
+import {
+  getSeancePlayerApi,
+  getAllSeanceApi,
+} from "../../../../Services/SeancesService";
+import SeanceCard from "./SeanceCard";
+import authService from "../../../../Services/authService";
 
+const { TabPane } = Tabs;
 const { Title } = Typography;
-
-function getListData(value) {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-        { type: "error", content: "This is error event." },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: "warning", content: "This is warning event" },
-        { type: "success", content: "This is very long usual event。。...." },
-        { type: "error", content: "This is error event 1." },
-        { type: "error", content: "This is error event 2." },
-        { type: "error", content: "This is error event 3." },
-        { type: "error", content: "This is error event 4." },
-      ];
-      break;
-    default:
-  }
-  return listData || [];
-}
-
-function dateCellRender(value) {
-  const listData = getListData(value);
-  return (
-    <ul className="events">
-      {listData.map((item) => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function getMonthData(value) {
-  if (value.month() === 8) {
-    return 1394;
-  }
-}
-
-function monthCellRender(value) {
-  const num = getMonthData(value);
-  return num ? (
-    <div className="notes-month">
-      <section>{num}</section>
-      <span>Backlog number</span>
-    </div>
-  ) : null;
-}
+const { Panel } = Collapse;
 
 const Seances = () => {
   const [loading, setLoading] = useState(false);
   const [seances, setSeances] = useState({});
+  const [visible, setVisible] = useState(false);
+  const currentUser = authService.getCurrentUser();
+  const [key, setKey] = useState("1");
+  const [seanceSelected, setSeanceSelected] = useState({});
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   async function getSeances() {
-    await getAllSeanceApi()
+    setLoading(false);
+    await getAllSeanceApi({ player: currentUser.id })
       .then((response) => {
         setSeances(response.data);
         setLoading(true);
       })
       .catch(() => {});
-    console.log(seances);
+  }
+  async function getSeancesByDate(data) {
+    setLoading(false);
+    await getSeancePlayerApi(currentUser.id, data)
+      .then((response) => {
+        setSeances(response.data);
+        setLoading(true);
+      })
+      .catch(() => {});
   }
 
   useEffect(() => {
     getSeances();
   }, []);
+  function callback(key) {
+    if (key === "2") {
+      setKey("2");
+      getSeancesByDate({
+        from: moment(new Date()).format("yyyy-MM-DDT00:00:00"),
+        to: moment(new Date()).format("yyyy-MM-DDT23:59:59"),
+      });
+    } else if (key === "1") {
+      setKey("1");
+      getSeances({});
+    }
+  }
   return (
     <>
-      <Title level={2}>Mes Défis :</Title>
-      <Calendar
-        dateCellRender={dateCellRender}
-        monthCellRender={monthCellRender}
-      />
+      <Title level={2}>les séances :</Title>
+      {loading && (
+        <Tabs defaultActiveKey={key} onChange={callback}>
+          <TabPane tab="Toutes les séances " key="1">
+            <div className="site-card-wrapper">
+              <Row gutter={16}>
+                {seances.map((seance) => (
+                  <SeanceCard
+                    seance={seance}
+                    key={seance._id}
+                    loading={loading}
+                    setVisible={setVisible}
+                    setSeanceSelected={setSeanceSelected}
+                  />
+                ))}
+              </Row>
+            </div>
+          </TabPane>
+          <TabPane tab="Les séances D`aujourdui " key="2">
+            <div className="site-card-wrapper">
+              <Row gutter={16}>
+                {seances.map((seance) => (
+                  <SeanceCard
+                    seance={seance}
+                    key={seance._id}
+                    loading={loading}
+                    setVisible={setVisible}
+                    setSeanceSelected={setSeanceSelected}
+                  />
+                ))}
+              </Row>
+            </div>
+          </TabPane>
+        </Tabs>
+      )}
+      {!loading && (
+        <Row gutter={16}>
+          <Col span={8}>
+            <Space size="middle" style={{ marginTop: 250, marginLeft: 600 }}>
+              <Spin size="large" tip="Loading..." />
+            </Space>
+          </Col>
+        </Row>
+      )}
+      {visible && (
+        <Drawer
+          title={seanceSelected.seanceName}
+          placement="right"
+          onClose={onClose}
+          size="large"
+          visible={visible}
+          key={seanceSelected._id}
+        >
+          <p>Programme : {seanceSelected.programme.title} </p>
+          <p>
+            coach : {seanceSelected.creactedBy.firstName}{" "}
+            {seanceSelected.creactedBy.lastName}{" "}
+          </p>
+          <p>
+            Date Seance :{" "}
+            {moment(seanceSelected.dateSeance).format("YYYY-MM-DD HH:MM")}
+          </p>
+          <p>
+            trainingGround: {seanceSelected.trainingGround.city} ,{" "}
+            {seanceSelected.trainingGround.address}{" "}
+          </p>
+          {seanceSelected.feedback && (
+            <p>
+              feedback: <br /> {seanceSelected.feedback.description}{" "}
+            </p>
+          )}
+          {seanceSelected.sessionCancelled.isCancelled && (
+            <p>sessionCancelled {seanceSelected.sessionCancelled.reason} </p>
+          )}
+          <Collapse defaultActiveKey={["1"]} onChange={callback}>
+            <Panel header="statistic" key="2">
+              {seanceSelected.statistics.map(({ statistic }) => (
+                <p>
+                  {statistic.statisticName} <br /> {statistic.description}
+                </p>
+              ))}
+            </Panel>
+            <Panel header="Skills" key="3">
+              {seanceSelected.skills.map(({ skill }) => (
+                <p>
+                  {skill.statisticName} <br /> {skill.description}
+                </p>
+              ))}
+            </Panel>
+          </Collapse>
+        </Drawer>
+      )}
     </>
   );
 };

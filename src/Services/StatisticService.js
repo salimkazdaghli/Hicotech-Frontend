@@ -5,6 +5,11 @@ export function getAllStatisticsApi(discipline) {
     params: { discipline },
   });
 }
+export function getAllSkillsApi(discipline) {
+  return axios.get(`/api/all/skills/${discipline}`, {
+    params: { discipline },
+  });
+}
 export function deleteStatisticsApi(statisticId) {
   return axios.delete(`/api/statistic/${statisticId}`);
 }

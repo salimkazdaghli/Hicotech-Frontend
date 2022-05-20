@@ -22,3 +22,7 @@ export function addSeanceApi(data) {
 export function deleteSeanceApi(id) {
   return axios.delete(`/api/seances/${id}`);
 }
+
+export function getSeancePlayerApi(id, data) {
+  return axios.get(`/api/player/${id}/seances`, { params: data });
+}

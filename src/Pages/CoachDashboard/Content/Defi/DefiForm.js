@@ -38,7 +38,6 @@ const DefiForm = (props) => {
         setLoading(true);
       });
     } else {
-      console.log(defiSelected.defiVisible);
       updateDefiApi(defiSelected._id, defi).then((res) => {
         const { data } = res;
         const newDefis = defis.map((defiItem) => {
