@@ -2,21 +2,32 @@ import { Divider } from "antd";
 import Title from "antd/lib/typography/Title";
 import { useEffect, useState } from "react";
 import authService from "../../../../../Services/authService";
-import { getObjectiveByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { getStatObjectiveByCoachAndPlayerApi } from "../../../../../Services/StatisticObjectiveService";
+import { getAllObjectiveApi } from "../../../../../Services/SkillObjectiveService";
 import StatisticObjective from "./StatisticObjective";
 import SkillObjective from "./SkillObjective";
 
 const DisplayStats = ({ player, setAlert }) => {
   const [objectiveData, setObjectiveData] = useState([]);
+  const [skillData, setSkillData] = useState([]);
   const [rerender, setRerender] = useState(false);
 
   useEffect(() => {
-    getObjectiveByCoachAndPlayerApi({
-      creactedBy: authService.getCurrentUser().id,
-      player: player._id,
-    }).then(({ data }) => {
-      setObjectiveData(data);
-    });
+    const fetchData = async () => {
+      const statData = await getStatObjectiveByCoachAndPlayerApi({
+        creactedBy: authService.getCurrentUser().id,
+        player: player._id,
+      });
+
+      const skilldata = await getAllObjectiveApi({
+        creactedBy: authService.getCurrentUser().id,
+        player: player._id,
+      });
+      setObjectiveData(statData.data);
+      setSkillData(skilldata.data);
+      console.log(skilldata.data);
+    };
+    fetchData();
   }, [rerender]);
   return (
     <>
@@ -36,8 +47,8 @@ const DisplayStats = ({ player, setAlert }) => {
         <Title level={4}> Les Compétences à atteindre</Title>
       </Divider>
       <SkillObjective
-        objectiveData={objectiveData}
-        setObjectiveData={setObjectiveData}
+        objectiveData={skillData}
+        setObjectiveData={setSkillData}
         setAlert={setAlert}
         player={player}
         setRerender={setRerender}

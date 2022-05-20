@@ -15,7 +15,6 @@ const DisplayPlayers = () => {
   const loadData = () => {
     if (authService.getCurrentUser()) {
       setLoading(true);
-
       userService
         .getUserApi(authService.getCurrentUser().id)
         .then(({ data: { myPlayers } }) => {

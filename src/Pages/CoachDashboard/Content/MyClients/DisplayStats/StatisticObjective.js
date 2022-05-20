@@ -1,11 +1,16 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { Button, List, Spin } from "antd";
 import Title from "antd/lib/typography/Title";
 import moment from "moment";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import authService from "../../../../../Services/authService";
-import { deleteObjectiveByCoachAndPlayerApi } from "../../../../../Services/objectiveService";
+import { deleteStatObjectiveApi } from "../../../../../Services/StatisticObjectiveService";
+import AddStatObjectiveForm from "./AddStatObjectiveForm";
 import ModifyStat from "./ModifyStat";
 
 const StatisticObjective = ({
@@ -18,22 +23,26 @@ const StatisticObjective = ({
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dataToEdit, setDataToEdit] = useState({});
+  const [addStatModalVisible, setAddStatModalVisible] = useState(false);
   const showModal = (item) => {
     setDataToEdit(item);
     setModalVisible(true);
   };
   const handleDelete = (id) => {
     setLoading(true);
-    deleteObjectiveByCoachAndPlayerApi(id, {
-      creactedBy: authService.getCurrentUser().id,
-      player: player._id,
-    }).then(({ data }) => {
-      setAlert(data);
-      setTimeout(() => {
-        setLoading(null);
-        setRerender(!rerender);
-      }, 750);
-    });
+    deleteStatObjectiveApi(id)
+      .then(() => {
+        setAlert({
+          type: "success",
+          message: "objective suprimmer avec succées!",
+        });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(null);
+          setRerender(!rerender);
+        }, 1000);
+      });
   };
   return (
     <>
@@ -46,13 +55,41 @@ const StatisticObjective = ({
         objectiveData={objectiveData}
         setAlert={setAlert}
       />
+      <AddStatObjectiveForm
+        setAlert={setAlert}
+        modalVisible={addStatModalVisible}
+        setModalVisible={setAddStatModalVisible}
+        rerender={rerender}
+        setRerender={setRerender}
+        objectiveData={objectiveData}
+        setLoading={setLoading}
+        player={player}
+      />
       <Spin spinning={loading}>
         <List
           size="large"
           rowKey={uuidv4()}
-          header={<Title level={5}>Liste des statistiques :</Title>}
+          header={
+            <>
+              <Title style={{ display: "inline-block" }} level={5}>
+                Liste des statistiques :
+              </Title>
+              <Button
+                size="middle"
+                style={{
+                  float: "right",
+                  justifyContent: "flex-end",
+                  alignItems: "end",
+                }}
+                type="primary"
+                onClick={() => setAddStatModalVisible(!addStatModalVisible)}
+              >
+                Ajouter
+              </Button>
+            </>
+          }
           bordered
-          dataSource={objectiveData.statistics}
+          dataSource={objectiveData}
           renderItem={(item) => (
             <List.Item
               actions={[
@@ -82,9 +119,20 @@ const StatisticObjective = ({
               <List.Item.Meta
                 title={`atteindre ${item.value} ${item.statistic.unit} en ${item.statistic.statisticName}`}
                 description={`avant le ${moment(item.beforeDate).format(
-                  "DD/MM/YYYY"
+                  "DD-MM-YYYY HH:mm:ss"
                 )}`}
               />
+              {item.done ? (
+                <>
+                  <CheckOutlined style={{ color: "green" }} />
+                  <span> achevé</span>
+                </>
+              ) : (
+                <>
+                  <CloseOutlined style={{ color: "#e11111" }} />
+                  <span> non achevé</span>
+                </>
+              )}
             </List.Item>
           )}
         />

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Skeleton, Card, Avatar, Col, Button, Drawer } from "antd";
+import React from "react";
+import { Skeleton, Card, Avatar, Col } from "antd";
 import moment from "moment";
 
 const SeanceCard = (props) => {
@@ -7,7 +7,6 @@ const SeanceCard = (props) => {
   const { seance, loading, setVisible, setSeanceSelected } = props;
   const show = () => {
     setSeanceSelected(seance);
-    console.log(seance);
     setVisible(true);
   };
   return (
