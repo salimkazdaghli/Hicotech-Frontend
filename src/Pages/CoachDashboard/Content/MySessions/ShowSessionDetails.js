@@ -1,6 +1,5 @@
 import { EyeOutlined, FullscreenOutlined } from "@ant-design/icons";
 import { Badge, Image, Button, Col, Divider, Row, Rate, Tag, Spin } from "antd";
-import Title from "antd/lib/typography/Title";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { getSeanceApi } from "../../../../Services/SeancesService";
@@ -187,7 +186,6 @@ const ShowSessionDetails = ({ SessionId }) => {
   };
   const [loading, setLoading] = useState(false);
   const [SessionData, setSessionData] = useState(data);
-  console.log(SessionData);
   useEffect(() => {
     setLoading(true);
     getSeanceApi(SessionId).then(({ data }) => {

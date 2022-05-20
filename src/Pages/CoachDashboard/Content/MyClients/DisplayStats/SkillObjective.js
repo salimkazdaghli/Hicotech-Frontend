@@ -9,7 +9,6 @@ import Title from "antd/lib/typography/Title";
 import moment from "moment";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import authService from "../../../../../Services/authService";
 import { deleteSkillObjectiveApi } from "../../../../../Services/SkillObjectiveService";
 import AddSkillObjectiveForm from "./AddSkillObjectiveForm";
 import ModifySkill from "./ModifySkill";

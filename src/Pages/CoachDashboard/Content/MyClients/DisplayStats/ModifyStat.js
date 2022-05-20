@@ -7,7 +7,6 @@ const ModifyStat = ({
   modalVisible,
   setModalVisible,
   dataToEdit,
-  objectiveData,
   setAlert,
   setRerender,
   rerender,

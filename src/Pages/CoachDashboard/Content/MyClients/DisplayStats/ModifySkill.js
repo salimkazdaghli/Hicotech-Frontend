@@ -7,7 +7,6 @@ const ModifySkill = ({
   modalVisible,
   setModalVisible,
   dataToEdit,
-  objectiveData,
   setAlert,
   setRerender,
   rerender,
