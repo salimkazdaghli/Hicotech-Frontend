@@ -17,6 +17,7 @@ const Events = () => {
 
   async function getEvents() {
     await getAllEventApi({ eventVisible: true, etat: "Pour Tous" })
+      // await findEventCratedByMycoachs
       .then((response) => {
         setEvents(response.data);
         setLoading(true);

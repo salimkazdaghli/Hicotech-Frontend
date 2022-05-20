@@ -51,7 +51,7 @@ const EventCard = (props) => {
     }
   };
   return (
-    <Col span={5} key={event._id}>
+    <Col span={8} key={event._id}>
       <Skeleton loading={!loading} avatar active>
         <Card
           actions={[
