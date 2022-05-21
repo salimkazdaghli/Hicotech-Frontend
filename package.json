@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.18.7",
     "axios": "^0.26.0",
+    "cypress": "^9.6.1",
     "jwt-decode": "^3.1.2",
     "leaflet": "^1.4.0",
     "lodash": "^4.17.21",
@@ -22,6 +24,7 @@
     "react-scripts": "^5.0.0",
     "react-web-vector-icons": "^1.0.2",
     "recharts": "^2.1.9",
+    "start-server-and-test": "^1.14.0",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
@@ -33,7 +36,9 @@
     "lint": "eslint --ignore-path .gitignore .",
     "check-format": "prettier --ignore-path .gitignore --list-different \"**/*.+(js|json)\"",
     "format": "prettier --write  --ignore-path .gitignore \"**/*.+(js|json)\"",
-    "validate": "npm run check-format && npm run lint"
+    "validate": "npm run check-format && npm run lint",
+    "cypress:open": "cypress open",
+    "test:e2e": "start-server-and-test start http://localhost:3000 cypress:open"
   },
   "eslintConfig": {
     "extends": [
@@ -67,7 +72,7 @@
       "pre-commit": "lint-staged"
     }
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://172.31.20.255:5000",
   "devDependencies": {
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",

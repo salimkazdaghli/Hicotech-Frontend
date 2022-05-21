@@ -21,12 +21,13 @@ const Login = ({ location }) => {
       })
       .catch((err) => {
         setToken(null);
-        if (err && err.response && err.response.data.error) {
+        if (err?.response?.data?.error) {
           message.error({
-            content: err.response.data.error.message,
+            content: err.response.data.error,
             duration: 3,
           });
         } else {
+          console.log(err);
           message.error({
             content: "Erreur de serveur",
             duration: 3,
