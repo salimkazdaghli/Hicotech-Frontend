@@ -42,7 +42,7 @@ const SeanceForm = (props) => {
     const currentUser = authService.getCurrentUser();
     const seance = {
       ...values,
-      creacteBy: currentUser.id,
+      creactedBy: currentUser.id,
     };
     setLoading(false);
     if (seanceSelected._id === "0000") {
