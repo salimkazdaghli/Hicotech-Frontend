@@ -67,7 +67,7 @@ const Seances = () => {
   };
 
   async function getSeances() {
-    await getAllSeanceApi({ creacteBy: currentUser.id })
+    await getAllSeanceApi({ creactedBy: currentUser.id })
       .then((response) => {
         setDataSource(response.data);
         setDataSourceAll(response.data);
