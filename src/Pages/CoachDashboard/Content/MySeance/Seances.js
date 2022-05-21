@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Row, Button, Spin, Space, Col, Select, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
@@ -19,7 +20,7 @@ const Seances = () => {
   const [dataSource, setDataSource] = useState(null);
   const [dataSourceAll, setDataSourceAll] = useState(null);
   const currentUser = authService.getCurrentUser();
-
+  const history = useHistory();
   const current = new Date();
   const date = `${current.getDate()}/${
     current.getMonth() + 1
@@ -48,9 +49,13 @@ const Seances = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (record) => (
         <Space size="middle">
-          <EditOutlined />
+          <EditOutlined
+            onClick={() => {
+              history.push(`/coach/dashboard/seance/${record._id}`);
+            }}
+          />
         </Space>
       ),
     },
@@ -135,6 +140,7 @@ const Seances = () => {
             pagination={{
               pageSize: 5,
             }}
+            rowKey={(record) => record._id}
           />
         )}
         {!loading && (
