@@ -96,9 +96,9 @@ const SeanceUpdate = () => {
           initialValues={{
             seanceName: seancedata ? seancedata.seanceName : null,
             dateSeance: seancedata ? moment(seancedata.dateSeance) : null,
-            player: seancedata ? seancedata.player : null,
-            programme: seancedata ? seancedata.programme : null,
-            trainingGround: seancedata ? seancedata.trainingGround : null,
+            player: seancedata ? seancedata.player._id : null,
+            programme: seancedata ? seancedata.programme._id : null,
+            trainingGround: seancedata ? seancedata.trainingGround._id : null,
             statistics: seancedata ? seancedata.statistics : null,
             skills: seancedata ? seancedata.skills : null,
           }}
@@ -199,7 +199,7 @@ const SeanceUpdate = () => {
                     <Col span={12}>
                       <Form.Item
                         {...restField}
-                        name={[name, "statistic"]}
+                        name={[name, "statistic", "_id"]}
                         rules={[
                           { required: true, message: "Missing statistic" },
                         ]}
@@ -253,7 +253,7 @@ const SeanceUpdate = () => {
                     <Col span={12}>
                       <Form.Item
                         {...restField}
-                        name={[name, "skill"]}
+                        name={[name, "skill", "_id"]}
                         rules={[{ required: true, message: "Missing skill" }]}
                         label="skill"
                       >
