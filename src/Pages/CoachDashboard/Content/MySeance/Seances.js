@@ -48,7 +48,7 @@ const Seances = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (text, record) => (
         <Space size="middle">
           <EditOutlined />
         </Space>
