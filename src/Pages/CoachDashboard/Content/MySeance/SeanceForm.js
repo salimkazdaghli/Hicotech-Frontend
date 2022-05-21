@@ -29,14 +29,14 @@ const SeanceForm = (props) => {
   } = props;
   const modalTitle = "Ajouter une séance";
   const modalBtnText = "Ajouter";
-  const [setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [programmes, setProgrammes] = useState([]);
   const currentUser = authService.getCurrentUser();
   const [playersData, setplayersData] = useState([]);
   const [grounds, setGrounds] = useState([]);
   const [statistics, setStatistics] = useState([]);
   const [skills, setSkills] = useState([]);
-  const [setSeancedata] = useState({});
+  const [seancedata, setSeancedata] = useState({});
   const { id } = useParams();
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
