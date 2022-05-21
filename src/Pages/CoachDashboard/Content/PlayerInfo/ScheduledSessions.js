@@ -39,14 +39,10 @@ const ScheduledSessions = ({ sessionData = [] }) => {
           }}
         >
           <ul className="events">
-            <li>
-              <Badge
-                status={
-                  session?.sessionCancelled?.isCancelled ? "error" : "success"
-                }
-                text={`Séance : ${session?.seanceName}`}
-              />
-            </li>
+            <Badge
+              color={session?.sessionCancelled?.isCancelled ? "red" : "green"}
+              text={`Séance : ${session?.seanceName}`}
+            />
           </ul>
         </div>
       )

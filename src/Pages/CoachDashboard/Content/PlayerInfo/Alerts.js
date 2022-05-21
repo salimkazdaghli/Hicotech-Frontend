@@ -76,11 +76,12 @@ const Alerts = ({ selectedPlayer }) => {
               key={uuidv4()}
               description={`Le joueur ${`${alert.player.firstName} ${alert.player.lastName}`} ${
                 alert?.isPositiveAlert ? "a" : "n'a pas"
-              } atteint l'objectif spécifiée avant la date ${alert?.date} en ${
-                alert?.maximiser ? " maximisant" : " réduisant"
-              } ${alert?.statistique?.statisticName} à ${alert?.valeurObj} ${
-                alert?.statistique?.unit
-              }`}
+              } atteint l'objectif spécifiée avant la date ${alert?.date?.slice(
+                0,
+                10
+              )} en ${alert?.maximiser ? "maximisant" : "réduisant"} ${
+                alert?.statistique?.statisticName
+              } à ${alert?.valeurObj} ${alert?.statistique?.unit}`}
               type="success"
               action={
                 <Space direction="vertical">
@@ -121,11 +122,12 @@ const Alerts = ({ selectedPlayer }) => {
               key={uuidv4()}
               description={`Le joueur ${`${alert?.player?.firstName} ${alert?.player.lastName}`} ${
                 alert?.isPositiveAlert ? "a" : "n'a pas"
-              } atteint l'objectif spécifiée avant la date ${alert?.date} en ${
-                alert?.maximiser ? " maximisant" : " réduisant"
-              } ${alert?.statistique?.statisticName} à ${alert?.valeurObj} ${
-                alert?.statistique?.unit
-              }`}
+              } atteint l'objectif spécifiée avant la date ${alert?.date?.slice(
+                0,
+                10
+              )} en ${alert?.maximiser ? " maximisant" : " réduisant"} ${
+                alert?.statistique?.statisticName
+              } à ${alert?.valeurObj} ${alert?.statistique?.unit}`}
               type="warning"
               action={
                 <Space direction="vertical">
