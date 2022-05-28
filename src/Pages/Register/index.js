@@ -51,9 +51,9 @@ const Register = (props, { location }) => {
       })
       .catch((err) => {
         setToken(null);
-        if (err.response.data.error) {
+        if (err?.response?.data?.error) {
           message.error({
-            content: err.response.data.error.message,
+            content: err.response.data.error,
             duration: 3,
           });
         } else {

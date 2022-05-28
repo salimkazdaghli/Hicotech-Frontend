@@ -27,7 +27,6 @@ const Login = ({ location }) => {
             duration: 3,
           });
         } else {
-          console.log(err);
           message.error({
             content: "Erreur de serveur",
             duration: 3,

@@ -72,7 +72,7 @@
       "pre-commit": "lint-staged"
     }
   },
-  "proxy": "http://127.0.0.1:5000",
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
