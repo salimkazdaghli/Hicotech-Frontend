@@ -139,7 +139,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="16" icon={<NotificationOutlined />}>
-            <NavLink exact to="/coach/dashboard/events">
+            <NavLink id="eventId" exact to="/coach/dashboard/events">
               Mes évenements
             </NavLink>
           </Menu.Item>
