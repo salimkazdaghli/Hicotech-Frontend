@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Skeleton } from "antd";
 import { StopOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import programmeIMG from "../../../../Assets/programme.jpg";
 import { deleteProgrammeApi } from "../../../../Services/ProgrammeService";
 import notificationComponent from "../../../../Components/NotificationComponent";
 
@@ -17,6 +18,7 @@ const ProgrammeCard = (props) => {
     setProgrammeVisible,
   } = props;
   const { title, description } = programme;
+  const imagesrc = programme.image === "" ? programmeIMG : programme.image;
   const onDelete = () => {
     setLoading(false);
     deleteProgrammeApi(programme._id).then(() => {
@@ -61,7 +63,7 @@ const ProgrammeCard = (props) => {
           ]}
           hoverable
           style={{ width: 320, marginTop: 40 }}
-          cover={<img alt="example" src={programme.image} />}
+          cover={<img alt="example" src={imagesrc} />}
         >
           <Meta title={title} description={description} />
         </Card>

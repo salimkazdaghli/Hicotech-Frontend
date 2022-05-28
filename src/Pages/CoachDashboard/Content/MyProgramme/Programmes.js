@@ -22,7 +22,7 @@ const Programmes = () => {
   async function getProgrammes() {
     await getAllProgrammeApi({ creacteBy: currentUser.id })
       .then((response) => {
-        setProgrammes(response.data);
+        setProgrammes(response.data.reverse());
         setLoading(true);
       })
       .catch(() => {});
