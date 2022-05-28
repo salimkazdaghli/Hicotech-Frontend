@@ -33,7 +33,7 @@ describe("testing auth", () => {
 
     cy.get(
       ":nth-child(4) > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-input-affix-wrapper"
-    ).type("1234567");
+    ).type("123456");
 
     cy.get(".ant-btn").click();
     cy.wait(10000);
