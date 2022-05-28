@@ -35,6 +35,7 @@ const Defis = () => {
     <>
       <Button
         type="primary"
+        id="AddBtn"
         onClick={showModal}
         icon={<PlusOutlined />}
         style={{ float: "right" }}

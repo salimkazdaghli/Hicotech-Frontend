@@ -19,9 +19,7 @@ describe("test event ", () => {
   });
   it("Add event", () => {
     cy.get("#AddBtn").click();
-
     cy.get("#form_in_modal_title").clear().type("title test event");
-
     cy.get("#form_in_modal_description").clear().type("description test event");
 
     // cy.get('#form_in_modal_dateEvent').click()
