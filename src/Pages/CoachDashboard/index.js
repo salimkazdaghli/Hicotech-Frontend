@@ -84,7 +84,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="5" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/programmes">
+            <NavLink id="programmeId" exact to="/coach/dashboard/programmes">
               Mes Programmes
             </NavLink>
           </Menu.Item>
