@@ -24,7 +24,7 @@ describe("testing invitation ", () => {
     cy.wait(1000);
   });
   it("visit invitation page", () => {
-    cy.visit("http://127.0.0.1:3000/invitation/629349e9218878b6ccab8aa0");
+    cy.visit("http://127.0.0.1:3000/invitation/629392d2e89bbb94ce13fc53");
     cy.wait(500);
     cy.get(".ant-btn-primary").click();
   });

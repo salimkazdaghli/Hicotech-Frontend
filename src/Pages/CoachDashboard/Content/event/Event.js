@@ -7,7 +7,7 @@ const dateFormat = "YYYY/MM/DD";
 
 const Event = (props) => {
   const { event, isEventVisible, setEventVisible } = props;
-  const { title, description, dateEvent, etat } = event;
+  const { title, description, etat } = event;
   const worker = moment(event.dateEvent);
 
   const handleOk = () => {

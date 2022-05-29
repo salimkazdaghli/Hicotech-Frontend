@@ -73,7 +73,10 @@ const AddChallenge = ({ setRefrech }) => {
       assignChallengeService
         .AssignChallengeApi(dataToSent)
         .then(() => {
-          message.success("Le défi a été envoyé");
+          message.success({
+            content: "Le défi a été envoyé",
+            duration: 3,
+          });
         })
         .catch(() => {
           message.error("erreur de serveur");
@@ -118,6 +121,7 @@ const AddChallenge = ({ setRefrech }) => {
             ]}
           >
             <Select
+              id="playersDropdown"
               mode="multiple"
               allowClear
               maxTagCount="responsive"
@@ -141,7 +145,11 @@ const AddChallenge = ({ setRefrech }) => {
               },
             ]}
           >
-            <Select placeholder="Défi" style={{ width: "100%" }}>
+            <Select
+              id="ChallengeDropdown"
+              placeholder="Défi"
+              style={{ width: "100%" }}
+            >
               {challengeData.map((c) => (
                 <Option key={uuidv4()} value={c._id}>
                   {c.defiName}

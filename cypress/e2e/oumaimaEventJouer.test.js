@@ -28,13 +28,15 @@ describe("test event joueur", () => {
 
   it("participate to event", () => {
     cy.get(
-      ":nth-child(2) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
+      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
     ).click();
     cy.wait(1000);
   });
 
-  it("not interr to event", () => {
-    cy.get(":nth-child(3) > :nth-child(1) > .anticon").click();
+  it.skip("not interr to event", () => {
+    cy.get(
+      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
+    ).click();
     cy.wait(1000);
   });
 });

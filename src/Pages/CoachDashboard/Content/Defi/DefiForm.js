@@ -1,7 +1,6 @@
 import React from "react";
-import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
+import { Modal, Form, Input, DatePicker } from "antd";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
 import { addDefiApi, updateDefiApi } from "../../../../Services/defiService";
 import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
@@ -32,7 +31,6 @@ const DefiForm = (props) => {
     setLoading(false);
     if (defiSelected._id === "0000") {
       addDefiApi(defi).then((response) => {
-        const { data } = response;
         setDefis([...defis, response.data]);
         notificationComponent("Notification", "défi est ajouté avec succes ");
         setLoading(true);

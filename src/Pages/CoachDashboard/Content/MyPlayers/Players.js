@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { Row, Table, Col, Alert, Typography } from "antd";
 import userService from "../../../../Services/userService";

@@ -7,7 +7,6 @@ const CoachRoute = ({ component: Component, render, ...rest }) => {
 
   return (
     <Route
-      /* eslint-disable react/jsx-props-no-spreading */
       {...rest}
       render={(props) => {
         if (currentUser && currentUser.role === "coach") {

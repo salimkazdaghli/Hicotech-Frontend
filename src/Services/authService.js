@@ -6,7 +6,6 @@ function getCurrentUser() {
     const token = localStorage.getItem("token");
 
     return jwtDecode(token);
-    // eslint-disable-next-line no-empty
   } catch (error) {
     return null;
   }

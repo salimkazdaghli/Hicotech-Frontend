@@ -130,8 +130,7 @@ const AddTrainingGround = ({ setRefrech }) => {
             name="coordinates"
             rules={[
               {
-                required: true,
-                message: "Localisation est requis",
+                required: false,
               },
             ]}
           >
@@ -150,7 +149,12 @@ const AddTrainingGround = ({ setRefrech }) => {
             </Button>
           </Form.Item>
         </Modal>
-        <Button type="primary" onClick={showModal} icon={<PlusOutlined />}>
+        <Button
+          data-testid="AddTrainingGroundId"
+          type="primary"
+          onClick={showModal}
+          icon={<PlusOutlined />}
+        >
           Ajouter
         </Button>
       </Form>

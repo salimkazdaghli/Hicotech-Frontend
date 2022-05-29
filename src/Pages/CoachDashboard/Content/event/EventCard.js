@@ -1,19 +1,9 @@
 import React from "react";
 import { Card, Col, Skeleton, Typography } from "antd";
-import {
-  FormOutlined,
-  StopOutlined,
-  CloseOutlined,
-  CheckOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import { FormOutlined, CloseOutlined, EyeOutlined } from "@ant-design/icons";
 import moment from "moment";
-import {
-  deleteEventApi,
-  updateEventApi,
-} from "../../../../Services/EventService";
+import { deleteEventApi } from "../../../../Services/EventService";
 import notificationComponent from "../../../../Components/NotificationComponent";
-import authService from "../../../../Services/authService";
 
 const EventCard = (props) => {
   const { Meta } = Card;
@@ -29,7 +19,6 @@ const EventCard = (props) => {
   } = props;
   const { title, dateEvent } = event;
   const DateEv = moment(dateEvent).format("YYYY-MM-DD");
-  const currentUser = authService.getCurrentUser();
 
   const onDelete = () => {
     setLoading(false);

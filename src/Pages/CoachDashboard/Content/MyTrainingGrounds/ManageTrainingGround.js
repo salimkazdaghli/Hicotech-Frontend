@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { Table, Modal, Form, Input, Button, Select, message } from "antd";
 import {
@@ -138,7 +137,7 @@ const ManageTrainingGround = () => {
                 },
               ]}
             >
-              <Select>
+              <Select id="gouvernaurat">
                 {gouvernorats.map((gouvernorat) => (
                   <Select.Option key={uuidv4()} value={gouvernorat}>
                     {gouvernorat}
@@ -166,7 +165,11 @@ const ManageTrainingGround = () => {
                 },
               ]}
             >
-              <Input defaultValue={text} placeholder="lieu d'entrainement" />
+              <Input
+                id="adresse"
+                defaultValue={text}
+                placeholder="lieu d'entrainement"
+              />
             </Form.Item>
           );
         return <p>{text}</p>;
@@ -183,8 +186,7 @@ const ManageTrainingGround = () => {
               name="coordinates"
               rules={[
                 {
-                  required: true,
-                  message: "Localisation est requis",
+                  required: false,
                 },
               ]}
             >
@@ -219,6 +221,7 @@ const ManageTrainingGround = () => {
           return (
             <>
               <Button
+                data-testid="CancelTrainingGroundupdate"
                 danger
                 shape="circle"
                 className="redHoverColor"
@@ -232,6 +235,7 @@ const ManageTrainingGround = () => {
                 }}
               />
               <Button
+                data-testid="validateTrainingGroundUpdate"
                 type="link"
                 shape="circle"
                 icon={<CheckOutlined />}
@@ -244,6 +248,7 @@ const ManageTrainingGround = () => {
         return (
           <>
             <Button
+              data-testid="updateTrainingGroundBtn"
               type="primary"
               ghost
               shape="circle"
@@ -256,6 +261,7 @@ const ManageTrainingGround = () => {
               }}
             />
             <Button
+              data-testid="deleteTrainingGroundBtn"
               danger
               shape="circle"
               className="redHoverColor"

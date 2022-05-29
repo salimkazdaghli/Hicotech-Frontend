@@ -39,6 +39,16 @@
     "react/no-unescaped-entities": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
-    "cypress/no-unnecessary-waiting": "off"
+    "cypress/no-unnecessary-waiting": "off",
+    "eslint-disable quotes": "off",
+    "eslint-disable import/named": "off",
+    "eslint-disable-next-line no-unused-vars": "off",
+    "eslint-disable no-underscore-dangle": "off",
+    "eslint-disable react/jsx-props-no-spreading": "off",
+    "eslint-disable react/no-unescaped-entities": "off",
+    "eslint-disable import/no-unresolved": "off",
+    "eslint-disable no-nested-ternary": "off",
+    "eslint-disable-next-line no-empty": "off",
+    "import/no-named-as-default": "off"
   }
 }

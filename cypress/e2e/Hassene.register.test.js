@@ -54,6 +54,9 @@ describe("testing register", () => {
     cy.get("#normal_register_confirm").focus().clear().type("123456");
     cy.wait(500);
     cy.get(".ant-btn").click();
-    cy.url().should("eq", "http://localhost:3000/coach/dashboard");
+    cy.url().should(
+      "eq",
+      "http://localhost:3000/coach/dashboard/select/discipline"
+    );
   });
 });

@@ -23,6 +23,7 @@ const Dashboard = () => {
   const userMenu = (
     <Menu>
       <Menu.Item
+        data-testid="logoutBtnCoach"
         onClick={() => {
           history.push("/logout");
         }}
@@ -101,12 +102,20 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="8" icon={<EnvironmentOutlined />}>
-            <NavLink exact to="/coach/dashboard/gerer/lieuEntrainement">
+            <NavLink
+              data-testid="trainingGroundMenu"
+              exact
+              to="/coach/dashboard/gerer/lieuEntrainement"
+            >
               Lieu Entrainement
             </NavLink>
           </Menu.Item>
           <Menu.Item key="9" icon={<EnvironmentOutlined />}>
-            <NavLink exact to="/coach/dashboard/manageChallenge">
+            <NavLink
+              data-testid="assignChallengeMenu"
+              exact
+              to="/coach/dashboard/manageChallenge"
+            >
               Assigner defi
             </NavLink>
           </Menu.Item>
@@ -121,7 +130,11 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="12" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/annulerSeance">
+            <NavLink
+              data-testid="annulerSeanceMenu"
+              exact
+              to="/coach/dashboard/annulerSeance"
+            >
               Annuler Séance
             </NavLink>
           </Menu.Item>
@@ -140,7 +153,11 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="15" icon={<MessageOutlined />}>
-            <NavLink exact to="/coach/dashboard/FeedbackSeance">
+            <NavLink
+              data-testid="feedbackSessionMenu"
+              exact
+              to="/coach/dashboard/FeedbackSeance"
+            >
               FeedBack Séance
             </NavLink>
           </Menu.Item>
