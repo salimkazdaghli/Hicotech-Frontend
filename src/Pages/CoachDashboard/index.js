@@ -29,6 +29,7 @@ const Dashboard = () => {
           history.push("/logout");
         }}
         key="2"
+        id="logoutId"
       >
         Déconnexion
       </Menu.Item>
@@ -67,7 +68,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/invitations">
+            <NavLink id="inviId" exact to="/coach/dashboard/invitations">
               Mes Invitations
             </NavLink>
           </Menu.Item>
@@ -91,11 +92,6 @@ const Dashboard = () => {
           <Menu.Item key="6" icon={<DesktopOutlined />}>
             <NavLink exact to="/coach/dashboard/players">
               Mes Joueurs
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="7" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/invitations">
-              Invitation
             </NavLink>
           </Menu.Item>
           <Menu.Item key="8" icon={<EnvironmentOutlined />}>
@@ -144,7 +140,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="17" icon={<NotificationOutlined />}>
-            <NavLink exact to="/coach/dashboard/seances">
+            <NavLink id="seancesId" exact to="/coach/dashboard/seances">
               Mes séances
             </NavLink>
           </Menu.Item>

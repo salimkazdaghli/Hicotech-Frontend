@@ -26,7 +26,7 @@ describe("testing programme ", () => {
     cy.url().should("eq", "http://localhost:3000/coach/dashboard/programmes");
   });
 
-  it("go to add programme ", () => {
+  it("Should create new programme", () => {
     cy.wait(3000);
     cy.get(".ant-btn").click();
     cy.wait(500);
@@ -41,7 +41,7 @@ describe("testing programme ", () => {
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
 
-  it("go to show  programme ", () => {
+  it("Should show  programme ", () => {
     cy.wait(3000);
     cy.get(
       ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
@@ -52,7 +52,7 @@ describe("testing programme ", () => {
     cy.get(".ant-btn-default").click();
   });
 
-  it("go to put programme ", () => {
+  it("Should update programme ", () => {
     cy.wait(3000);
     cy.get(
       ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
@@ -67,7 +67,7 @@ describe("testing programme ", () => {
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
     cy.wait(1000);
   });
-  it("go to show  programme ", () => {
+  it("Should show  programme ", () => {
     cy.wait(3000);
     cy.get(
       ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
@@ -77,7 +77,7 @@ describe("testing programme ", () => {
     cy.wait(500);
     cy.get(".ant-btn-default").click();
   });
-  it("go to delete  programme ", () => {
+  it("Should delete  programme ", () => {
     cy.wait(3000);
     cy.get(
       ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon"
