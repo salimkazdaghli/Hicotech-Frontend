@@ -24,7 +24,7 @@ describe("test event ", () => {
     cy.url().should("eq", "http://localhost:3000/coach/dashboard/events");
     cy.wait(1000);
   });
-  it.skip("Add event", () => {
+  it("Add event", () => {
     cy.get("#AddBtn").click();
     cy.get("#form_in_modal_title").clear().type("title ttest event");
     cy.get("#form_in_modal_description").clear().type("description test event");
@@ -36,7 +36,7 @@ describe("test event ", () => {
     cy.findByTestId("option-Tous").click();
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
-  it.skip("Edit event", () => {
+  it("Edit event", () => {
     cy.get(
       ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
     ).click();
@@ -51,7 +51,7 @@ describe("test event ", () => {
     cy.wait(2000);
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
-  it.skip("Delete event", () => {
+  it("Delete event", () => {
     cy.get(
       ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon"
     ).click();

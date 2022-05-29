@@ -22,7 +22,6 @@ describe("test event ", () => {
     cy.get("#defiId").click();
     cy.wait(1000);
     cy.url().should("eq", "http://localhost:3000/coach/dashboard/defis");
-    cy.wait(1000);
   });
 
   it("Add defi", () => {
@@ -46,22 +45,24 @@ describe("test event ", () => {
     cy.get("#form_in_modal_defiName").clear().type("update ...");
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
-  it.skip("Supprimer defi", () => {
+  it("Supprimer defi", () => {
     cy.get(
-      ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon"
+      ":nth-child(5) > .ant-card > .ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon"
     ).click();
+    cy.wait(2000);
   });
 
-  it.skip("Voir video defi", () => {
+  it("Voir video defi", () => {
     cy.get(":nth-child(1) > .ant-card > .ant-card-cover > a > img").click();
     cy.wait(2000);
     cy.visit("http://localhost:3000/coach/dashboard/defis");
   });
 
-  it.skip("Empty defi to add ", () => {
+  it("Empty defi to add ", () => {
     cy.get("#AddBtn").click();
     cy.wait(2000);
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
+    cy.wait(3000);
     cy.get(".ant-modal-close-x").click();
   });
 });

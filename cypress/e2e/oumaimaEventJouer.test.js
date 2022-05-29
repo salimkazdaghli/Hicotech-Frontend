@@ -26,14 +26,14 @@ describe("test event joueur", () => {
     cy.get(".ant-modal-close-x").click();
   });
 
-  it.skip("participate to event", () => {
+  it("participate to event", () => {
     cy.get(
       ":nth-child(2) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
     ).click();
     cy.wait(1000);
   });
 
-  it.skip("not interr to event", () => {
+  it("not interr to event", () => {
     cy.get(":nth-child(3) > :nth-child(1) > .anticon").click();
     cy.wait(1000);
   });
