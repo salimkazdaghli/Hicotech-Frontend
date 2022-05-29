@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
-
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import { addDefiApi, updateDefiApi } from "../../../../Services/defiService";
 import authService from "../../../../Services/authService";
 import notificationComponent from "../../../../Components/NotificationComponent";
@@ -18,6 +18,7 @@ const DefiForm = (props) => {
     setLoading,
     defiSelected,
   } = props;
+
   const modalTitle =
     defiSelected._id === "0000" ? "Ajouter un défi" : "Modifier un defi ";
   const modalBtnText = defiSelected._id === "0000" ? "Créer" : "Modifier";
@@ -32,9 +33,7 @@ const DefiForm = (props) => {
     if (defiSelected._id === "0000") {
       addDefiApi(defi).then((response) => {
         const { data } = response;
-        defi.push(data);
-        setDefis(defis);
-        console.log(defis);
+        setDefis([...defis, response.data]);
         notificationComponent("Notification", "défi est ajouté avec succes ");
         setLoading(true);
       });

@@ -25,7 +25,7 @@ describe("test event ", () => {
     cy.wait(1000);
   });
 
-  it.skip("Add defi", () => {
+  it("Add defi", () => {
     cy.get("#AddBtn").click();
     cy.get("#form_in_modal_defiName").clear().type("title test defi");
     cy.get("#form_in_modal_defiObjectif").clear().type("description test defi");
@@ -39,7 +39,7 @@ describe("test event ", () => {
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
 
-  it.skip("Modifier defi", () => {
+  it("Modifier defi", () => {
     cy.get(
       ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
     ).click();
@@ -58,7 +58,7 @@ describe("test event ", () => {
     cy.visit("http://localhost:3000/coach/dashboard/defis");
   });
 
-  it("Empty defi to add ", () => {
+  it.skip("Empty defi to add ", () => {
     cy.get("#AddBtn").click();
     cy.wait(2000);
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
