@@ -8,7 +8,7 @@ import DashboardRouting from "./Routes/DashboardRouting";
 import authService from "../../Services/authService";
 
 const { Header, Content, Footer, Sider } = Layout;
-const Dashboard = () => {
+const PlayerDashboard = () => {
   const [collapsed, setcollapsed] = useState(false);
   const history = useHistory();
   const onCollapse = (collapsed) => {
@@ -70,12 +70,12 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2" icon={<HomeOutlined />}>
-            <NavLink exact to="/joueur/dashboard/seances">
+            <NavLink id="seancesId" exact to="/joueur/dashboard/seances">
               Mes seances
             </NavLink>
           </Menu.Item>
           <Menu.Item key="3" icon={<NotificationOutlined />}>
-            <NavLink exact to="/joueur/dashboard/mesevents">
+            <NavLink id="eventId" exact to="/joueur/dashboard/mesevents">
               Mes Evénements
             </NavLink>
           </Menu.Item>
@@ -112,4 +112,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default PlayerDashboard;

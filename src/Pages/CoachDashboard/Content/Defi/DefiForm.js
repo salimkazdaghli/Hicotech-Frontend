@@ -1,6 +1,5 @@
 import React from "react";
-import { Col, Modal, Form, Input, Select, DatePicker, Row, Radio } from "antd";
-
+import { Modal, Form, Input, DatePicker } from "antd";
 import moment from "moment";
 import { addDefiApi, updateDefiApi } from "../../../../Services/defiService";
 import authService from "../../../../Services/authService";
@@ -18,6 +17,7 @@ const DefiForm = (props) => {
     setLoading,
     defiSelected,
   } = props;
+
   const modalTitle =
     defiSelected._id === "0000" ? "Ajouter un défi" : "Modifier un defi ";
   const modalBtnText = defiSelected._id === "0000" ? "Créer" : "Modifier";
@@ -31,9 +31,7 @@ const DefiForm = (props) => {
     setLoading(false);
     if (defiSelected._id === "0000") {
       addDefiApi(defi).then((response) => {
-        const { data } = response;
-        defi.push(data);
-        setDefis(defis);
+        setDefis([...defis, response.data]);
         notificationComponent("Notification", "défi est ajouté avec succes ");
         setLoading(true);
       });
@@ -87,7 +85,6 @@ const DefiForm = (props) => {
           defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
           dateExpiration: worker,
-          // defiVisible: defiSelected ? defiSelected.defiVisible :"",
         }}
       >
         <Form.Item
@@ -139,25 +136,6 @@ const DefiForm = (props) => {
         >
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
-        {/* <Row>
-          <Col>    
-            <Form.Item
-              label="Visible :"
-              name="defiVisible"
-              rules={[
-                {
-                  required: true,
-                  message: "selectionner la visibilité de défi",
-                },
-              ]} >  
-             
-              <Radio.Group defaultValue={defiSelected.defiVisible}>
-                <Radio value="false">Non</Radio>
-                <Radio value="true">Oui</Radio>
-              </Radio.Group>
-            </Form.Item>
-          </Col>
-        </Row> */}
       </Form>
     </Modal>
   );

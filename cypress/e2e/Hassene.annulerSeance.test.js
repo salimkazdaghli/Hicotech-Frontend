@@ -21,7 +21,7 @@ describe("testing assigning challenges", () => {
   it("should display input validation error when on cancel session when form is empty", () => {
     cy.wait(1000);
     cy.findByTestId("annulerSeanceMenu").click();
-    cy.wait(1000);
+    cy.wait(3000);
     cy.url().should(
       "eq",
       "http://localhost:3000/coach/dashboard/annulerSeance"
@@ -45,5 +45,22 @@ describe("testing assigning challenges", () => {
     cy.get(".ant-message-custom-content > :nth-child(2)")
       .contains("La séance a été annulée avec succès")
       .should("exist");
+  });
+
+  it("visit mailtrap  page", () => {
+    cy.visit("https://mailtrap.io/inboxes");
+    cy.wait(500);
+    cy.get("#user_email").type("hicotechisamm@gmail.com");
+    cy.wait(500);
+    cy.get(".login_next_button").click();
+    cy.wait(500);
+    cy.get("#user_password").type("12345678");
+    cy.wait(500);
+    cy.get(".login_password > :nth-child(3) > .button").click();
+    cy.wait(1000);
+    cy.get(".inbox_name").click();
+    cy.wait(1000);
+    cy.get(":nth-child(1) > .i18m0o91").click();
+    cy.wait(1000);
   });
 });

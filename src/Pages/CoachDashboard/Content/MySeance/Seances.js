@@ -106,6 +106,7 @@ const Seances = () => {
       <Space style={{ marginBottom: 16 }}>
         <Button key={date}>{date}</Button>
         <Select
+          id="select"
           showSearch
           onChange={onJoueurChange}
           placeholder="Filter par joueur "
@@ -128,7 +129,12 @@ const Seances = () => {
           ))}
         </Select>
       </Space>
-      <Button type="primary" onClick={showModal} style={{ float: "right" }}>
+      <Button
+        data-testid="btnAdd"
+        type="primary"
+        onClick={showModal}
+        style={{ float: "right" }}
+      >
         Nouvelle séance
       </Button>
       <div className="site-card-wrapper">

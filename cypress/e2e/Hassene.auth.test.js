@@ -18,7 +18,7 @@ describe("testing auth", () => {
   });
   it("should display error when wrong credentials are passed", () => {
     cy.findByTestId("emailInput").clear().type("hassene.ayoub@yahoo.fr");
-    cy.findByTestId("PasswordInput").clear().type("123456");
+    cy.findByTestId("PasswordInput").clear().type("1234567");
 
     cy.get(".ant-btn").click();
     cy.url().should("eq", "http://localhost:3000/login");

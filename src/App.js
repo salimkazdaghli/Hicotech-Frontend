@@ -30,7 +30,6 @@ const App = () => (
         <Route path="/register" component={RegisterPage} />
         <Route path="/invitation/:id" component={Invitation} />
         <Route path="/not-found" component={NotFound} />
-        <Route path="/invitation/:id" component={Invitation} />
         <Redirect to="/not-found" />
       </Switch>
     </div>

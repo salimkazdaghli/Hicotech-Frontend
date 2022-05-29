@@ -1,6 +1,5 @@
 import React from "react";
-import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { Modal, Form, Input, Select, DatePicker } from "antd";
 import moment from "moment";
 import { addEventApi, updateEventApi } from "../../../../Services/EventService";
 import notificationComponent from "../../../../Components/NotificationComponent";
@@ -129,6 +128,7 @@ const EventForm = (props) => {
         </Form.Item>
         <Form.Item label="Etats" name="etat" rules={[]}>
           <Select
+            id="select_Visible"
             mode="simple"
             allowClear
             style={{ width: "100%" }}
@@ -141,8 +141,12 @@ const EventForm = (props) => {
               },
             ]}
           >
-            <Select.Option value="Pour Tous">Pour Tous</Select.Option>
-            <Select.Option value="Mes Joueurs">Mes Joueurs</Select.Option>
+            <Select.Option data-testid="option-Tous" value="Pour Tous">
+              Pour Tous
+            </Select.Option>
+            <Select.Option data-testid="option-Mes" value="Mes Joueurs">
+              Mes Joueurs
+            </Select.Option>
           </Select>
         </Form.Item>
       </Form>

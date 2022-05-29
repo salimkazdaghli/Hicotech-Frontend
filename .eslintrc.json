@@ -48,6 +48,7 @@
     "eslint-disable react/no-unescaped-entities": "off",
     "eslint-disable import/no-unresolved": "off",
     "eslint-disable no-nested-ternary": "off",
-    "eslint-disable-next-line no-empty": "off"
+    "eslint-disable-next-line no-empty": "off",
+    "import/no-named-as-default": "off"
   }
 }

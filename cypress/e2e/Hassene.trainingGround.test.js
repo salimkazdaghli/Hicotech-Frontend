@@ -27,6 +27,7 @@ describe("testing crud training ground", () => {
       "http://localhost:3000/coach/dashboard/gerer/lieuEntrainement"
     );
     cy.findByTestId("AddTrainingGroundId").click();
+    cy.wait(1000);
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
     cy.wait(1500);
     cy.get(".ant-form-item-explain-error").should("exist");
@@ -40,13 +41,14 @@ describe("testing crud training ground", () => {
 
   it("should add a training ground", () => {
     cy.wait(2000);
-    cy.findByTestId("AddTrainingGroundId");
     cy.selectDropdown("#Ajouter_lieu_entainement_city", "Bizerte");
+    cy.wait(1000);
     cy.get("#Ajouter_lieu_entainement_address").type("lieu d'entrainement");
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
     cy.get(".ant-message-custom-content > :nth-child(2)")
       .contains("Le lieu d'entainement a été ajouté avec succès.")
       .should("exist");
+    cy.wait(1000);
   });
 
   it("should update training ground( first row )", () => {
@@ -54,10 +56,12 @@ describe("testing crud training ground", () => {
     cy.get("table > tbody > tr:nth-child(1) > td:nth-child(4)").within(() => {
       cy.findByTestId("updateTrainingGroundBtn").click();
     });
+    cy.wait(1000);
     cy.selectDropdown(
       "tbody > tr:nth-child(1) > td:nth-child(1) > div > div > div > div > div > div > span.ant-select-selection-item",
       "Ariana"
     );
+    cy.wait(1000);
     cy.get("  table > tbody > tr:nth-child(1) > td:nth-child(4)").within(() => {
       cy.findByTestId("validateTrainingGroundUpdate").click();
     });

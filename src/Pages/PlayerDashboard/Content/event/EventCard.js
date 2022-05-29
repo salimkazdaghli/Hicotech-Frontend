@@ -84,9 +84,8 @@ const EventCard = (props) => {
           <Typography paragraph>
             <i>
               <b>Le :</b>
-            </i>{" "}
+            </i>
             <moment>
-              {" "}
               <i>{DateEv}</i>
             </moment>
           </Typography>
