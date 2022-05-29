@@ -56,7 +56,7 @@ const PayMembership = () => {
     <>
       <Title>Payer Abonnement</Title>
       {alert && (
-        <Row justify="center">
+        <Row data-testid="subscription-alert" justify="center">
           <Col>
             <Alert
               message={alert.message}

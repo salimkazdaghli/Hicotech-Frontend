@@ -9,7 +9,7 @@ import {
   NotificationOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
-import logo from "../../Assets/logo.svg";
+import logo from "../../Assets/logo.png";
 import DashboardRouting from "./Routes/DashboardRouting";
 import authService from "../../Services/authService";
 
@@ -22,8 +22,6 @@ const Dashboard = () => {
   };
   const userMenu = (
     <Menu>
-      <Menu.Item key="1">Mon Profil</Menu.Item>
-      <Menu.Divider />
       <Menu.Item
         onClick={() => {
           history.push("/logout");
@@ -74,13 +72,21 @@ const Dashboard = () => {
           </Menu.Item>
 
           <Menu.Item key="3" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/mystatisitcs">
+            <NavLink
+              data-testid="statistic-btn"
+              exact
+              to="/coach/dashboard/mystatisitcs"
+            >
               Mes Statistiques
             </NavLink>
           </Menu.Item>
 
           <Menu.Item key="4" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/myskills">
+            <NavLink
+              data-testid="skill-btn"
+              exact
+              to="/coach/dashboard/myskills"
+            >
               Mes Compétences
             </NavLink>
           </Menu.Item>
@@ -120,7 +126,11 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="13" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/payer-abonnement">
+            <NavLink
+              data-testid="subscription-btn"
+              exact
+              to="/coach/dashboard/payer-abonnement"
+            >
               Mon Abonnement
             </NavLink>
           </Menu.Item>

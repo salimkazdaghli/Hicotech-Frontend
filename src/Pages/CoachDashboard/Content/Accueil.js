@@ -1,5 +1,7 @@
-import React from "react";
+import { Typography } from "antd";
 
-const Accueil = () => <div>accueil</div>;
+const { Title } = Typography;
+
+const Accueil = () => <Title>Bienvenue à hicoach</Title>;
 
 export default Accueil;

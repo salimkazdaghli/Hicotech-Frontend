@@ -29,12 +29,6 @@ import {
 import SkillFormField from "./SkillFormField";
 import authService from "../../../../Services/authService";
 
-// import {
-//   setAlert,
-//   alertMessage,
-//   showAlert,
-// } from "../../../utils/alertComponent";
-
 const { TextArea } = Input;
 const MySkills = () => {
   const [, setError] = useState(null);
@@ -378,6 +372,7 @@ const MySkills = () => {
     <>
       {showAlert && (
         <Space
+          data-testid="skill-alert"
           align="center"
           style={{ justifyContent: "center", alignItems: "center" }}
         >
