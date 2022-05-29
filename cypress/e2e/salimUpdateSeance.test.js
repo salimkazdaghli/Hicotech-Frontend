@@ -21,7 +21,7 @@ describe("testing update Seance ", () => {
     cy.url().should("eq", "http://localhost:3000/coach/dashboard");
   });
   it("Should redirect to the  seances page ", () => {
-    cy.get("#seancesId").click();
+    cy.get("#seanceId").click();
     cy.wait(1000);
     cy.get(
       "[data-row-key='6252586fbbd180bfda9ca998'] > :nth-child(5) > .ant-space > .ant-space-item > .anticon > svg"
