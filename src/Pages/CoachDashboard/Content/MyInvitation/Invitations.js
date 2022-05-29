@@ -18,7 +18,7 @@ const Invitations = () => {
     const currentUser = authService.getCurrentUser();
     await getAllInvitationApi({ creacteBy: currentUser.id })
       .then((response) => {
-        setInvitations(response.data);
+        setInvitations(response.data.reverse());
         setLoading(true);
       })
       .catch(() => {});
