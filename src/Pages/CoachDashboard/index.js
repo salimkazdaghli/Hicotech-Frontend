@@ -110,7 +110,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="11" icon={<DesktopOutlined />}>
-            <NavLink exact to="/coach/dashboard/defis">
+            <NavLink id="defiId" exact to="/coach/dashboard/defis">
               Les Défis
             </NavLink>
           </Menu.Item>
@@ -135,12 +135,12 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="16" icon={<NotificationOutlined />}>
-            <NavLink exact to="/coach/dashboard/events">
+            <NavLink id="eventId" exact to="/coach/dashboard/events">
               Mes évenements
             </NavLink>
           </Menu.Item>
           <Menu.Item key="17" icon={<NotificationOutlined />}>
-            <NavLink id="seancesId" exact to="/coach/dashboard/seances">
+            <NavLink id="seanceId" exact to="/coach/dashboard/seances">
               Mes séances
             </NavLink>
           </Menu.Item>

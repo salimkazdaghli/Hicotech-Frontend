@@ -53,7 +53,7 @@ const EventCard = (props) => {
   };
 
   return (
-    <Col span={5} key={event._id}>
+    <Col span={8} key={event._id}>
       <Skeleton loading={!loading} avatar active>
         <Card
           actions={[
@@ -88,9 +88,8 @@ const EventCard = (props) => {
           <Typography paragraph>
             <i>
               <b>Le :</b>
-            </i>{" "}
+            </i>
             <moment>
-              {" "}
               <i>{DateEv}</i>
             </moment>
           </Typography>

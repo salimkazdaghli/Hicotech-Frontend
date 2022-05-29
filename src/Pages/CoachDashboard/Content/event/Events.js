@@ -46,16 +46,15 @@ const Events = () => {
   return (
     <>
       <div>
-        {currentUser.role === "coach" && (
-          <Button
-            type="primary"
-            onClick={showModal}
-            style={{ float: "right" }}
-            icon={<PlusOutlined />}
-          >
-            Ajouter
-          </Button>
-        )}
+        <Button
+          id="AddBtn"
+          type="primary"
+          onClick={showModal}
+          style={{ float: "right" }}
+          icon={<PlusOutlined />}
+        >
+          Ajouter
+        </Button>
       </div>
       <div className="site-card-wrapper">
         {loading && (
