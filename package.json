@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.18.7",
     "axios": "^0.26.0",
+    "cypress": "^9.6.1",
     "eslint-plugin-cypress": "^2.12.1",
     "jwt-decode": "^3.1.2",
     "leaflet": "^1.4.0",
@@ -75,6 +76,7 @@
   "proxy": "http://localhost:5000",
   "devDependencies": {
     "cypress": "^9.7.0",
+    "cypress-iframe": "^1.0.1",
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.4.0",

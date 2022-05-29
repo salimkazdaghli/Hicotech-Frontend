@@ -31,7 +31,7 @@ const SendInvitation = (props) => {
     setLoading(false);
     addInvitationApi(invitation).then((response) => {
       const { data } = response;
-      invitations.push(data);
+      invitations.unshift(data);
       setInvitations(invitations);
       notificationComponent("Notification", "invitation envoye ");
       setLoading(true);

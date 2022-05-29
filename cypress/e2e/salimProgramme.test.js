@@ -1,4 +1,11 @@
 describe("testing programme ", () => {
+  beforeEach(() => {
+    cy.restoreLocalStorage();
+  });
+
+  afterEach(() => {
+    cy.saveLocalStorage();
+  });
   it("visit landing page", () => {
     cy.visit("/");
   });
@@ -12,9 +19,70 @@ describe("testing programme ", () => {
     cy.wait(500);
     cy.get(".ant-btn").click();
     cy.url().should("eq", "http://localhost:3000/coach/dashboard");
+  });
+  it("go to programmes ", () => {
     cy.get("#programmeId").click();
     cy.wait(1000);
     cy.url().should("eq", "http://localhost:3000/coach/dashboard/programmes");
   });
-  it("go to programmes ", () => {});
+
+  it("Should create new programme", () => {
+    cy.wait(3000);
+    cy.get(".ant-btn").click();
+    cy.wait(500);
+    cy.get("#form_in_modal_title").type("test programme");
+    cy.wait(500);
+    cy.get("#form_in_modal_description").type("test programme description");
+    cy.wait(500);
+    cy.get("#form_in_modal_videoLink").type(
+      "https://www.youtube.com/embed/DRkZKnTlCYU"
+    );
+    cy.wait(500);
+    cy.get(".ant-modal-footer > .ant-btn-primary").click();
+  });
+
+  it("Should show  programme ", () => {
+    cy.wait(3000);
+    cy.get(
+      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
+    ).click();
+    cy.wait(3000);
+    cy.url().should("eq", "http://localhost:3000/coach/dashboard/programmes");
+    cy.wait(500);
+    cy.get(".ant-btn-default").click();
+  });
+
+  it("Should update programme ", () => {
+    cy.wait(3000);
+    cy.get(
+      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
+    ).click();
+    cy.wait(500);
+    cy.get("#form_in_modal_title").clear();
+    cy.get("#form_in_modal_title").type("programme");
+    cy.wait(500);
+    cy.get("#form_in_modal_description").clear();
+    cy.get("#form_in_modal_description").type("programme seance foot");
+    cy.wait(500);
+    cy.get(".ant-modal-footer > .ant-btn-primary").click();
+    cy.wait(1000);
+  });
+  it("Should show  programme ", () => {
+    cy.wait(3000);
+    cy.get(
+      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
+    ).click();
+    cy.wait(3000);
+    cy.url().should("eq", "http://localhost:3000/coach/dashboard/programmes");
+    cy.wait(500);
+    cy.get(".ant-btn-default").click();
+  });
+  it("Should delete  programme ", () => {
+    cy.wait(3000);
+    cy.get(
+      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon"
+    ).click();
+    cy.wait(3000);
+    cy.url().should("eq", "http://localhost:3000/coach/dashboard/programmes");
+  });
 });
