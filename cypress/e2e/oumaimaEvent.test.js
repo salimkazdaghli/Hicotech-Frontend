@@ -1,4 +1,11 @@
 describe("test event ", () => {
+  beforeEach(() => {
+    cy.restoreLocalStorage();
+  });
+
+  afterEach(() => {
+    cy.saveLocalStorage();
+  });
   it("visit the first page", () => {
     cy.visit("/");
   });
@@ -17,41 +24,44 @@ describe("test event ", () => {
     cy.url().should("eq", "http://localhost:3000/coach/dashboard/events");
     cy.wait(1000);
   });
-  it("Add event", () => {
+  it.skip("Add event", () => {
     cy.get("#AddBtn").click();
-    cy.get("#form_in_modal_title").clear().type("title test event");
+    cy.get("#form_in_modal_title").clear().type("title ttest event");
     cy.get("#form_in_modal_description").clear().type("description test event");
-
-    // cy.get('#form_in_modal_dateEvent').click()
-    // cy.get('.ant-picker-input').clear().type("2022/05/12")
-
+    cy.get("#form_in_modal_dateEvent").click();
+    cy.get("#form_in_modal_dateEvent").clear().type("2022/06/12");
+    cy.get("#form_in_modal_dateEvent").type("{enter}");
     cy.get(".ant-select-selector").click();
-    cy.wait(1000);
+    cy.wait(2000);
     cy.findByTestId("option-Tous").click();
     cy.get(".ant-modal-footer > .ant-btn-primary").click();
-    cy.get(".ant-modal-close-x").click();
   });
-  it("Edit event", () => {
+  it.skip("Edit event", () => {
     cy.get(
-      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
+      ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(2) > :nth-child(1) > .anticon"
     ).click();
     cy.wait(2000);
     cy.get("#form_in_modal_title").clear().type("update event");
-    cy.get(".ant-modal-close-x").click();
+    cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
-
   it("Details event", () => {
     cy.get(
-      ":nth-child(1) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
+      ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(3) > :nth-child(1) > .anticon"
     ).click();
     cy.wait(2000);
-    cy.get(
-      ":nth-child(6) > .ant-modal-root > .ant-modal-wrap > .ant-modal > .ant-modal-content > .ant-modal-close > .ant-modal-close-x"
-    ).click();
+    cy.get(".ant-modal-footer > .ant-btn-primary").click();
   });
-  //    it("Delete event", () => {
-  //     cy.get('.ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon')
-  //     .click()
-  //     cy.wait(2000)
-  //     });
+  it.skip("Delete event", () => {
+    cy.get(
+      ":nth-child(3) > .ant-card > .ant-card-actions > :nth-child(1) > :nth-child(1) > .anticon"
+    ).click();
+    cy.wait(2000);
+  });
+
+  it("Empty event to add ", () => {
+    cy.get("#AddBtn").click();
+    cy.get(".ant-modal-footer > .ant-btn-primary").click();
+    cy.wait(500);
+    cy.get(".ant-modal-close-x").click();
+  });
 });

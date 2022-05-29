@@ -34,6 +34,7 @@ const DefiForm = (props) => {
         const { data } = response;
         defi.push(data);
         setDefis(defis);
+        console.log(defis);
         notificationComponent("Notification", "défi est ajouté avec succes ");
         setLoading(true);
       });
@@ -87,7 +88,6 @@ const DefiForm = (props) => {
           defiObjectif: defiSelected ? defiSelected.defiObjectif : "",
           defiLien: defiSelected ? defiSelected.defiLien : "",
           dateExpiration: worker,
-          // defiVisible: defiSelected ? defiSelected.defiVisible :"",
         }}
       >
         <Form.Item
@@ -139,25 +139,6 @@ const DefiForm = (props) => {
         >
           <DatePicker format={dateFormat} style={{ display: "flex" }} />
         </Form.Item>
-        {/* <Row>
-          <Col>    
-            <Form.Item
-              label="Visible :"
-              name="defiVisible"
-              rules={[
-                {
-                  required: true,
-                  message: "selectionner la visibilité de défi",
-                },
-              ]} >  
-             
-              <Radio.Group defaultValue={defiSelected.defiVisible}>
-                <Radio value="false">Non</Radio>
-                <Radio value="true">Oui</Radio>
-              </Radio.Group>
-            </Form.Item>
-          </Col>
-        </Row> */}
       </Form>
     </Modal>
   );
