@@ -65,7 +65,7 @@ const Dashboard = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2" icon={<HomeOutlined />}>
-            <NavLink exact to="/joueur/dashboard/seances">
+            <NavLink id="seancesId" exact to="/joueur/dashboard/seances">
               Mes seances
             </NavLink>
           </Menu.Item>

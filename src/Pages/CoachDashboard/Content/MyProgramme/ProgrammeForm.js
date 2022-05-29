@@ -27,16 +27,18 @@ const ProgrammeForm = (props) => {
 
   const handleOk = (values) => {
     const currentUser = authService.getCurrentUser();
+    const imageDATA =
+      values.image === undefined ? "" : values.image.fileList[0].thumbUrl;
     const programme = {
       ...values,
-      image: values.image.fileList[0].thumbUrl,
+      image: imageDATA,
       creacteBy: currentUser.id,
     };
     setLoading(false);
     if (programmeSelected._id === "0000") {
       addProgrammeApi(programme).then((response) => {
         const { data } = response;
-        programmes.push(data);
+        programmes.unshift(data);
         setProgrammes(programmes);
         notificationComponent("Notification", "Programme ajoute ");
         setLoading(true);
@@ -98,7 +100,7 @@ const ProgrammeForm = (props) => {
           rules={[
             {
               required: true,
-              message: "email est requis",
+              message: "title est requis",
             },
           ]}
         >
