@@ -9,7 +9,7 @@ import {
   NotificationOutlined,
 } from "@ant-design/icons";
 import { NavLink, useHistory } from "react-router-dom";
-import logo from "../../Assets/logo.svg";
+import logo from "../../Assets/logo.png";
 import DashboardRouting from "./Routes/DashboardRouting";
 import authService from "../../Services/authService";
 
