@@ -396,6 +396,7 @@ const MyStatistic = () => {
     <>
       {showAlert && (
         <Space
+          data-testid="statistic-alert"
           align="center"
           style={{ justifyContent: "center", alignItems: "center" }}
         >

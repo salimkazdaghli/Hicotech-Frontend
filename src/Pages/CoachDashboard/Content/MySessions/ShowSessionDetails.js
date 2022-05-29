@@ -261,7 +261,9 @@ const ShowSessionDetails = ({ SessionId }) => {
                         ? "Annuler"
                         : SessionData.SessionStatus === "Planifié"
                         ? "Planifié"
-                        : "Terminé"
+                        : SessionData.SessionStatus === "Terminé"
+                        ? "Terminé"
+                        : "Planifié"
                     }
                   />
                 }
@@ -514,7 +516,7 @@ const ShowSessionDetails = ({ SessionId }) => {
                   ))
                 )
               ) : (
-                <p>non encore mesuré</p>
+                <p>non mesuré</p>
               )}
             </Col>
           </Row>
