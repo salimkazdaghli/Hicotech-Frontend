@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
@@ -78,6 +77,7 @@ const Login = ({ location }) => {
           ]}
         >
           <Input
+            data-testid="emailInput"
             size="large"
             prefix={
               <MailOutlined
@@ -102,6 +102,7 @@ const Login = ({ location }) => {
           ]}
         >
           <Input.Password
+            data-testid="PasswordInput"
             size="large"
             prefix={
               <LockOutlined

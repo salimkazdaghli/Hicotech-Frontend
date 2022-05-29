@@ -112,6 +112,7 @@ const SessionsCards = ({ data = [], setRefetch }) => {
             ]}
           >
             <TextArea
+              data-testid="FeedBackDescription"
               placeholder="donnez une description"
               autoSize={{ minRows: 3, maxRows: 3 }}
             />

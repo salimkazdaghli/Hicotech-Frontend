@@ -23,6 +23,7 @@ const Dashboard = () => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item
+        data-testid="logoutBtnPlayer"
         onClick={() => {
           history.push("/logout");
         }}
@@ -60,7 +61,11 @@ const Dashboard = () => {
 
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            <NavLink exact to="/joueur/dashboard/mesdefis">
+            <NavLink
+              data-testid="MyChallengesMenu"
+              exact
+              to="/joueur/dashboard/mesdefis"
+            >
               Mes défis
             </NavLink>
           </Menu.Item>
@@ -69,7 +74,7 @@ const Dashboard = () => {
               Mes seances
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="1" icon={<NotificationOutlined />}>
+          <Menu.Item key="3" icon={<NotificationOutlined />}>
             <NavLink exact to="/joueur/dashboard/mesevents">
               Mes Evénements
             </NavLink>

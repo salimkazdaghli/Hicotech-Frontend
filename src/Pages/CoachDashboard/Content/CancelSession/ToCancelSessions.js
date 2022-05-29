@@ -94,6 +94,7 @@ const ToCancelSessions = ({ data = [], setRefetch }) => {
             ]}
           >
             <TextArea
+              data-testid="cancelSessionTextArea"
               placeholder="raison de l'annulation"
               autoSize={{ minRows: 2, maxRows: 3 }}
             />

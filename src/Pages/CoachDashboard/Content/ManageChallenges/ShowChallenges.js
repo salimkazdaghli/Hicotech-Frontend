@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { Table, Tag, message } from "antd";
 import { v4 as uuidv4 } from "uuid";

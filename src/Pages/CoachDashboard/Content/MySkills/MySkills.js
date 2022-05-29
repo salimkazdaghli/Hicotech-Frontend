@@ -1,5 +1,3 @@
-/* eslint-disable import/named */
-/* eslint-disable quotes */
 import { useState, useEffect } from "react";
 import {
   Typography,

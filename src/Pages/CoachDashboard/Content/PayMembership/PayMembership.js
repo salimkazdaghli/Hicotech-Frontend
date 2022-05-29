@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
 import { Radio, Form, Button, Spin, Row, Col, Alert } from "antd";
 import Title from "antd/lib/typography/Title";

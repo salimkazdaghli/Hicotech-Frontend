@@ -1,13 +1,11 @@
 import React from "react";
 import { Col, Row, Card, Avatar, Button, Empty, message } from "antd";
 import {
-  DeleteOutlined,
   ClockCircleOutlined,
   CheckOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
-import ChallengeService from "../../../../Services/ChallengeService";
 import authService from "../../../../Services/authService";
 import assignChallengeService from "../../../../Services/assignChallengeService";
 
@@ -83,6 +81,7 @@ const TodoChallenges = ({ data = [], setRefetch }) => {
               style={{ width: 410, marginTop: 16 }}
               actions={[
                 <Button
+                  id="MarkDoneBtn"
                   className="greenHoverColor"
                   style={{ width: "100%", color: "green" }}
                   onClick={() => markDone(challenge._id)}

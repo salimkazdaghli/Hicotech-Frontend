@@ -63,7 +63,6 @@ const ProgrammeForm = (props) => {
     setIsModalVisible(false);
   };
 
-  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Modal
       visible={isModalVisible}

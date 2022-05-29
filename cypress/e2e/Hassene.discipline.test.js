@@ -10,7 +10,7 @@ describe("testing discipline", () => {
     cy.visit("/");
   });
   it("should login successfully and redirect to home page", () => {
-    cy.wait(1000);
+    cy.wait(3000);
     cy.get(
       ":nth-child(3) > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-input-affix-wrapper"
     ).type("test@yahoo.fr");
@@ -25,14 +25,16 @@ describe("testing discipline", () => {
       "eq",
       "http://localhost:3000/coach/dashboard/select/discipline"
     );
-    cy.wait(2000);
   });
   it("should display error message when no discipline is selected", () => {
+    cy.wait(3000);
     cy.get(".ant-btn").click();
     cy.get(".ant-form-item-explain-error").should("exist");
   });
-  it("should select error message when no discipline is selected", () => {
+  it("should select discipline successfully and hide the modal", () => {
+    cy.wait(1500);
+    cy.get(":nth-child(3) > .ant-radio-button-wrapper").click();
+    cy.wait(1000);
     cy.get(".ant-btn").click();
-    cy.get(".ant-form-item-explain-error").should("exist");
   });
 });
