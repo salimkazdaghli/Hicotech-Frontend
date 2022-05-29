@@ -22,8 +22,6 @@ const Dashboard = () => {
   };
   const userMenu = (
     <Menu>
-      <Menu.Item key="1">Mon Profil</Menu.Item>
-      <Menu.Divider />
       <Menu.Item
         onClick={() => {
           history.push("/logout");
