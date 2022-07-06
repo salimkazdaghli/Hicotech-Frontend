@@ -2,13 +2,14 @@ import { useState } from "react";
 import "./Dashboard.css";
 import { Layout, Menu, Breadcrumb, Dropdown, Avatar, Space } from "antd";
 import { HomeOutlined, NotificationOutlined } from "@ant-design/icons";
-import { NavLink, useHistory } from "react-router-dom";
-import logo from "../../Assets/logo.svg";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
+import logo from "../../Assets/logo.png";
 import DashboardRouting from "./Routes/DashboardRouting";
 import authService from "../../Services/authService";
 
 const { Header, Content, Footer, Sider } = Layout;
 const PlayerDashboard = () => {
+  const location = useLocation();
   const [collapsed, setcollapsed] = useState(false);
   const history = useHistory();
   const onCollapse = (collapsed) => {
@@ -96,8 +97,7 @@ const PlayerDashboard = () => {
         </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>{location.pathname}</Breadcrumb.Item>
           </Breadcrumb>
           <div
             className="site-layout-background"
