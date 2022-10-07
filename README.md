@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+<h1 align="center">
+  <br/>
+  <img src="./src/Assets/logoHICoach.png" alt="HiCoach" width="200"/></a>
+  <h4 align="center">A Fitness coaching web application built with <a href="https://reactjs.org/" target="_blank">React</a>.</h4>
+  <br/>
+</h1>
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![Python](https://img.shields.io/badge/React-17.0.2-orange)
+![Current Version](https://img.shields.io/badge/version-v1.0-blue)
+![GitHub contributors](https://img.shields.io/github/contributors/salimkazdaghli/Hicotech-Frontend)
+![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+</div>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="#basic-overview">Basic overview</a> •
+  <a href="#key-features">Key features</a> •
+  <a href="#technology-used">Technology used</a> •
+  <a href="#how-to-use">How to use</a> •
+  <a href="#project-overview">Project overview</a> •
+  <a href="#related-to-this-project">Related to this project</a>
+  
+</p>
 
-### `npm start`
+## Basic overview
+Hicoach is a web application for fitness coaches that was designed to facilitate the exchange of information between coaches and their clients by providing various services and features.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Key features
+* Creating statistics and configure them.
+* Create sessions including session plan,objective and setting the training location (receiving a mail of detailed information).
+* Displaying detailed session informations inculding session's objectives 
+* Displaying detailed informations for each player including charts of statistics,hight,age,ect.
+* Setting goals for each player and get notified in case of reaching them.
+* Creating challenges for players.
+* Change the subsciption plan (for coaches) to get access to more features (number of clients invitation links,ect).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technology used
 
-### `npm test`
+<p align="left">
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB" />
+      <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=flat&logo=express&logoColor=%2361DAFB" />
+    <img src="https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=flat&logo=mongodb&logoColor=white" />
+    <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white" />
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to use
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer.
+From your command line:
+```bash
+# Clone this repository
+$ git clone https://github.com/salimkazdaghli/Hicotech-Frontend.git
 
-### `npm run build`
+# Go into the repository
+$ cd Hicotech-Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Install dependencies
+$ npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Run the app
+$ npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project overview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| | | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="200" alt="splashscreen" src="./screenshots/s1.jpg"> |  <img width="200" alt="login screen" src="./screenshots/s6.jpg">|<img width="200" alt="unprocessed claims screen" src="./screenshots/s7.jpg">|<img width="200" alt="add claim form (first step)" src="./screenshots/s3.jpg">  |  <img width="200" alt="add claim form (second step)" src="./screenshots/s4.jpg">|<img width="200" alt="all ISAMM blocs screen" src="./screenshots/s2.jpg">|
+|<img width="200" alt="show computers stats" src="./screenshots/s9.jpg">  |  <img width="200" alt="add computer form" src="./screenshots/s8.jpg">|<img width="200" alt="add claim form (first step)" src="./screenshots/s10.jpg">|<img width="200" alt="teacher profile screen" src="./screenshots/s5.jpg">|
 
-## Learn More
+## Related to this project
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Hicoach Backend](https://github.com/salimkazdaghli/Hicotech-Backend.git) - Hicoach backend API.
