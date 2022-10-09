@@ -71,8 +71,10 @@ $ npm start
 
 | | |
 |:-------------------------:|:-------------------------:|
-|<img width="500" alt="splashscreen" src="./src/Screenshots/Screenshot1.png">|<img width="500" alt="unprocessed claims screen" src="./src/Screenshots/Screenshot3.png">|<img width="500" alt="add claim form (first step)" src="./src/Screenshots/Screenshot4.png">  |  <img width="500" alt="add claim form (second step)" src="./src/Screenshots/Screenshot5.png">|<img width="500" alt="all ISAMM blocs screen" src="./src/Screenshots/Screenshot6.png">|
-|<img width="500" alt="show computers stats" src="./src/Screenshots/Screenshot7.png">  |  <img width="500" alt="add computer form" src="./src/Screenshots/Screenshot8.png">|<img width="500" alt="add claim form (first step)" src="./src/Screenshots/Screenshot9.png">
+|<img width="500" alt="splashscreen" src="./src/Screenshots/Screenshot1.png">|<img width="500" alt="unprocessed claims screen" src="./src/Screenshots/Screenshot3.png">|
+<img width="500" alt="add claim form (first step)" src="./src/Screenshots/Screenshot4.png">  |  <img width="500" alt="add claim form (second step)" src="./src/Screenshots/Screenshot5.png">|
+<img width="500" alt="all ISAMM blocs screen" src="./src/Screenshots/Screenshot6.png">|<img width="500" alt="show computers stats" src="./src/Screenshots/Screenshot7.png">  |
+<img width="500" alt="add computer form" src="./src/Screenshots/Screenshot8.png">|<img width="500" alt="add claim form (first step)" src="./src/Screenshots/Screenshot9.png">
 
 ## Related to this project
 
